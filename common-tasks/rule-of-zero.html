@@ -3,8 +3,8 @@
 	<head>
 		<title>The rule of zero - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Use existing RAII types to encapsulate and safely manage
-dynamically allocated resources.
+		<meta name="description" content="Utilise the value semantics of existing types to avoid having to
+implement custom copy and move operations.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
@@ -20,8 +20,8 @@ dynamically allocated resources.
 		<meta property="og:title" content="The rule of zero - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
 		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/rule-of-zero.html">
-		<meta property="og:description" content="Use existing RAII types to encapsulate and safely manage
-dynamically allocated resources.
+		<meta property="og:description" content="Utilise the value semantics of existing types to avoid having to
+implement custom copy and move operations.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -123,53 +123,46 @@ document.addEventListener('DOMContentLoaded', function() {
 12
 13
 14
-15
-16
-17
-18
-19
-20
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;memory&gt;</span></span>
 <span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">shallow</span></span>
+<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">foo</span></span>
 <span class="codeline" id="line4"><span class="p">{</span></span>
 <span class="codeline" id="line5">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line6">		<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
-<span class="codeline" id="line7"><span class="p">};</span></span>
-<span class="codeline" id="line8"></span>
-<span class="codeline" id="line9"><span class="k">class</span> <span class="nc">deep</span></span>
-<span class="codeline" id="line10"><span class="p">{</span></span>
-<span class="codeline" id="line11">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line12">		<span class="n">deep</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span>
-<span class="codeline" id="line13"></span>
-<span class="codeline" id="line14">		<span class="n">deep</span><span class="p">(</span><span class="n">deep</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line15">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="o">*</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)}</span></span>
-<span class="codeline" id="line16">		<span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line17"></span>
-<span class="codeline" id="line18">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line19">		<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
-<span class="codeline" id="line20"><span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line6">		<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span></span>
+<span class="codeline" id="line7">		<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
+<span class="codeline" id="line8"><span class="p">};</span></span>
+<span class="codeline" id="line9"></span>
+<span class="codeline" id="line10"><span class="k">class</span> <span class="nc">bar</span></span>
+<span class="codeline" id="line11"><span class="p">{</span></span>
+<span class="codeline" id="line12">	<span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line13">		<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
+<span class="codeline" id="line14"><span class="p">};</span></span></code></pre></td></tr></table>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Use existing RAII types to encapsulate and safely manage
-dynamically allocated resources.</p>
+						<p>Utilise the value semantics of existing types to avoid having to
+implement custom copy and move operations.</p>
 
 
 						<h2>Description</h2>
-						<p>The class <code>shallow</code> (<a href="#line3" class="lineref" data-line="3" data-line-end="7">lines 3–7</a>) manages a dynamically allocated <code>int</code>
-object. Rather than manage this object manually, we use a
-<a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a> on <a href="#line13" class="lineref" data-line="13">line 13</a> to take
-ownership of the object. The lifetime of this object is now
-tied to the lifetime of the <code>foo</code> object that contains it
-without having to implement any constructors or destructors. If
-a <code>shallow</code> object is copied, the copy will share ownership of
-this resource.</p>
+						<p>The <em>rule of zero</em> states that we can avoid writing any custom
+copy/move constructors, assignment operators, or destructors by
+using existing types that support the appropriate copy/move
+semantics.</p>
 
-<p>If we want to perform a deep copy, we can instead use a
-<a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> and implement a
-copy constructor to copy the resource, as shown with the <code>deep</code>
-class on <a href="#line9" class="lineref" data-line="9" data-line-end="20">lines 9–20</a>.</p>
+<p>The class <code>foo</code> on <a href="#line3" class="lineref" data-line="3" data-line-end="8">lines 3–8</a>, for example, does not perform any
+manual memory management, yet correctly supports copies and
+moves without any memory leaks. The defaulted copy/move
+constructors and assignment operators will simply copy or move
+each member. For the member <code>x</code> (<a href="#line7" class="lineref" data-line="7">line 7</a>), this will copy the value.
+For <code>p</code>, which is a <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a>,
+the resource will be shared between copies.</p>
+
+<p>The class <code>bar</code> on <a href="#line10" class="lineref" data-line="10" data-line-end="14">lines 10–14</a> is not copyable by default because it
+has a <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> member which
+itself is not copyable. However, it correctly supports move
+operations, which will transfer ownership of the dynamically
+allocated resource.</p>
 
 					</div>
 				</div>
@@ -180,7 +173,7 @@ class on <a href="#line9" class="lineref" data-line="9" data-line-end="20">lines
 					</div>
 					<div class="column-1">
 						<h2>Last Updated</h2>
-						<p>06 April 2015</p>
+						<p>07 April 2015</p>
 					</div>
 					<div class="column-1">
 						<h2>Contributors</h2>
