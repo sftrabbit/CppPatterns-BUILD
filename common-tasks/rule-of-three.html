@@ -185,8 +185,10 @@ assigning a <code>foo</code>. In general, if a class has a destructor, it
 almost certainly needs these functions too. This idea is known
 as the <em>rule of three</em>.</p>
 
-<p>We can typically avoid manual memory management entirely by using
-existing RAII types.</p>
+<p>Note that we can typically avoid manual memory management and
+having to write the copy constructor, assignment operator, and
+destructor entirely by using the
+<a href="/common-tasks/rule-of-zero.html">rule of zero</a></p>
 
 					</div>
 				</div>
