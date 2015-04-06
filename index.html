@@ -1,0 +1,433 @@
+<!doctype html>
+<html>
+	<head>
+		<title>C++ Samples</title>
+		<meta charset="utf-8">
+		<meta name="description" content="A repository of modern and idiomatic C++ code samples curated by the community.">
+		<meta name="viewport" content="width=device-width,user-scalable=no">
+		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://cppsamples.com/images/icon-16.ico">
+		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://cppsamples.com/images/icon-32.ico">
+		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
+		<link href="http://cppsamples.com/css/screen.css" rel="stylesheet" type="text/css">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '676162015844286',
+    xfbml      : true,
+    version    : 'v2.3'
+  });
+};
+
+(function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+		</script>
+
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:creator" content="@sftrabbit">
+		<meta property="og:title" content="C++ Samples">
+		<meta property="og:site_name" content="C++ Samples">
+		<meta property="og:url" content="http://cppsamples.com/index.html">
+		<meta property="og:description" content="A repository of modern and idiomatic C++ code samples curated by the community.">
+		<meta property="fb:app_id" content="676162015844286">
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="column-4">
+						<h1><a href="http://cppsamples.com/"><span>C++</span>​Samples</a></h1>
+						<p>A repository of modern C++ code samples curated by the community.</p>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main class="container">
+			<section class="sample featured">
+				<div class="row">
+					<h1 class="column-4">Featured sample: <a href="http://cppsamples.com/common-tasks/unique-ownership.html">Unique ownership</a></h1>
+				</div>
+				<div class="row">
+					<div class="column-2">
+						<a href="http://cppsamples.com/common-tasks/unique-ownership.html">
+							<table class="codeblock"><tr><td class="linenums"><pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;memory&gt;</span></span>
+<span class="codeline" id="line2"><span class="cp">#include &lt;utility&gt;</span></span>
+<span class="codeline" id="line3"></span>
+<span class="codeline" id="line4"><span class="k">struct</span> <span class="n">foo</span> <span class="p">{};</span></span>
+<span class="codeline" id="line5"></span>
+<span class="codeline" id="line6"><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">obj</span><span class="p">)</span></span>
+<span class="codeline" id="line7"><span class="p">{</span> <span class="p">}</span></span>
+<span class="codeline" id="line8"></span>
+<span class="codeline" id="line9"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line10"><span class="p">{</span></span>
+<span class="codeline" id="line11">	<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="p">();</span></span>
+<span class="codeline" id="line12">	<span class="n">func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">obj</span><span class="p">));</span></span>
+<span class="codeline" id="line13"><span class="p">}</span></span></code></pre></td></tr></table>
+						</a>
+					</div>
+					<div class="column-2">
+						<h2>Intent</h2>
+						<p>Transfer unique ownership of a dynamically allocated object to
+another unit of code.</p>
+
+
+						<h2>Description</h2>
+						<p>On <a href="#line11" class="lineref" data-line="11">line 11</a>, we create a <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> which has ownership of a dynamically allocated <code>foo</code> object (created with the <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique"><code>std::make_unique</code></a> utility function). <a href="#line12" class="lineref" data-line="12">Line 12</a> then demonstrates passing...
+						<p><a href="http://cppsamples.com/common-tasks/unique-ownership.html">Continue reading →</a></p>
+					</div>
+				</div>
+			</section>
+
+			<div class="row">
+				<div class="column-4">
+					<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6789411983750873" data-ad-slot="4105099934" data-ad-format="auto"></ins>
+				</div>
+			</div>
+
+			<section>
+
+
+				<div class="row">
+					<h1 class="column-4">Common Tasks</h1>
+				</div>
+				<div class="row">
+
+					<section class="column-1">
+						<h1>Classes</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/non-member-interfaces.html">Non-member non-friend interfaces </a></h1>
+								<p>Reduce dependencies on internal class details and improve
+encapsulation.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/pimpl.html">The PIMPL idiom</a></h1>
+								<p>Remove compilation dependencies on internal class implementations
+and improve compile times.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/rule-of-three.html">The rule of three</a></h1>
+								<p>Implement RAII to encapsulate and safely manage dynamically
+allocated resources.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/rule-of-zero.html">The rule of zero</a></h1>
+								<p>Use existing RAII types to encapsulate and safely manage
+dynamically allocated resources.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+					<section class="column-1">
+						<h1>Functions</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/optional-arguments.html">Optional arguments</a></h1>
+								<p>Allow argument values to be omitted when calling a function.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/pass-arrays.html">Pass arrays</a></h1>
+								<p>Pass fixed-size arrays to and from functions.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/return-multiple-values.html">Return multiple values</a></h1>
+								<p>Return multiple values of different types from a function.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+					<section class="column-1">
+						<h1>Input streams</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/read-line-by-line.html">Read line-by-line</a></h1>
+								<p>Process the contents of an input stream line-by-line.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/read-line-of-values.html">Read a line of values</a></h1>
+								<p>Read a sequence of delimited values from a single line of an
+input stream into a standard container.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/validate-multiple-reads.html">Validate multiple reads</a></h1>
+								<p>Ensure that multiple stream reads are successful before using the
+extracted values.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+					<section class="column-1">
+						<h1>Memory management</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/shared-ownership.html">Shared ownership</a></h1>
+								<p>Share ownership of a dynamically allocated object with another
+unit of code.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/unique-ownership.html">Unique ownership</a></h1>
+								<p>Transfer unique ownership of a dynamically allocated object to
+another unit of code.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/use-raii-types.html">Use RAII types</a></h1>
+								<p>Avoid manual memory management to improve safety and reduce bugs
+and memory leaks.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				</div><div class="row">
+
+					<section class="column-1">
+						<h1>Output streams</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/overload-insertion-operation.html">Overload operator<<</a></h1>
+								<p>Write your class type objects to an output stream.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/write-data-in-columns.html">Write data in columns</a></h1>
+								<p>Align data in columns when writing to an output stream.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+					<section class="column-1">
+						<h1>Random number generation</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/choose-random-element.html">Choose a random element</a></h1>
+								<p>Choose a random element from a container.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/flip-a-biased-coin.html">Flip a biased coin</a></h1>
+								<p>Generate a random boolean value according to a bernoulli
+distribution.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/roll-a-die.html">Roll a die</a></h1>
+								<p>Generate a random integer according to a uniform distribution.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+					<section class="column-1">
+						<h1>Templates </h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/class-template-sfinae.html">Class template SFINAE</a></h1>
+								<p>Conditionally instantiate a class template depending on the
+template arguments.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://cppsamples.com/common-tasks/function-template-sfinae.html">Function template SFINAE</a></h1>
+								<p>Conditionally instantiate a function template depending on the
+template arguments.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+				</div>
+
+
+				<div class="row">
+					<h1 class="column-4">Patterns</h1>
+				</div>
+				<div class="row">
+
+					<section class="column-1">
+						<h1>Behavioral</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/patterns/observer.html">Observer</a></h1>
+								<p>Notify generic observer objects when an event occurs.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+					<section class="column-1">
+						<h1>Creational</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/patterns/builder.html">Builder</a></h1>
+								<p>Separate the complex construction of an object from its
+representation.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+					<section class="column-1">
+						<h1>Structural</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/patterns/decorator.html">Decorator</a></h1>
+								<p>Extend the functionality of a class.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+				</div>
+
+
+				<div class="row">
+					<h1 class="column-4">Algorithms</h1>
+				</div>
+				<div class="row">
+
+					<section class="column-1">
+						<h1>Sorting</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://cppsamples.com/algorithms/bubble-sort.html">Bubble sort</a></h1>
+								<p>Sort a generic range of elements using the bubble sort algorithm.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
+
+				</div>
+
+			</section>
+
+		</main>
+		<footer class="container">
+			<div class="row">
+				<div class="column-2">
+					<p>Feel like <b>contributing</b>? This website is generated from a git repository. If you have something to add or have noticed a mistake, please <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the project on GitHub</a>.</p>
+					<p><div class="fb-like" data-href="http://cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
+					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</div>
+				<div class="column-1 offset-1 about">
+					<img src="http://josephmansfield.uk/images/logo.svg">
+					<p>C++ Samples created by <a href="http://josephmansfield.uk/">Joseph Mansfield</a></p>
+				</div>
+			</div>
+		</footer>
+		<script>
+adsbygoogle = window.adsbygoogle || [];
+adsbygoogle.push({});
+		</script>
+	</body>
+</html>

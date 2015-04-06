@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Function template SFINAE - C++ Samples</title>
+		<meta charset="utf-8">
+		<meta name="description" content="Conditionally instantiate a function template depending on the
+template arguments.
+
+">
+		<meta name="viewport" content="width=device-width,user-scalable=no">
+		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://cppsamples.com/images/icon-16.ico">
+		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://cppsamples.com/images/icon-32.ico">
+		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
+		<link href="http://cppsamples.com/css/screen.css" rel="stylesheet" type="text/css">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '676162015844286',
+    xfbml      : true,
+    version    : 'v2.3'
+  });
+};
+
+(function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+		</script>
+
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:creator" content="@sftrabbit">
+		<meta property="og:title" content="Function template SFINAE - C++ Samples">
+		<meta property="og:site_name" content="C++ Samples">
+		<meta property="og:url" content="http://cppsamples.com/common-tasks/function-template-sfinae.html">
+		<meta property="og:description" content="Conditionally instantiate a function template depending on the
+template arguments.
+
+">
+		<meta property="fb:app_id" content="676162015844286">
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="column-4">
+						<h1><a href="http://cppsamples.com/"><span>C++</span>​Samples</a></h1>
+						<p>A repository of modern C++ code samples curated by the community.</p>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main class="container">
+			<script>
+var selected = false;
+
+function apply_to_lines(lineRefElement, callback) {
+	var lineNumStart = parseInt(lineRefElement.dataset.line);
+	var lineNumEnd = lineNumStart;
+	if (lineRefElement.dataset.lineEnd) {
+		var lineNumEnd = parseInt(lineRefElement.dataset.lineEnd);
+	}
+	for (var i = lineNumStart; i <= lineNumEnd; i++) {
+		var lineElement = document.getElementById('line'+i);
+		callback(lineElement);
+	}
+}
+
+function clear_all() {
+	var i = 1;
+	var lineElement;
+	while (lineElement = document.getElementById('line'+i)) {
+		lineElement.style.backgroundColor = "transparent";
+		i++;
+	}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	document.onclick = function(event) {
+		clear_all();
+	}
+
+	var lineRefElements = document.getElementsByClassName('lineref');
+	for (var i = 0; i < lineRefElements.length; i++) {
+		lineRefElements[i].onclick = function(event) {
+			clear_all();
+			apply_to_lines(event.target, function(lineElement) {
+				lineElement.style.backgroundColor = "rgb(76, 69, 41)";
+			});
+			event.stopPropagation();
+		}
+		lineRefElements[i].onmouseover = function(event) {
+			apply_to_lines(event.target, function(lineElement) {
+				if (lineElement.style.backgroundColor != "rgb(76, 69, 41)") {
+					lineElement.style.backgroundColor = "rgb(69, 69, 69)";
+				}
+			});
+			event.stopPropagation();
+		}
+		lineRefElements[i].onmouseout = function(event) {
+			apply_to_lines(event.target, function(lineElement) {
+				if (lineElement.style.backgroundColor != "rgb(76, 69, 41)") {
+					lineElement.style.backgroundColor = "transparent";
+				}
+			});
+			event.stopPropagation();
+		}
+	}
+}, false);
+			</script>
+			<section class="sample">
+				<div class="row">
+					<div class="column-4">
+						<a href="http://cppsamples.com/">← Samples</a>
+						<h1>Function template SFINAE</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column-2">
+						<table class="codeblock"><tr><td class="linenums"><pre><code>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;type_traits&gt;</span></span>
+<span class="codeline" id="line2"><span class="cp">#include &lt;limits&gt;</span></span>
+<span class="codeline" id="line3"><span class="cp">#include &lt;cmath&gt;</span></span>
+<span class="codeline" id="line4"></span>
+<span class="codeline" id="line5"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<span class="codeline" id="line6"><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;::</span><span class="n">type</span></span>
+<span class="codeline" id="line7">	<span class="n">equal</span><span class="p">(</span><span class="n">T</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">T</span> <span class="n">rhs</span><span class="p">)</span></span>
+<span class="codeline" id="line8"><span class="p">{</span></span>
+<span class="codeline" id="line9">	<span class="k">return</span> <span class="n">lhs</span> <span class="o">==</span> <span class="n">rhs</span><span class="p">;</span></span>
+<span class="codeline" id="line10"><span class="p">}</span></span>
+<span class="codeline" id="line11"></span>
+<span class="codeline" id="line12"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<span class="codeline" id="line13"><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;::</span><span class="n">type</span></span>
+<span class="codeline" id="line14">	<span class="n">equal</span><span class="p">(</span><span class="n">T</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">T</span> <span class="n">rhs</span><span class="p">)</span></span>
+<span class="codeline" id="line15"><span class="p">{</span></span>
+<span class="codeline" id="line16">	<span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">lhs</span> <span class="o">-</span> <span class="n">rhs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.0001</span><span class="p">;</span></span>
+<span class="codeline" id="line17"><span class="p">}</span></span></code></pre></td></tr></table>
+
+						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6789411983750873" data-ad-slot="5581833133" data-ad-format="auto"></ins>
+
+					</div>
+					<div class="column-2">
+						<h2>Intent</h2>
+						<p>Conditionally instantiate a function template depending on the
+template arguments.</p>
+
+
+						<h2>Description</h2>
+						<p>We provide two implementations of the <code>equal</code> function template:</p>
+
+<ol>
+  <li>The template on <a href="#line5" class="lineref" data-line="5" data-line-end="10">lines 5–10</a> will only be instantiated when <code>T</code> is an
+integral type.</li>
+  <li>The template on <a href="#line12" class="lineref" data-line="12" data-line-end="17">lines 12–17</a> will only be instantiated when <code>T</code> is a
+floating point type.</li>
+</ol>
+
+<p>We have used <a href="http://en.cppreference.com/w/cpp/types/enable_if"><code>std::enable_if</code></a> on <a href="#line6" class="lineref" data-line="6">line 6</a> and
+<a href="#line13" class="lineref" data-line="13">line 13</a> to force instantiation to succeed only for the appropriate
+template arguments. This relies on <a href="http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">Substitution Failure Is Not An
+Error</a>
+(SFINAE), which states that
+failing to instantiate a template with some particular
+template arguments does not result in an error and simply discards
+that instantiation.</p>
+
+<p>The second template argument of <code>std::enable_if</code> — in this case,
+<code>bool</code> — is what the full <code>std::enable_if&lt;...&gt;::type</code>
+evaluates to when the first template argument is <code>true</code>. This means
+that the return type of <code>equal</code> will be <code>bool</code>.</p>
+
+<p>If you want to simply prevent a template from being instantiated
+for certain template arguments, consider using
+<a href="http://en.cppreference.com/w/cpp/language/static_assert"><code>static_assert</code></a> instead.</p>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="column-1">
+						<h2>Source</h2>
+						<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/templates/function-template-sfinae.cpp">Fork this sample on GitHub</a></p>
+					</div>
+					<div class="column-1">
+						<h2>Last Updated</h2>
+						<p>06 April 2015</p>
+					</div>
+					<div class="column-1">
+						<h2>Contributors</h2>
+						<ul class="contributors">
+	
+							<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+	
+						</ul>
+					</div>
+					<div class="column-1">
+						<h2>Share</h2>
+						<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
+						<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column-4">
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">
+var disqus_shortname = 'cppsamples';
+
+(function() {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+						</script>
+					</div>
+				</div>
+			</section>
+
+		</main>
+		<footer class="container">
+			<div class="row">
+				<div class="column-2">
+					<p>Feel like <b>contributing</b>? This website is generated from a git repository. If you have something to add or have noticed a mistake, please <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the project on GitHub</a>.</p>
+					<p><div class="fb-like" data-href="http://cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
+					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+				</div>
+				<div class="column-1 offset-1 about">
+					<img src="http://josephmansfield.uk/images/logo.svg">
+					<p>C++ Samples created by <a href="http://josephmansfield.uk/">Joseph Mansfield</a></p>
+				</div>
+			</div>
+		</footer>
+		<script>
+adsbygoogle = window.adsbygoogle || [];
+adsbygoogle.push({});
+		</script>
+	</body>
+</html>
