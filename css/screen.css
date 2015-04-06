@@ -889,3 +889,14 @@ ol {
   border: none;
   cursor: default;
 }
+
+/* line 239, ../../_compass/screen.scss */
+.disclaimer {
+  padding-bottom: 0;
+}
+/* line 242, ../../_compass/screen.scss */
+.disclaimer p {
+  background-color: #eee;
+  border: 1px solid #888;
+  padding: 16px;
+}
