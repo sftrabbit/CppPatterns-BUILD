@@ -149,9 +149,13 @@ which has ownership of a dynamically allocated <code>foo</code> object
 (created with the <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique"><code>std::make_unique</code></a>
 utility function). <a href="#line12" class="lineref" data-line="12">Line 12</a> then demonstrates passing ownership of this
 object to the function <code>func</code>. After passing ownership, <code>main</code> no
-longer has access to the <code>foo</code> object. The call to
-<a href="http://en.cppreference.com/w/cpp/utility/move"><code>std::move</code></a> is required to allow the
-<code>std::unique_ptr</code> to be moved into the function.</p>
+longer has access to the <code>foo</code> object.</p>
+
+<p>As <code>std::unique_ptr</code> is non-copyable, it must be moved instead of
+being copied. The call to <a href="http://en.cppreference.com/w/cpp/utility/move"><code>std::move</code></a> on <a href="#line12" class="lineref" data-line="12">line 12</a>
+allows <code>obj</code> to be treated like a temporary object (the expression
+<code>std::move(obj)</code> is an rvalue) so that it can be moved into the
+function.</p>
 
 <p>In other cases, you may instead wish to
 <a href="/common-tasks/shared-ownership.html">share ownership of an object</a>.</p>
