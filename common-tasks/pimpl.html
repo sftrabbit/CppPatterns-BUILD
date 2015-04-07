@@ -148,6 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
 35
 36
 37
+38
+39
+40
+41
+42
+43
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="c1">// foo.h - header file</span></span>
 <span class="codeline" id="line2"></span>
 <span class="codeline" id="line3"><span class="cp">#include &lt;memory&gt;</span></span>
@@ -158,33 +164,39 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line8">		<span class="n">foo</span><span class="p">();</span></span>
 <span class="codeline" id="line9">		<span class="o">~</span><span class="n">foo</span><span class="p">();</span></span>
 <span class="codeline" id="line10"></span>
-<span class="codeline" id="line11">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line12">		<span class="k">class</span> <span class="nc">impl</span><span class="p">;</span></span>
-<span class="codeline" id="line13">		<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span> <span class="n">pimpl</span><span class="p">;</span></span>
-<span class="codeline" id="line14"><span class="p">};</span></span>
-<span class="codeline" id="line15"></span>
-<span class="codeline" id="line16"></span>
-<span class="codeline" id="line17"><span class="c1">// foo.cpp - implementation file</span></span>
+<span class="codeline" id="line11">		<span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">);</span></span>
+<span class="codeline" id="line12">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">);</span></span>
+<span class="codeline" id="line13"></span>
+<span class="codeline" id="line14">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line15">		<span class="k">class</span> <span class="nc">impl</span><span class="p">;</span></span>
+<span class="codeline" id="line16">		<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span> <span class="n">pimpl</span><span class="p">;</span></span>
+<span class="codeline" id="line17"><span class="p">};</span></span>
 <span class="codeline" id="line18"></span>
-<span class="codeline" id="line19"><span class="k">class</span> <span class="nc">foo</span><span class="o">::</span><span class="n">impl</span></span>
-<span class="codeline" id="line20"><span class="p">{</span></span>
-<span class="codeline" id="line21">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line22">		<span class="kt">void</span> <span class="n">do_internal_work</span><span class="p">()</span></span>
-<span class="codeline" id="line23">		<span class="p">{</span></span>
-<span class="codeline" id="line24">			<span class="n">internal_data</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></span>
-<span class="codeline" id="line25">		<span class="p">}</span></span>
-<span class="codeline" id="line26"></span>
-<span class="codeline" id="line27">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line28">		<span class="kt">int</span> <span class="n">internal_data</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line29"><span class="p">};</span></span>
-<span class="codeline" id="line30"></span>
-<span class="codeline" id="line31"><span class="n">foo</span><span class="o">::</span><span class="n">foo</span><span class="p">()</span></span>
-<span class="codeline" id="line32">	<span class="o">:</span> <span class="n">pimpl</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span><span class="p">()}</span></span>
-<span class="codeline" id="line33"><span class="p">{</span></span>
-<span class="codeline" id="line34">	<span class="n">pimpl</span><span class="o">-&gt;</span><span class="n">do_internal_work</span><span class="p">();</span></span>
-<span class="codeline" id="line35"><span class="p">}</span></span>
-<span class="codeline" id="line36"></span>
-<span class="codeline" id="line37"><span class="n">foo</span><span class="o">::~</span><span class="n">foo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line19"></span>
+<span class="codeline" id="line20"><span class="c1">// foo.cpp - implementation file</span></span>
+<span class="codeline" id="line21"></span>
+<span class="codeline" id="line22"><span class="k">class</span> <span class="nc">foo</span><span class="o">::</span><span class="n">impl</span></span>
+<span class="codeline" id="line23"><span class="p">{</span></span>
+<span class="codeline" id="line24">	<span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line25">		<span class="kt">void</span> <span class="n">do_internal_work</span><span class="p">()</span></span>
+<span class="codeline" id="line26">		<span class="p">{</span></span>
+<span class="codeline" id="line27">			<span class="n">internal_data</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></span>
+<span class="codeline" id="line28">		<span class="p">}</span></span>
+<span class="codeline" id="line29"></span>
+<span class="codeline" id="line30">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line31">		<span class="kt">int</span> <span class="n">internal_data</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="codeline" id="line32"><span class="p">};</span></span>
+<span class="codeline" id="line33"></span>
+<span class="codeline" id="line34"><span class="n">foo</span><span class="o">::</span><span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line35">	<span class="o">:</span> <span class="n">pimpl</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span><span class="p">()}</span></span>
+<span class="codeline" id="line36"><span class="p">{</span></span>
+<span class="codeline" id="line37">	<span class="n">pimpl</span><span class="o">-&gt;</span><span class="n">do_internal_work</span><span class="p">();</span></span>
+<span class="codeline" id="line38"><span class="p">}</span></span>
+<span class="codeline" id="line39"></span>
+<span class="codeline" id="line40"><span class="n">foo</span><span class="o">::~</span><span class="n">foo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span>
+<span class="codeline" id="line41"></span>
+<span class="codeline" id="line42"><span class="n">foo</span><span class="o">::</span><span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span>
+<span class="codeline" id="line43"><span class="n">foo</span><span class="o">&amp;</span> <span class="n">foo</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
@@ -213,12 +225,22 @@ the header file on <a href="#line11" class="lineref" data-line="11">line 11</a>,
 implementation file on <a href="#line18" class="lineref" data-line="18" data-line-end="28">lines 18–28</a>. This allows the class definition
 to change without requiring users of <code>foo</code> to recompile.</p>
 
+<p>We have explicitly defaulted <code>foo</code>’s destructor on <a href="#line40" class="lineref" data-line="40">line 40</a>, which
+is necessary because the destructor needs to be able to see the
+complete definition of <code>impl</code> (in order to destroy the
+<code>std::unique_ptr</code>). Note that we have also explicitly defaulted
+the move constructor and assignment operator on <a href="#line42" class="lineref" data-line="42" data-line-end="43">lines 42–43</a> so that
+<code>foo</code> can be moved. To make <code>foo</code> copyable, we must also
+implement the copy constructor and assignment operator.</p>
+
 						<div class="subrow">
 							<div class="column-1">
 								<h2>Contributors</h2>
 								<ul class="contributors">
 
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+									<li><a title="Mehdi Amini" ><img src="/images/unknown_user.png" alt="Mehdi Amini"></a></li>
 
 								</ul>
 								<h2>Last Updated</h2>

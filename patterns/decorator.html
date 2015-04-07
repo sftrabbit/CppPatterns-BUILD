@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
 40
 41
 42
+43
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="k">class</span> <span class="nc">foo</span></span>
 <span class="codeline" id="line2"><span class="p">{</span></span>
 <span class="codeline" id="line3">	<span class="k">public</span><span class="o">:</span></span>
@@ -160,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo_concrete</span> <span class="o">:</span> <span class="k">public</span> <span class="n">foo</span></span>
 <span class="codeline" id="line8"><span class="p">{</span></span>
 <span class="codeline" id="line9">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line10">		<span class="k">virtual</span> <span class="kt">void</span> <span class="n">do_work</span><span class="p">()</span></span>
+<span class="codeline" id="line10">		<span class="k">virtual</span> <span class="kt">void</span> <span class="n">do_work</span><span class="p">()</span> <span class="k">override</span></span>
 <span class="codeline" id="line11">		<span class="p">{</span> <span class="p">}</span></span>
 <span class="codeline" id="line12"><span class="p">};</span></span>
 <span class="codeline" id="line13"></span>
@@ -171,28 +172,29 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line18">			<span class="o">:</span> <span class="n">f</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></span>
 <span class="codeline" id="line19">		<span class="p">{</span> <span class="p">}</span></span>
 <span class="codeline" id="line20"></span>
-<span class="codeline" id="line21">		<span class="k">virtual</span> <span class="kt">void</span> <span class="n">do_work</span><span class="p">()</span> <span class="p">{</span></span>
-<span class="codeline" id="line22">			<span class="c1">// Do something else here to decorate</span></span>
-<span class="codeline" id="line23">			<span class="c1">// the do_work function</span></span>
-<span class="codeline" id="line24">			<span class="n">f</span><span class="p">.</span><span class="n">do_work</span><span class="p">();</span></span>
-<span class="codeline" id="line25">		<span class="p">}</span></span>
-<span class="codeline" id="line26"></span>
-<span class="codeline" id="line27">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line28">		<span class="n">foo</span><span class="o">&amp;</span> <span class="n">f</span><span class="p">;</span></span>
-<span class="codeline" id="line29"><span class="p">};</span></span>
-<span class="codeline" id="line30"></span>
-<span class="codeline" id="line31"><span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;</span> <span class="n">f</span><span class="p">)</span></span>
-<span class="codeline" id="line32"><span class="p">{</span></span>
-<span class="codeline" id="line33">	<span class="n">f</span><span class="p">.</span><span class="n">do_work</span><span class="p">();</span></span>
-<span class="codeline" id="line34"><span class="p">}</span></span>
-<span class="codeline" id="line35"></span>
-<span class="codeline" id="line36"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line37"><span class="p">{</span></span>
-<span class="codeline" id="line38">	<span class="n">foo_concrete</span> <span class="n">f</span><span class="p">;</span></span>
-<span class="codeline" id="line39">	<span class="n">foo_decorator</span> <span class="n">decorated_f</span><span class="p">{</span><span class="n">f</span><span class="p">};</span></span>
-<span class="codeline" id="line40"></span>
-<span class="codeline" id="line41">	<span class="n">bar</span><span class="p">(</span><span class="n">decorated_f</span><span class="p">);</span></span>
-<span class="codeline" id="line42"><span class="p">}</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line21">		<span class="k">virtual</span> <span class="kt">void</span> <span class="n">do_work</span><span class="p">()</span> <span class="k">override</span></span>
+<span class="codeline" id="line22">		<span class="p">{</span></span>
+<span class="codeline" id="line23">			<span class="c1">// Do something else here to decorate</span></span>
+<span class="codeline" id="line24">			<span class="c1">// the do_work function</span></span>
+<span class="codeline" id="line25">			<span class="n">f</span><span class="p">.</span><span class="n">do_work</span><span class="p">();</span></span>
+<span class="codeline" id="line26">		<span class="p">}</span></span>
+<span class="codeline" id="line27"></span>
+<span class="codeline" id="line28">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line29">		<span class="n">foo</span><span class="o">&amp;</span> <span class="n">f</span><span class="p">;</span></span>
+<span class="codeline" id="line30"><span class="p">};</span></span>
+<span class="codeline" id="line31"></span>
+<span class="codeline" id="line32"><span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;</span> <span class="n">f</span><span class="p">)</span></span>
+<span class="codeline" id="line33"><span class="p">{</span></span>
+<span class="codeline" id="line34">	<span class="n">f</span><span class="p">.</span><span class="n">do_work</span><span class="p">();</span></span>
+<span class="codeline" id="line35"><span class="p">}</span></span>
+<span class="codeline" id="line36"></span>
+<span class="codeline" id="line37"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line38"><span class="p">{</span></span>
+<span class="codeline" id="line39">	<span class="n">foo_concrete</span> <span class="n">f</span><span class="p">;</span></span>
+<span class="codeline" id="line40">	<span class="n">foo_decorator</span> <span class="n">decorated_f</span><span class="p">{</span><span class="n">f</span><span class="p">};</span></span>
+<span class="codeline" id="line41"></span>
+<span class="codeline" id="line42">	<span class="n">bar</span><span class="p">(</span><span class="n">decorated_f</span><span class="p">);</span></span>
+<span class="codeline" id="line43"><span class="p">}</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
@@ -219,6 +221,8 @@ case, the call will be decorated by <code>foo_decorator</code>.</p>
 							<div class="column-1">
 								<h2>Contributors</h2>
 								<ul class="contributors">
+
+									<li><a title="Robbie Shade" ><img src="/images/unknown_user.png" alt="Robbie Shade"></a></li>
 
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
