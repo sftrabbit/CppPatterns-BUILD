@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line17">	<span class="n">run_time</span><span class="p">(</span><span class="n">dynarr</span><span class="p">);</span></span>
 <span class="codeline" id="line18">	<span class="n">run_time</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">});</span></span>
 <span class="codeline" id="line19"><span class="p">}</span></span></code></pre></td></tr></table>
+						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
@@ -152,8 +153,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 						<h2>Description</h2>
-						<p>C++ arrays are not copyable, so cannot be passed to and from
-functions by value. The traditional approach is to pass both a
+						<p><strong>Note</strong>: This sample uses experimental entities from the Library
+Fundamentals TS that demonstrate likely upcoming features in C++
+but should not be used in production code.</p>
+
+<p>Built-in array types are not copyable, so cannot be passed to and
+from functions by value. The traditional approach is to pass both a
 pointer to an array’s first element and the size of the array.
 However, C++ provides class types that represent copyable
 fixed-size arrays.</p>
@@ -171,30 +176,32 @@ represents <em>run-time</em> fixed-size arrays. This type can be created with
 any size at run time, but cannot change size once created. <a href="#line16" class="lineref" data-line="16" data-line-end="18">Lines 16–18</a>
 demonstrate passing arrays of various sizes to this function.</p>
 
-					</div>
-				</div>
-				<div class="row">
-					<div class="column-1">
-						<h2>Source</h2>
-						<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/functions/pass-arrays.cpp">Fork this sample on GitHub</a></p>
-					</div>
-					<div class="column-1">
-						<h2>Last Updated</h2>
-						<p>07 April 2015</p>
-					</div>
-					<div class="column-1">
-						<h2>Contributors</h2>
-						<ul class="contributors">
-	
-							<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
-	
-						</ul>
-					</div>
-					<div class="column-1">
-						<h2>Share</h2>
-						<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-						<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Contributors</h2>
+								<ul class="contributors">
+
+									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+								</ul>
+							</div>
+							<div class="column-1">
+								<h2>Last Updated</h2>
+								<p>07 April 2015</p>
+							</div>
+						</div>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Source</h2>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/functions/pass-arrays.cpp">Fork this sample on GitHub</a></p>
+							</div>
+							<div class="column-1">
+								<h2>Share</h2>
+								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">

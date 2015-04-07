@@ -159,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line24">		<span class="n">end</span> <span class="o">=</span> <span class="n">new_end</span><span class="p">;</span></span>
 <span class="codeline" id="line25">	<span class="p">}</span></span>
 <span class="codeline" id="line26"><span class="p">}</span></span></code></pre></td></tr></table>
+						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
@@ -166,7 +167,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 						<h2>Description</h2>
-						<p>We define <code>bubble_sort</code> as a template, whose template parameter
+						<p><strong>Note</strong>: The C++ standard library provides a generic
+<a href="http://en.cppreference.com/w/cpp/algorithm/sort"><code>std::sort</code></a> algorithm. This sample is a
+reference implementation for the bubble sort algorithm and should
+not be used in production code.</p>
+
+<p>We define <code>bubble_sort</code> as a template, whose template parameter
 <code>ForwardRange</code> must be a range that provides forward iterators.
 The type alias <code>iterator</code> on <a href="#line7" class="lineref" data-line="7">line 7</a> denotes the iterator type for
 the given container, which is the type returned by
@@ -200,30 +206,32 @@ sorted (because we didn’t do any more swapping), so we can set
 and <a href="http://en.cppreference.com/w/cpp/iterator/advance"><code>std::advance</code></a>, so that the algorithm
 can be applied to any range (even a normal array).</p>
 
-					</div>
-				</div>
-				<div class="row">
-					<div class="column-1">
-						<h2>Source</h2>
-						<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/3-algorithms/sorting/bubble-sort.cpp">Fork this sample on GitHub</a></p>
-					</div>
-					<div class="column-1">
-						<h2>Last Updated</h2>
-						<p>07 April 2015</p>
-					</div>
-					<div class="column-1">
-						<h2>Contributors</h2>
-						<ul class="contributors">
-	
-							<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
-	
-						</ul>
-					</div>
-					<div class="column-1">
-						<h2>Share</h2>
-						<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-						<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Contributors</h2>
+								<ul class="contributors">
+
+									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+								</ul>
+							</div>
+							<div class="column-1">
+								<h2>Last Updated</h2>
+								<p>07 April 2015</p>
+							</div>
+						</div>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Source</h2>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/3-algorithms/sorting/bubble-sort.cpp">Fork this sample on GitHub</a></p>
+							</div>
+							<div class="column-1">
+								<h2>Share</h2>
+								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">

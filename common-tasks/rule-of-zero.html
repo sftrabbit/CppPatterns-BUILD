@@ -123,20 +123,23 @@ document.addEventListener('DOMContentLoaded', function() {
 12
 13
 14
+15
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;memory&gt;</span></span>
-<span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">foo</span></span>
-<span class="codeline" id="line4"><span class="p">{</span></span>
-<span class="codeline" id="line5">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line6">		<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span></span>
-<span class="codeline" id="line7">		<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
-<span class="codeline" id="line8"><span class="p">};</span></span>
-<span class="codeline" id="line9"></span>
-<span class="codeline" id="line10"><span class="k">class</span> <span class="nc">bar</span></span>
-<span class="codeline" id="line11"><span class="p">{</span></span>
-<span class="codeline" id="line12">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line13">		<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
-<span class="codeline" id="line14"><span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line2"><span class="cp">#include &lt;vector&gt;</span></span>
+<span class="codeline" id="line3"></span>
+<span class="codeline" id="line4"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="codeline" id="line5"><span class="p">{</span></span>
+<span class="codeline" id="line6">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line7">		<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span></span>
+<span class="codeline" id="line8">		<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span></span>
+<span class="codeline" id="line9"><span class="p">};</span></span>
+<span class="codeline" id="line10"></span>
+<span class="codeline" id="line11"><span class="k">class</span> <span class="nc">bar</span></span>
+<span class="codeline" id="line12"><span class="p">{</span></span>
+<span class="codeline" id="line13">	<span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line14">		<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span></span>
+<span class="codeline" id="line15"><span class="p">};</span></span></code></pre></td></tr></table>
+						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
@@ -154,9 +157,9 @@ semantics.</p>
 manual memory management, yet correctly supports copies and
 moves without any memory leaks. The defaulted copy/move
 constructors and assignment operators will simply copy or move
-each member. For the member <code>x</code> (<a href="#line7" class="lineref" data-line="7">line 7</a>), this will copy the value.
-For <code>p</code>, which is a <a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a>,
-the resource will be shared between copies.</p>
+each member. For the <code>int</code> <code>x</code> (<a href="#line7" class="lineref" data-line="7">line 7</a>), this will copy its value.
+For <code>v</code>, which is a <a href="http://en.cppreference.com/w/cpp/container/vector"><code>std::vector</code></a>,
+all of its elements will be copied over.</p>
 
 <p>The class <code>bar</code> on <a href="#line10" class="lineref" data-line="10" data-line-end="14">lines 10–14</a> is not copyable by default because it
 has a <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> member which
@@ -164,30 +167,32 @@ itself is not copyable. However, it correctly supports move
 operations, which will transfer ownership of the dynamically
 allocated resource.</p>
 
-					</div>
-				</div>
-				<div class="row">
-					<div class="column-1">
-						<h2>Source</h2>
-						<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/rule-of-zero.cpp">Fork this sample on GitHub</a></p>
-					</div>
-					<div class="column-1">
-						<h2>Last Updated</h2>
-						<p>07 April 2015</p>
-					</div>
-					<div class="column-1">
-						<h2>Contributors</h2>
-						<ul class="contributors">
-	
-							<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
-	
-						</ul>
-					</div>
-					<div class="column-1">
-						<h2>Share</h2>
-						<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-						<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Contributors</h2>
+								<ul class="contributors">
+
+									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+								</ul>
+							</div>
+							<div class="column-1">
+								<h2>Last Updated</h2>
+								<p>07 April 2015</p>
+							</div>
+						</div>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Source</h2>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/rule-of-zero.cpp">Fork this sample on GitHub</a></p>
+							</div>
+							<div class="column-1">
+								<h2>Share</h2>
+								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">

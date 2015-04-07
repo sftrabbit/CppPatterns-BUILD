@@ -141,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line15">	<span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">nullopt</span><span class="p">);</span></span>
 <span class="codeline" id="line16">	<span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">nullopt</span><span class="p">,</span> <span class="n">nullopt</span><span class="p">);</span></span>
 <span class="codeline" id="line17"><span class="p">}</span></span></code></pre></td></tr></table>
+						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
@@ -148,7 +149,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 						<h2>Description</h2>
-						<p>The function <code>foo</code>, on <a href="#line6" class="lineref" data-line="6" data-line-end="9">lines 6–9</a>, takes three arguments, two of which
+						<p><strong>Note</strong>: This sample uses experimental entities from the Library
+Fundamentals TS that demonstrate likely upcoming features in C++
+but should not be used in production code.</p>
+
+<p>The function <code>foo</code>, on <a href="#line6" class="lineref" data-line="6" data-line-end="9">lines 6–9</a>, takes three arguments, two of which
 have type
 <a href="http://en.cppreference.com/w/cpp/experimental/optional"><code>std::experimental::optional</code></a> (from
 the Library Fundamentals TS). This allows the value of those
@@ -165,30 +170,32 @@ argument list.</p>
 of optional arguments, consider using the
 <a href="/patterns/builder.html">builder pattern</a>.</p>
 
-					</div>
-				</div>
-				<div class="row">
-					<div class="column-1">
-						<h2>Source</h2>
-						<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/functions/optional-arguments.cpp">Fork this sample on GitHub</a></p>
-					</div>
-					<div class="column-1">
-						<h2>Last Updated</h2>
-						<p>07 April 2015</p>
-					</div>
-					<div class="column-1">
-						<h2>Contributors</h2>
-						<ul class="contributors">
-	
-							<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
-	
-						</ul>
-					</div>
-					<div class="column-1">
-						<h2>Share</h2>
-						<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-						<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Contributors</h2>
+								<ul class="contributors">
+
+									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+								</ul>
+							</div>
+							<div class="column-1">
+								<h2>Last Updated</h2>
+								<p>07 April 2015</p>
+							</div>
+						</div>
+						<div class="subrow">
+							<div class="column-1">
+								<h2>Source</h2>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/functions/optional-arguments.cpp">Fork this sample on GitHub</a></p>
+							</div>
+							<div class="column-1">
+								<h2>Share</h2>
+								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row">
