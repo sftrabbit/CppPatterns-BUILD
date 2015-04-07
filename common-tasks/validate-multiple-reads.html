@@ -13,7 +13,9 @@ extracted values.
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
 		<link href="http://www.cppsamples.com/css/screen.css" rel="stylesheet" type="text/css">
+
 		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<script async defer src="https://apis.google.com/js/platform.js"></script>
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
@@ -126,23 +128,27 @@ document.addEventListener('DOMContentLoaded', function() {
 15
 16
 17
+18
+19
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;sstream&gt;</span></span>
 <span class="codeline" id="line2"><span class="cp">#include &lt;string&gt;</span></span>
 <span class="codeline" id="line3"></span>
 <span class="codeline" id="line4"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
 <span class="codeline" id="line5"><span class="p">{</span></span>
-<span class="codeline" id="line6">	<span class="n">std</span><span class="o">::</span><span class="n">istringstream</span> <span class="n">stream</span><span class="p">{</span><span class="s">&quot;John Smith 32&quot;</span><span class="p">};</span></span>
-<span class="codeline" id="line7"></span>
-<span class="codeline" id="line8">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">first_name</span><span class="p">;</span></span>
-<span class="codeline" id="line9">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">family_name</span><span class="p">;</span></span>
-<span class="codeline" id="line10">	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span></span>
-<span class="codeline" id="line11"></span>
-<span class="codeline" id="line12">	<span class="k">if</span> <span class="p">(</span><span class="n">stream</span> <span class="o">&gt;&gt;</span> <span class="n">first_name</span> <span class="o">&amp;&amp;</span></span>
-<span class="codeline" id="line13">	    <span class="n">stream</span> <span class="o">&gt;&gt;</span> <span class="n">family_name</span> <span class="o">&amp;&amp;</span></span>
-<span class="codeline" id="line14">	    <span class="n">stream</span> <span class="o">&gt;&gt;</span> <span class="n">age</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="codeline" id="line15">		<span class="c1">// Use values</span></span>
-<span class="codeline" id="line16">	<span class="p">}</span></span>
-<span class="codeline" id="line17"><span class="p">}</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line6">	<span class="n">std</span><span class="o">::</span><span class="n">istringstream</span> <span class="n">stream</span><span class="p">{</span><span class="s">&quot;Chief Executive Officer</span><span class="se">\n</span><span class="s">&quot;</span></span>
+<span class="codeline" id="line7">	                          <span class="s">&quot;John Smith</span><span class="se">\n</span><span class="s">&quot;</span></span>
+<span class="codeline" id="line8">	                          <span class="s">&quot;32&quot;</span><span class="p">};</span></span>
+<span class="codeline" id="line9"></span>
+<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">position</span><span class="p">;</span></span>
+<span class="codeline" id="line11">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">first_name</span><span class="p">;</span></span>
+<span class="codeline" id="line12">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">family_name</span><span class="p">;</span></span>
+<span class="codeline" id="line13">	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span></span>
+<span class="codeline" id="line14"></span>
+<span class="codeline" id="line15">	<span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">&amp;&amp;</span></span>
+<span class="codeline" id="line16">	    <span class="n">stream</span> <span class="o">&gt;&gt;</span> <span class="n">first_name</span> <span class="o">&gt;&gt;</span> <span class="n">family_name</span> <span class="o">&gt;&gt;</span> <span class="n">age</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line17">		<span class="c1">// Use values</span></span>
+<span class="codeline" id="line18">	<span class="p">}</span></span>
+<span class="codeline" id="line19"><span class="p">}</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
@@ -154,16 +160,19 @@ extracted values.</p>
 						<h2>Description</h2>
 						<p>We create a <a href="http://en.cppreference.com/w/cpp/io/basic_istringstream"><code>std::istringstream</code></a> as
 the example input stream, which contains some values that we wish
-to read (<a href="#line6" class="lineref" data-line="6">line 6</a>). This stream could be replaced by any other
+to read (<a href="#line6" class="lineref" data-line="6" data-line-end="8">lines 6–8</a>). This stream could be replaced by any other
 input stream, such as <a href="http://en.cppreference.com/w/cpp/io/cin"><code>std::cin</code></a> or a file stream.
-We then create some objects on <a href="#line8" class="lineref" data-line="8" data-line-end="9">lines 8–9</a> into which we will read 
+We then create some objects on <a href="#line10" class="lineref" data-line="10" data-line-end="13">lines 10–13</a> into which we will read 
 values from the stream.</p>
 
-<p>In the condition of the <code>if</code> statement on <a href="#line12" class="lineref" data-line="12" data-line-end="14">lines 12–14</a>, we perform the
-extractions. The <code>&amp;&amp;</code> operators ensure that the condition
-is <code>true</code> only when all extractions succeed. Short-circuiting
-also ensures that an extraction is only evaluated if the previous
-extractions were successful.</p>
+<p>In the condition of the <code>if</code> statement on <a href="#line15" class="lineref" data-line="15" data-line-end="18">lines 15–18</a>, we first perform
+an unformatted extraction with
+<a href="http://en.cppreference.com/w/cpp/string/basic_string/getline"><code>std::getline</code></a> <a href="#line15" class="lineref" data-line="15">line 15</a>
+and then a series of formatted extractions <a href="#line16" class="lineref" data-line="16">line 16</a>. The <code>&amp;&amp;</code> operator
+ensures that the condition is <code>true</code> only when all extractions
+succeed. Short-circuiting also ensures that the second set of
+extractions are only attempted if the previous extraction was
+successful.</p>
 
 <p>If you are reading values on multiple lines, consider <a href="/common-tasks/read-line-by-line.html">reading
 from the stream line-by-line</a>
@@ -177,14 +186,8 @@ and then parsing each line.</p>
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
 								</ul>
-							</div>
-							<div class="column-1">
 								<h2>Last Updated</h2>
 								<p>07 April 2015</p>
-							</div>
-						</div>
-						<div class="subrow">
-							<div class="column-1">
 								<h2>Source</h2>
 								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/input-streams/validate-multiple-reads.cpp">Fork this sample on GitHub</a></p>
 							</div>
@@ -193,6 +196,7 @@ and then parsing each line.</p>
 								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
 								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+								<div class="g-plusone" data-size="medium"></div>
 							</div>
 						</div>
 					</div>
@@ -224,6 +228,7 @@ var disqus_shortname = 'cppsamples';
 					<p><div class="fb-like" data-href="http://www.cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
 					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+					<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.cppsamples.com/"></div>
 				</div>
 				<div class="column-1 offset-1 about">
 					<img src="http://josephmansfield.uk/images/logo.svg">

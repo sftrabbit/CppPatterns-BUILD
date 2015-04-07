@@ -755,9 +755,10 @@ code {
 /* line 89, ../../_compass/screen.scss */
 pre {
   tab-size: 2;
+  -moz-tab-size: 2;
 }
 
-/* line 93, ../../_compass/screen.scss */
+/* line 94, ../../_compass/screen.scss */
 .codeblock {
   display: block;
   background-color: #2c2c2c;
@@ -765,11 +766,10 @@ pre {
   line-height: 19px;
   overflow-x: auto;
 }
-/* line 100, ../../_compass/screen.scss */
+/* line 101, ../../_compass/screen.scss */
 .codeblock .linenums {
   position: absolute;
-  margin: 16px 0px 16px 12px;
-  padding-right: 8px;
+  padding: 16px 8px 16px 12px;
   text-align: right;
   color: #6b6b6b;
   background-color: #2c2c2c;
