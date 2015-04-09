@@ -164,11 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						</ul>
 
-						<p><strong>Note</strong>: This sample uses experimental entities from the Library
-Fundamentals TS that demonstrate likely upcoming features in C++
-but should not be used in production code.</p>
-
-<p>Built-in array types are not copyable, so cannot be passed to and
+						<p>Built-in array types are not copyable, so cannot be passed to and
 from functions by value. The traditional approach is to pass both a
 pointer to an array’s first element and the size of the array.
 However, C++ provides class types that represent copyable
@@ -186,6 +182,11 @@ passing arrays of size 3 to this function.</p>
 represents <em>run-time</em> fixed-size arrays. This type can be created with
 any size at run time, but cannot change size once created. <a href="#line16" class="lineref" data-line="16" data-line-end="18">Lines 16–18</a>
 demonstrate passing arrays of various sizes to this function.</p>
+
+<p><strong>Note</strong>: <code>std::experimental::dynarray</code> is part of the Arrays
+Technical Specification, which provides experimental features that
+may soon be introduced to the C++ standard. It should not be used
+in production code.</p>
 
 						<div class="subrow">
 							<div class="column-1">

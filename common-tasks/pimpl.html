@@ -242,6 +242,9 @@ the move constructor and assignment operator on <a href="#line42" class="lineref
 <code>foo</code> can be moved. To make <code>foo</code> copyable, we must also
 implement the copy constructor and assignment operator.</p>
 
+<p><strong>Note</strong>: <code>std::make_unique</code> was introduced in C++14. For C++11,
+you can <a href="http://stackoverflow.com/a/17902439/150634">roll your own implementation</a>.</p>
+
 						<div class="subrow">
 							<div class="column-1">
 								<h2>Contributors</h2>
