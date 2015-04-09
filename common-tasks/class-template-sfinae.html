@@ -146,6 +146,13 @@ template arguments.</p>
 
 
 						<h2>Description</h2>
+
+						<ul class="tags">
+
+							<li class="c++11">c++11</li>
+
+						</ul>
+
 						<p>We provide two partial specializations of the <code>foo</code> class template:</p>
 
 <ol>
@@ -159,7 +166,7 @@ floating point type.</li>
 class depending on the template arguments it is instantiated with.</p>
 
 <p>We have used <a href="http://en.cppreference.com/w/cpp/types/enable_if"><code>std::enable_if</code></a> on <a href="#line8" class="lineref" data-line="8">line 8</a> and
-<a href="#line12" class="lineref" data-line="12">line 12</a> to force instantiation to succeed only for the appropriate
+<a href="#line11" class="lineref" data-line="11">line 11</a> to force instantiation to succeed only for the appropriate
 template arguments. This relies on <a href="http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">Substitution Failure Is Not An
 Error</a>
 (SFINAE), which states that
@@ -180,7 +187,7 @@ for certain template arguments, consider using
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>03 April 2015</p>
+								<p>09 April 2015</p>
 								<h2>Source</h2>
 								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/templates/class-template-sfinae.cpp">Fork this sample on GitHub</a></p>
 							</div>
@@ -194,6 +201,7 @@ for certain template arguments, consider using
 						</div>
 					</div>
 				</div>
+
 				<div class="row">
 					<div class="column-4">
 						<div id="disqus_thread"></div>
@@ -206,11 +214,10 @@ var disqus_shortname = 'cppsamples';
 	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 						</script>
-
 						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6789411983750873" data-ad-slot="5581833133" data-ad-format="auto"></ins>
-
 					</div>
 				</div>
+
 			</section>
 
 		</main>

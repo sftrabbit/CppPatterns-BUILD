@@ -206,6 +206,15 @@ and improve compile times.</p>
 
 
 						<h2>Description</h2>
+
+						<ul class="tags">
+
+							<li class="c++11">c++11</li>
+
+							<li class="c++14">c++14</li>
+
+						</ul>
+
 						<p>When a header file changes, any files that <code>#include</code> that file
 will need to be recompiled. In the case of a class header, this
 is true even if those changes only apply to private members of the
@@ -213,16 +222,16 @@ class. The PIMPL idiom hides private members from any users of
 the header file, allowing these internal details to change without
 requiring recompilation of the client code.</p>
 
-<p><a href="#line5" class="lineref" data-line="5" data-line-end="13">Lines 5–13</a> define a class, <code>foo</code>, to which we have applied the PIMPL
+<p><a href="#line5" class="lineref" data-line="5" data-line-end="17">Lines 5–17</a> define a class, <code>foo</code>, to which we have applied the PIMPL
 idiom. This class definition includes only the public interface
 of the class and a pointer to the internal implementation. We use
-a <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> (<a href="#line12" class="lineref" data-line="12">line 12</a>) to ensure
+a <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> (<a href="#line16" class="lineref" data-line="16">line 16</a>) to ensure
 the lifetime of the implementation is managed correctly, which we
-initialise in <code>foo</code>s constructor (<a href="#line31" class="lineref" data-line="31">line 31</a>).</p>
+initialise in <code>foo</code>s constructor (<a href="#line35" class="lineref" data-line="35">line 35</a>).</p>
 
 <p>While the internal implementation class, <code>impl</code>, is declared in
-the header file on <a href="#line11" class="lineref" data-line="11">line 11</a>, its definition appears in the
-implementation file on <a href="#line18" class="lineref" data-line="18" data-line-end="28">lines 18–28</a>. This allows the class definition
+the header file on <a href="#line15" class="lineref" data-line="15">line 15</a>, its definition appears in the
+implementation file on <a href="#line22" class="lineref" data-line="22" data-line-end="32">lines 22–32</a>. This allows the class definition
 to change without requiring users of <code>foo</code> to recompile.</p>
 
 <p>We have explicitly defaulted <code>foo</code>’s destructor on <a href="#line40" class="lineref" data-line="40">line 40</a>, which
@@ -244,7 +253,7 @@ implement the copy constructor and assignment operator.</p>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>07 April 2015</p>
+								<p>09 April 2015</p>
 								<h2>Source</h2>
 								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/pimpl.cpp">Fork this sample on GitHub</a></p>
 							</div>
@@ -258,6 +267,7 @@ implement the copy constructor and assignment operator.</p>
 						</div>
 					</div>
 				</div>
+
 				<div class="row">
 					<div class="column-4">
 						<div id="disqus_thread"></div>
@@ -270,11 +280,10 @@ var disqus_shortname = 'cppsamples';
 	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 						</script>
-
 						<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6789411983750873" data-ad-slot="5581833133" data-ad-format="auto"></ins>
-
 					</div>
 				</div>
+
 			</section>
 
 		</main>
