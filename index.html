@@ -41,11 +41,11 @@
 			</div>
 			<section class="sample featured">
 				<div class="row">
-					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/unique-ownership.html">Unique ownership</a></h1>
+					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/validate-multiple-reads.html">Validate multiple reads</a></h1>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<a href="http://www.cppsamples.com/common-tasks/unique-ownership.html">
+						<a href="http://www.cppsamples.com/common-tasks/validate-multiple-reads.html">
 							<table class="codeblock"><tr><td class="linenums"><pre><code>1
 2
 3
@@ -59,30 +59,43 @@
 11
 12
 13
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;memory&gt;</span></span>
-<span class="codeline" id="line2"><span class="cp">#include &lt;utility&gt;</span></span>
+14
+15
+16
+17
+18
+19
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;sstream&gt;</span></span>
+<span class="codeline" id="line2"><span class="cp">#include &lt;string&gt;</span></span>
 <span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="k">struct</span> <span class="n">foo</span> <span class="p">{};</span></span>
-<span class="codeline" id="line5"></span>
-<span class="codeline" id="line6"><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">obj</span><span class="p">)</span></span>
-<span class="codeline" id="line7"><span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line8"></span>
-<span class="codeline" id="line9"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line10"><span class="p">{</span></span>
-<span class="codeline" id="line11">	<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span><span class="p">();</span></span>
-<span class="codeline" id="line12">	<span class="n">func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">obj</span><span class="p">));</span></span>
-<span class="codeline" id="line13"><span class="p">}</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line4"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line5"><span class="p">{</span></span>
+<span class="codeline" id="line6">	<span class="n">std</span><span class="o">::</span><span class="n">istringstream</span> <span class="n">stream</span><span class="p">{</span><span class="s">&quot;Chief Executive Officer</span><span class="se">\n</span><span class="s">&quot;</span></span>
+<span class="codeline" id="line7">	                          <span class="s">&quot;John Smith</span><span class="se">\n</span><span class="s">&quot;</span></span>
+<span class="codeline" id="line8">	                          <span class="s">&quot;32&quot;</span><span class="p">};</span></span>
+<span class="codeline" id="line9"></span>
+<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">position</span><span class="p">;</span></span>
+<span class="codeline" id="line11">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">first_name</span><span class="p">;</span></span>
+<span class="codeline" id="line12">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">family_name</span><span class="p">;</span></span>
+<span class="codeline" id="line13">	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span></span>
+<span class="codeline" id="line14"></span>
+<span class="codeline" id="line15">	<span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">&amp;&amp;</span></span>
+<span class="codeline" id="line16">	    <span class="n">stream</span> <span class="o">&gt;&gt;</span> <span class="n">first_name</span> <span class="o">&gt;&gt;</span> <span class="n">family_name</span> <span class="o">&gt;&gt;</span> <span class="n">age</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line17">		<span class="c1">// Use values</span></span>
+<span class="codeline" id="line18">	<span class="p">}</span></span>
+<span class="codeline" id="line19"><span class="p">}</span></span></code></pre></td></tr></table>
 						</a>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Transfer unique ownership of a dynamically allocated object to
-another unit of code.</p>
+						<p>Ensure that multiple stream reads are successful before using the
+extracted values.</p>
 
 
 						<h2>Description</h2>
-						<p>On <a href="#line11" class="lineref" data-line="11">line 11</a>, we create a <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> which has ownership of a dynamically allocated <code>foo</code> object (created with the <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique"><code>std::make_unique</code></a> utility function). <a href="#line12" class="lineref" data-line="12">Line 12</a> then demonstrates passing...
-						<p><a href="http://www.cppsamples.com/common-tasks/unique-ownership.html">Continue reading →</a></p>
+
+						<p>We create a <a href="http://en.cppreference.com/w/cpp/io/basic_istringstream"><code>std::istringstream</code></a> as the example input stream, which contains some values that we wish to read (<a href="#line6" class="lineref" data-line="6" data-line-end="8">lines 6–8</a>). This stream could be replaced by any other input stream,...
+						<p><a href="http://www.cppsamples.com/common-tasks/validate-multiple-reads.html">Continue reading →</a></p>
 					</div>
 				</div>
 			</section>
@@ -100,6 +113,43 @@ another unit of code.</p>
 					<h1 class="column-4">Common Tasks</h1>
 				</div>
 				<div class="row">
+
+					<section class="column-1">
+						<h1>Algorithms</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://www.cppsamples.com/common-tasks/copy-range-of-elements.html">Copy a range of elements</a></h1>
+
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
+
+								<p>Copy elements from one range to another.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://www.cppsamples.com/common-tasks/sort-range-of-elements.html">Sort a range of elements</a></h1>
+
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
+
+								<p>Sort elements in a range into a given order.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				
 
 					<section class="column-1">
 						<h1>Classes</h1>
@@ -240,7 +290,7 @@ extracted values.</p>
 						</ul>
 					</section>
 				
-				
+				</div><div class="row">
 
 					<section class="column-1">
 						<h1>Memory management</h1>
@@ -287,10 +337,19 @@ and memory leaks.</p>
 
 							</li>
 
+							<li>
+								<h1><a href="http://www.cppsamples.com/common-tasks/weak-reference.html">Weak reference</a></h1>
+
+								<p>Maintain a non-owning reference to a shared dynamically allocated
+object to break circular dependencies.</p>
+
+
+							</li>
+
 						</ul>
 					</section>
 				
-				</div><div class="row">
+				
 
 					<section class="column-1">
 						<h1>Output streams</h1>
@@ -370,6 +429,45 @@ distribution.</p>
 				
 
 					<section class="column-1">
+						<h1>Ranges</h1>
+						<ul class="samples">
+
+							<li>
+								<h1><a href="http://www.cppsamples.com/common-tasks/range-based-algorithms.html">Range-based algorithms</a></h1>
+
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
+
+								<p>Implement algorithms that can be applied to any generic range of
+elements.</p>
+
+
+							</li>
+
+							<li>
+								<h1><a href="http://www.cppsamples.com/common-tasks/range-iteration.html">Range iteration</a></h1>
+
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
+
+								<p>Iterate over a range of elements without using iterators or
+indices.</p>
+
+
+							</li>
+
+						</ul>
+					</section>
+				
+				</div><div class="row">
+
+					<section class="column-1">
 						<h1>Templates </h1>
 						<ul class="samples">
 
@@ -438,6 +536,12 @@ function had been called directly.</p>
 							<li>
 								<h1><a href="http://www.cppsamples.com/patterns/observer.html">Observer</a></h1>
 
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
+
 								<p>Notify generic observer objects when an event occurs.</p>
 
 
@@ -494,37 +598,6 @@ representation.</p>
 
 				</div>
 
-
-				<div class="row">
-					<h1 class="column-4">Algorithms</h1>
-				</div>
-				<div class="row">
-
-					<section class="column-1">
-						<h1>Sorting</h1>
-						<ul class="samples">
-
-							<li>
-								<h1><a href="http://www.cppsamples.com/algorithms/bubble-sort.html">Bubble sort</a></h1>
-
-								<ul class="tags">
-
-									<li class="c++11">c++11</li>
-
-								</ul>
-
-								<p>Sort a generic range of elements using the bubble sort algorithm.</p>
-
-
-							</li>
-
-						</ul>
-					</section>
-				
-				
-
-				</div>
-
 			</section>
 
 		</main>
@@ -533,7 +606,7 @@ representation.</p>
 				<div class="column-2">
 					<p>Feel like <b>contributing</b>? This website is generated from a git repository. If you have something to add or have noticed a mistake, please <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the project on GitHub</a>.</p>
 					<p><div class="fb-like" data-href="http://www.cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.cppsamples.com/"></div>
 				</div>

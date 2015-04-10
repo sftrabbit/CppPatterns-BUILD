@@ -1,13 +1,14 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Roll a die - C++ Samples</title>
+		<title>Weak reference - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Generate a random integer according to a uniform distribution.
+		<meta name="description" content="Maintain a non-owning reference to a shared dynamically allocated
+object to break circular dependencies.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/roll-a-die.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/weak-reference.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -18,10 +19,11 @@
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Roll a die - C++ Samples">
+		<meta property="og:title" content="Weak reference - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/roll-a-die.html">
-		<meta property="og:description" content="Generate a random integer according to a uniform distribution.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/weak-reference.html">
+		<meta property="og:description" content="Maintain a non-owning reference to a shared dynamically allocated
+object to break circular dependencies.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Roll a die</h1>
+						<h1>Weak reference</h1>
 					</div>
 				</div>
 				<div class="row">
@@ -119,53 +121,100 @@ document.addEventListener('DOMContentLoaded', function() {
 8
 9
 10
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;random&gt;</span></span>
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;memory&gt;</span></span>
 <span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line4"><span class="p">{</span></span>
-<span class="codeline" id="line5">	<span class="n">std</span><span class="o">::</span><span class="n">random_device</span> <span class="n">random_device</span><span class="p">;</span></span>
-<span class="codeline" id="line6">	<span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">random_engine</span><span class="p">{</span><span class="n">random_device</span><span class="p">()};</span></span>
-<span class="codeline" id="line7">	<span class="n">std</span><span class="o">::</span><span class="n">uniform_int_distribution</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">die_distribution</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span></span>
-<span class="codeline" id="line8">	</span>
-<span class="codeline" id="line9">	<span class="kt">int</span> <span class="n">die_roll</span> <span class="o">=</span> <span class="n">die_distribution</span><span class="p">(</span><span class="n">random_engine</span><span class="p">);</span></span>
-<span class="codeline" id="line10"><span class="p">}</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">bar</span><span class="p">;</span></span>
+<span class="codeline" id="line4"></span>
+<span class="codeline" id="line5"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="codeline" id="line6"><span class="p">{</span></span>
+<span class="codeline" id="line7"><span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line8">	<span class="n">foo</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">bar</span><span class="o">&gt;&amp;</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="codeline" id="line9">	<span class="p">{</span></span>
+<span class="codeline" id="line10">		<span class="k">this</span><span class="o">-&gt;</span><span class="n">forward_reference</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span></span>
+<span class="codeline" id="line11">	<span class="p">}</span></span>
+<span class="codeline" id="line12"></span>
+<span class="codeline" id="line13"><span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line14">	<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">bar</span><span class="o">&gt;</span> <span class="n">forward_reference</span><span class="p">;</span></span>
+<span class="codeline" id="line15"><span class="p">};</span></span>
+<span class="codeline" id="line16"></span>
+<span class="codeline" id="line17"><span class="k">class</span> <span class="nc">bar</span></span>
+<span class="codeline" id="line18"><span class="p">{</span></span>
+<span class="codeline" id="line19"><span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line20">	<span class="kt">void</span> <span class="n">set_back_reference</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;&amp;</span> <span class="n">f</span><span class="p">)</span></span>
+<span class="codeline" id="line21">	<span class="p">{</span></span>
+<span class="codeline" id="line22">		<span class="k">this</span><span class="o">-&gt;</span><span class="n">back_reference</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span></span>
+<span class="codeline" id="line23">	<span class="p">}</span></span>
+<span class="codeline" id="line24"></span>
+<span class="codeline" id="line25">	<span class="kt">void</span> <span class="n">do_something</span><span class="p">()</span></span>
+<span class="codeline" id="line26">	<span class="p">{</span></span>
+<span class="codeline" id="line27">		<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">shared_back_reference</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">back_reference</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span></span>
+<span class="codeline" id="line28">		<span class="k">if</span> <span class="p">(</span><span class="n">shared_back_reference</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line29">			<span class="c1">// Use *shared_back_reference</span></span>
+<span class="codeline" id="line30">		<span class="p">}</span></span>
+<span class="codeline" id="line31">	<span class="p">}</span></span>
+<span class="codeline" id="line32"></span>
+<span class="codeline" id="line33"><span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line34">	<span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">back_reference</span><span class="p">;</span></span>
+<span class="codeline" id="line35"><span class="p">};</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Generate a random integer according to a uniform distribution.</p>
+						<p>Maintain a non-owning reference to a shared dynamically allocated
+object to break circular dependencies.</p>
 
 
 						<h2>Description</h2>
 
-						<ul class="tags">
+						<p>The <a href="http://en.cppreference.com/w/cpp/memory/weak_ptr"><code>std::weak_ptr</code></a> type represents
+a non-owning reference to dynamically allocated object with
+shared ownership (<a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a>). As
+they do not contribute to the reference count of the managed object
+they refer to, the object can be destroyed at any time when all
+<code>std::shared_ptr</code>s give up ownership. However, a
+<a href="http://en.cppreference.com/w/cpp/memory/weak_ptr"><code>std::weak_ptr</code></a> can be converted to a
+[<code>std::shared_ptr</code>] to provide temporary ownership and safe access to the
+object.</p>
 
-							<li class="c++11">c++11</li>
+<p>In this sample, we have two classes: <code>foo</code> on <a href="#line5" class="lineref" data-line="5" data-line-end="15">lines 5–15</a>, and <code>bar</code> on
+<a href="#line17" class="lineref" data-line="17" data-line-end="31">lines 17–31</a>. A <code>foo</code> object has shared ownership of a <code>bar</code> (<a href="#line14" class="lineref" data-line="14">line 14</a>), and
+<code>bar</code> requires some form of reference back to the <code>foo</code> that owns it.
+If this back reference were a <code>std::shared_ptr&lt;foo&gt;</code>, it would introduce
+a circular dependency, making it impossible for either object to be
+destroyed. If it were a normal reference type (<code>foo&amp;</code>), it risks
+refering to a deleted object when it attempts to use it, as the
+lifetime of <code>foo</code> is independent of <code>bar</code>.</p>
 
-						</ul>
-
-						<p>The <a href="http://en.cppreference.com/w/cpp/numeric/random/random_device"><code>std::random_device</code></a> on <a href="#line5" class="lineref" data-line="5">line 5</a>
-provides a source of uniform non-deterministic random numbers
-(where such a source is available). We use this to seed the
-Mersenne Twister random number engine,
-<a href="http://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine"><code>std::mt19937</code></a>, on
-<a href="#line6" class="lineref" data-line="6">line 6</a>. Consider <a href="http://en.cppreference.com/w/cpp/numeric/random#Predefined_random_number_generators">other random number
-engines</a>
-for different properties.</p>
-
-<p>On <a href="#line7" class="lineref" data-line="7">line 7</a>, we create a
-<a href="http://en.cppreference.com/w/cpp/numeric/random/uniform_int_distribution"><code>std::uniform_int_distribution</code></a>
-representing a uniform random distribution of integers from 1 to 6
-inclusive. That is, each value from 1 to 6 has an equal chance of
-occurring.</p>
-
-<p>Finally, we generate a random number from the random engine,
-distributed according to the uniform integer distribution (<a href="#line9" class="lineref" data-line="9">line 9</a>).
-This gives us a random integer from 1 to 6, as though we had rolled
-a 6-sided die.</p>
-
-<p>To generate further random numbers, simply call
-<code>die_distribution(random_engine)</code> again.</p>
+<p>The solution is to use a <code>std::weak_ptr&lt;foo&gt;</code>, as on <a href="#line34" class="lineref" data-line="34">line 34</a>. When
+<code>bar</code> needs to use <code>foo</code>, it checks if bar still exists by calling
+<code>lock</code> on the <code>std::weak_ptr</code> to take temporary shared ownership
+(<a href="#line27" class="lineref" data-line="27">line 27</a>). If the returned <code>std::shared_ptr</code> is not empty, <code>bar</code> can
+safely use it to access the <code>foo</code> object (<a href="#line28" class="lineref" data-line="28" data-line-end="30">lines 28–30</a>).</p>
 
 						<div class="subrow">
 							<div class="column-1">
@@ -174,11 +223,13 @@ a 6-sided die.</p>
 
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
+									<li><a title="Migrant Coder" href="https://github.com/migrantcoder"><img src="https://avatars.githubusercontent.com/u/8118105?v=3&size=36" alt="Migrant Coder"></a></li>
+
 								</ul>
 								<h2>Last Updated</h2>
-								<p>09 April 2015</p>
+								<p>10 April 2015</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/random/roll-a-die.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/memory-management/weak-reference.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>

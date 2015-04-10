@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
 13
 14
 15
+16
+17
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;tuple&gt;</span></span>
 <span class="codeline" id="line2"></span>
 <span class="codeline" id="line3"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">foo</span><span class="p">()</span></span>
@@ -133,12 +135,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line7"></span>
 <span class="codeline" id="line8"><span class="kt">int</span> <span class="n">main</span><span class="p">()</span></span>
 <span class="codeline" id="line9"><span class="p">{</span></span>
-<span class="codeline" id="line10">	<span class="kt">int</span> <span class="n">obj1</span><span class="p">;</span></span>
-<span class="codeline" id="line11">	<span class="kt">bool</span> <span class="n">obj2</span><span class="p">;</span></span>
-<span class="codeline" id="line12">	<span class="kt">float</span> <span class="n">obj3</span><span class="p">;</span></span>
-<span class="codeline" id="line13"></span>
-<span class="codeline" id="line14">	<span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">,</span> <span class="n">obj3</span><span class="p">)</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
-<span class="codeline" id="line15"><span class="p">}</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line11">	<span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">);</span></span>
+<span class="codeline" id="line12"></span>
+<span class="codeline" id="line13">	<span class="kt">int</span> <span class="n">obj1</span><span class="p">;</span></span>
+<span class="codeline" id="line14">	<span class="kt">bool</span> <span class="n">obj2</span><span class="p">;</span></span>
+<span class="codeline" id="line15">	<span class="kt">float</span> <span class="n">obj3</span><span class="p">;</span></span>
+<span class="codeline" id="line16">	<span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">,</span> <span class="n">obj3</span><span class="p">)</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line17"><span class="p">}</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
@@ -160,14 +164,17 @@ of different types. We make use of the
 <a href="http://en.cppreference.com/w/cpp/utility/tuple/make_tuple"><code>std::make_tuple</code></a> utility function
 to create the <code>std::tuple</code> object.</p>
 
-<p>On <a href="#line14" class="lineref" data-line="14">line 14</a>, we call this function and use <a href="http://en.cppreference.com/w/cpp/utility/tuple/tie"><code>std::tie</code></a>
+<p>On <a href="#line10" class="lineref" data-line="10">line 10</a>, we call this function and store the result. We then get
+the first of the returned values with <a href="http://en.cppreference.com/w/cpp/utility/tuple/get"><code>std::get</code></a>
+on <a href="#line11" class="lineref" data-line="11">line 11</a>.</p>
+
+<p>Alternatively, on <a href="#line16" class="lineref" data-line="16">line 16</a> we use <a href="http://en.cppreference.com/w/cpp/utility/tuple/tie"><code>std::tie</code></a>
 to assign the return values to each of the given objects.
-If we cannot create the objects prior to this call, we can
-alternatively store the resulting <code>std::tuple</code> object and use
-<a href="http://en.cppreference.com/w/cpp/utility/tuple/get"><code>std::get</code></a> to get the values from it.</p>
+This may not be possible if the objects cannot be constructed
+beforehand and it removes the possibility of copy elision.</p>
 
 <p>If the values are closely and logically related, consider composing
-them into a <code>struct</code> or <code>class</code>.</p>
+them into a <code>struct</code> or <code>class</code> type.</p>
 
 						<div class="subrow">
 							<div class="column-1">
@@ -178,14 +185,14 @@ them into a <code>struct</code> or <code>class</code>.</p>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>09 April 2015</p>
+								<p>10 April 2015</p>
 								<h2>Source</h2>
 								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/functions/return-multiple-values.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>
 								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 								<div class="g-plusone" data-size="medium"></div>
 							</div>
@@ -217,7 +224,7 @@ var disqus_shortname = 'cppsamples';
 				<div class="column-2">
 					<p>Feel like <b>contributing</b>? This website is generated from a git repository. If you have something to add or have noticed a mistake, please <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the project on GitHub</a>.</p>
 					<p><div class="fb-like" data-href="http://www.cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.cppsamples.com/"></div>
 				</div>

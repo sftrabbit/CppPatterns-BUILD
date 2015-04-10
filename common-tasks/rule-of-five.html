@@ -163,6 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
 50
 51
 52
+53
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;utility&gt;</span></span>
 <span class="codeline" id="line2"></span>
 <span class="codeline" id="line3"><span class="k">class</span> <span class="nc">resource</span> <span class="p">{</span></span>
@@ -190,31 +191,32 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line25">		<span class="p">{</span></span>
 <span class="codeline" id="line26">			<span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">other</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span></span>
 <span class="codeline" id="line27">				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line28">				<span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)};</span></span>
-<span class="codeline" id="line29">			<span class="p">}</span></span>
-<span class="codeline" id="line30"></span>
-<span class="codeline" id="line31">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
-<span class="codeline" id="line32">		<span class="p">}</span></span>
-<span class="codeline" id="line33"></span>
-<span class="codeline" id="line34">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line35">		<span class="p">{</span></span>
-<span class="codeline" id="line36">			<span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">other</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="codeline" id="line37">				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line38">				<span class="n">p</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line39">				<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
-<span class="codeline" id="line40">			<span class="p">}</span></span>
-<span class="codeline" id="line41"></span>
-<span class="codeline" id="line42">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
-<span class="codeline" id="line43">		<span class="p">}</span></span>
-<span class="codeline" id="line44"></span>
-<span class="codeline" id="line45">		<span class="o">~</span><span class="n">foo</span><span class="p">()</span></span>
-<span class="codeline" id="line46">		<span class="p">{</span></span>
-<span class="codeline" id="line47">			<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line48">		<span class="p">}</span></span>
-<span class="codeline" id="line49"></span>
-<span class="codeline" id="line50">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line51">		<span class="n">resource</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line52"><span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line28">				<span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="codeline" id="line29">				<span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)};</span></span>
+<span class="codeline" id="line30">			<span class="p">}</span></span>
+<span class="codeline" id="line31"></span>
+<span class="codeline" id="line32">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="codeline" id="line33">		<span class="p">}</span></span>
+<span class="codeline" id="line34"></span>
+<span class="codeline" id="line35">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line36">		<span class="p">{</span></span>
+<span class="codeline" id="line37">			<span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">other</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line38">				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line39">				<span class="n">p</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line40">				<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="codeline" id="line41">			<span class="p">}</span></span>
+<span class="codeline" id="line42"></span>
+<span class="codeline" id="line43">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="codeline" id="line44">		<span class="p">}</span></span>
+<span class="codeline" id="line45"></span>
+<span class="codeline" id="line46">		<span class="o">~</span><span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line47">		<span class="p">{</span></span>
+<span class="codeline" id="line48">			<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line49">		<span class="p">}</span></span>
+<span class="codeline" id="line50"></span>
+<span class="codeline" id="line51">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line52">		<span class="n">resource</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line53"><span class="p">};</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
@@ -225,7 +227,8 @@ management of dynamically allocated resources.</p>
 
 						<h2>Description</h2>
 
-						<p>Firstly, the <em>rule of three</em> specifies that if a class implements
+						<p>The rule of five is a modern expansion of the rule of three.
+Firstly, the <em>rule of three</em> specifies that if a class implements
 any of the following functions, it should implement all of them:</p>
 
 <ul>
@@ -247,24 +250,26 @@ optimized copies from temporary objects:</p>
   <li>move assignment operator</li>
 </ul>
 
-<p>The class <code>foo</code>, on <a href="#line7" class="lineref" data-line="7" data-line-end="52">lines 7–52</a>, dynamically allocates a <code>resource</code>
+<p>The class <code>foo</code>, on <a href="#line7" class="lineref" data-line="7" data-line-end="53">lines 7–53</a>, dynamically allocates a <code>resource</code>
 object in its constructor. The implementations of <code>foo</code>’s
-copy constructor (<a href="#line14" class="lineref" data-line="14" data-line-end="16">lines 14–16</a>), copy assignment operator (<a href="#line24" class="lineref" data-line="24" data-line-end="32">lines 24–32</a>),
-and destructor (<a href="#line45" class="lineref" data-line="45" data-line-end="48">lines 45–48</a>) ensure that the lifetime of this
+copy constructor (<a href="#line14" class="lineref" data-line="14" data-line-end="16">lines 14–16</a>), copy assignment operator (<a href="#line24" class="lineref" data-line="24" data-line-end="33">lines 24–33</a>),
+and destructor (<a href="#line46" class="lineref" data-line="46" data-line-end="49">lines 46–49</a>) ensure that the lifetime of this
 resource is safely managed by <code>foo</code> object that contains it,
 even in the event of an exception.</p>
 
 <p>We have also implemented a move constructor (<a href="#line18" class="lineref" data-line="18" data-line-end="22">lines 18–22</a>) and
-move assignment operator (<a href="#line34" class="lineref" data-line="34" data-line-end="43">lines 34–43</a>) that provide optimized copies
+move assignment operator (<a href="#line35" class="lineref" data-line="35" data-line-end="44">lines 35–44</a>) that provide optimized copies
 from temporary objects. Rather than copy the resource, they
 take the resource from the original <code>foo</code> and set its 
 internal pointer to <code>nullptr</code>, effectively stealing the resource.</p>
 
-<p>Notice that the assignment operators (<a href="#line24" class="lineref" data-line="24" data-line-end="43">lines 24–43</a>) check for
-self-assignment to ensure that there are no bugs.</p>
+<p>Notice that the assignment operators (<a href="#line24" class="lineref" data-line="24" data-line-end="44">lines 24–44</a>) check for
+self-assignment to ensure safe management of the resource.</p>
 
-<p><strong>Note</strong>: The copy and move assignment operators may be
-alternatively implemented with the copy-and-swap idiom.</p>
+<p><strong>Note</strong>: The copy and move assignment operators in this sample
+provide only basic exception safety. They may alternatively be
+implemented with the copy-and-swap idiom, which provides strong
+exception safety at an optimisation cost.</p>
 
 <p><strong>Note</strong>: We can typically avoid manual memory management and
 having to write the copy constructor, assignment operator, and
@@ -280,14 +285,14 @@ destructor entirely by using the
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>07 April 2015</p>
+								<p>10 April 2015</p>
 								<h2>Source</h2>
 								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/rule-of-five.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>
 								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 								<div class="g-plusone" data-size="medium"></div>
 							</div>
@@ -319,7 +324,7 @@ var disqus_shortname = 'cppsamples';
 				<div class="column-2">
 					<p>Feel like <b>contributing</b>? This website is generated from a git repository. If you have something to add or have noticed a mistake, please <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the project on GitHub</a>.</p>
 					<p><div class="fb-like" data-href="http://www.cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.cppsamples.com/"></div>
 				</div>

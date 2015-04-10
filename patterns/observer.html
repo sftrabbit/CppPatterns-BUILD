@@ -186,37 +186,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						<h2>Description</h2>
 
+						<ul class="tags">
+
+							<li class="c++11">c++11</li>
+
+						</ul>
+
 						<p>The observer pattern allows generic observer objects to be
 registered with a subject object and receive notifications
 when certain events occur.</p>
 
 <p>The <code>subject</code> class, defined on <a href="#line17" class="lineref" data-line="17" data-line-end="34">lines 17–34</a>, contains a
-<a href="http://en.cppreference.com/w/cpp/container/vector"><code>std::vector</code></a> of references to observers.
+<a href="http://en.cppreference.com/w/cpp/container/vector"><code>std::vector</code></a> of references to observers <a href="#line33" class="lineref" data-line="33">line 33</a>.
 Observers (also known as listeners), in this case, are objects that
 implement the <code>observer</code> interface (<a href="#line4" class="lineref" data-line="4" data-line-end="8">lines 4–8</a>). The
 <code>register_observer</code> function (<a href="#line20" class="lineref" data-line="20" data-line-end="23">lines 20–23</a>) adds observers
 to this <code>std::vector</code>, which are later to be notified by the
 <code>notify_observers</code> function (<a href="#line25" class="lineref" data-line="25" data-line-end="30">lines 25–30</a>).</p>
 
+<p>We use <a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper"><code>std::reference_wrapper</code></a>
+for the elements of the <code>std::vector</code> (<a href="#line33" class="lineref" data-line="33">line 33</a>), because the standard
+containers require the element type to be assignable, which normal
+reference types are not.</p>
+
 						<div class="subrow">
 							<div class="column-1">
 								<h2>Contributors</h2>
 								<ul class="contributors">
 
-									<li><a title="Robbie Shade" ><img src="/images/unknown_user.png" alt="Robbie Shade"></a></li>
-
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+									<li><a title="Robbie Shade" ><img src="/images/unknown_user.png" alt="Robbie Shade"></a></li>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>07 April 2015</p>
+								<p>10 April 2015</p>
 								<h2>Source</h2>
 								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/2-patterns/behavioral/observer.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>
 								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 								<div class="g-plusone" data-size="medium"></div>
 							</div>
@@ -248,7 +259,7 @@ var disqus_shortname = 'cppsamples';
 				<div class="column-2">
 					<p>Feel like <b>contributing</b>? This website is generated from a git repository. If you have something to add or have noticed a mistake, please <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the project on GitHub</a>.</p>
 					<p><div class="fb-like" data-href="http://www.cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.cppsamples.com/"></div>
 				</div>

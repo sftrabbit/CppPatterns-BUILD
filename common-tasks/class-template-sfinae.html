@@ -123,20 +123,18 @@ document.addEventListener('DOMContentLoaded', function() {
 10
 11
 12
-13
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;type_traits&gt;</span></span>
-<span class="codeline" id="line2"><span class="cp">#include &lt;limits&gt;</span></span>
-<span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Enable</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line5"><span class="k">class</span> <span class="nc">foo</span><span class="p">;</span></span>
-<span class="codeline" id="line6"></span>
-<span class="codeline" id="line7"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line8"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line9"><span class="p">{</span> <span class="p">};</span></span>
-<span class="codeline" id="line10"></span>
-<span class="codeline" id="line11"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line12"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line13"><span class="p">{</span> <span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Enable</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span></span>
+<span class="codeline" id="line4"><span class="k">class</span> <span class="nc">foo</span><span class="p">;</span></span>
+<span class="codeline" id="line5"></span>
+<span class="codeline" id="line6"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
+<span class="codeline" id="line8"><span class="p">{</span> <span class="p">};</span></span>
+<span class="codeline" id="line9"></span>
+<span class="codeline" id="line10"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
+<span class="codeline" id="line11"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
+<span class="codeline" id="line12"><span class="p">{</span> <span class="p">};</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
@@ -156,16 +154,16 @@ template arguments.</p>
 						<p>We provide two partial specializations of the <code>foo</code> class template:</p>
 
 <ol>
-  <li>The template on <a href="#line7" class="lineref" data-line="7" data-line-end="9">lines 7–9</a> will only be instantiated when <code>T</code> is an
+  <li>The template on <a href="#line6" class="lineref" data-line="6" data-line-end="8">lines 6–8</a> will only be instantiated when <code>T</code> is an
 integral type.</li>
-  <li>The template on <a href="#line11" class="lineref" data-line="11" data-line-end="13">lines 11–13</a> will only be instantiated when <code>T</code> is a
+  <li>The template on <a href="#line10" class="lineref" data-line="10" data-line-end="12">lines 10–12</a> will only be instantiated when <code>T</code> is a
 floating point type.</li>
 </ol>
 
 <p>This allows us to provide different implementations of the <code>foo</code>
 class depending on the template arguments it is instantiated with.</p>
 
-<p>We have used <a href="http://en.cppreference.com/w/cpp/types/enable_if"><code>std::enable_if</code></a> on <a href="#line8" class="lineref" data-line="8">line 8</a> and
+<p>We have used <a href="http://en.cppreference.com/w/cpp/types/enable_if"><code>std::enable_if</code></a> on <a href="#line7" class="lineref" data-line="7">line 7</a> and
 <a href="#line11" class="lineref" data-line="11">line 11</a> to force instantiation to succeed only for the appropriate
 template arguments. This relies on <a href="http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">Substitution Failure Is Not An
 Error</a>
@@ -185,6 +183,8 @@ for certain template arguments, consider using
 
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
+									<li><a title="Alejandro Mallea" href="https://github.com/janoma"><img src="https://avatars.githubusercontent.com/u/1223453?v=3&size=36" alt="Alejandro Mallea"></a></li>
+
 								</ul>
 								<h2>Last Updated</h2>
 								<p>09 April 2015</p>
@@ -194,7 +194,7 @@ for certain template arguments, consider using
 							<div class="column-1">
 								<h2>Share</h2>
 								<p><div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+								<p><a href="https://twitter.com/share" class="twitter-share-button" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 								<div class="g-plusone" data-size="medium"></div>
 							</div>
@@ -226,7 +226,7 @@ var disqus_shortname = 'cppsamples';
 				<div class="column-2">
 					<p>Feel like <b>contributing</b>? This website is generated from a git repository. If you have something to add or have noticed a mistake, please <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the project on GitHub</a>.</p>
 					<p><div class="fb-like" data-href="http://www.cppsamples.com/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></p>
-					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="sftrabbit" data-dnt="true">Tweet</a></p>
+					<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.cppsamples.com/" data-text="Modern and idiomatic C++ code from C++ Samples" data-via="cppsamples" data-dnt="true">Tweet</a></p>
 					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					<div class="g-plus" data-action="share" data-annotation="bubble" data-href="http://www.cppsamples.com/"></div>
 				</div>

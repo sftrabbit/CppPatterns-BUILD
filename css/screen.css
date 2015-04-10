@@ -659,8 +659,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 /* line 7, ../../_compass/screen.scss */
 body {
   font-family: 'Roboto';
-  font-size: 17px;
-  line-height: 1.3em;
+  font-size: 15px;
+  line-height: 1.4em;
 }
 
 /* line 13, ../../_compass/screen.scss */
@@ -693,7 +693,7 @@ body > header h1 {
 
 /* line 37, ../../_compass/screen.scss */
 body > header p {
-  margin: 12px 0;
+  margin: 12px 0 0 0;
 }
 
 /* line 40, ../../_compass/screen.scss */
@@ -704,7 +704,7 @@ body > header h1 span {
 /* line 44, ../../_compass/screen.scss */
 section h1 {
   font-family: 'Roboto Slab';
-  font-size: 32px;
+  font-size: 26px;
   font-weight: normal;
   line-height: 1.3em;
 }
@@ -712,7 +712,7 @@ section h1 {
 /* line 50, ../../_compass/screen.scss */
 section section h1 {
   font-family: 'Roboto';
-  font-size: 22px;
+  font-size: 20px;
   border-left: none;
   padding: 0;
   margin-bottom: 16px;
@@ -734,7 +734,7 @@ ul.samples .tags li {
 /* line 70, ../../_compass/screen.scss */
 ul.samples li h1 {
   font-family: 'Roboto';
-  font-size: 17px;
+  font-size: 14px;
   border-bottom: none;
   margin-bottom: 5px;
 }

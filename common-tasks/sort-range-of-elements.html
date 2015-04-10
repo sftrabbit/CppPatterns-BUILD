@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Roll a die - C++ Samples</title>
+		<title>Sort a range of elements - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Generate a random integer according to a uniform distribution.
+		<meta name="description" content="Sort elements in a range into a given order.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/roll-a-die.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/sort-range-of-elements.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -18,10 +18,10 @@
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Roll a die - C++ Samples">
+		<meta property="og:title" content="Sort a range of elements - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/roll-a-die.html">
-		<meta property="og:description" content="Generate a random integer according to a uniform distribution.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/sort-range-of-elements.html">
+		<meta property="og:description" content="Sort elements in a range into a given order.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Roll a die</h1>
+						<h1>Sort a range of elements</h1>
 					</div>
 				</div>
 				<div class="row">
@@ -119,21 +119,29 @@ document.addEventListener('DOMContentLoaded', function() {
 8
 9
 10
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;random&gt;</span></span>
-<span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line4"><span class="p">{</span></span>
-<span class="codeline" id="line5">	<span class="n">std</span><span class="o">::</span><span class="n">random_device</span> <span class="n">random_device</span><span class="p">;</span></span>
-<span class="codeline" id="line6">	<span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">random_engine</span><span class="p">{</span><span class="n">random_device</span><span class="p">()};</span></span>
-<span class="codeline" id="line7">	<span class="n">std</span><span class="o">::</span><span class="n">uniform_int_distribution</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">die_distribution</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span></span>
-<span class="codeline" id="line8">	</span>
-<span class="codeline" id="line9">	<span class="kt">int</span> <span class="n">die_roll</span> <span class="o">=</span> <span class="n">die_distribution</span><span class="p">(</span><span class="n">random_engine</span><span class="p">);</span></span>
-<span class="codeline" id="line10"><span class="p">}</span></span></code></pre></td></tr></table>
+11
+12
+13
+14
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;array&gt;</span></span>
+<span class="codeline" id="line2"><span class="cp">#include &lt;algorithm&gt;</span></span>
+<span class="codeline" id="line3"><span class="cp">#include &lt;iterator&gt;</span></span>
+<span class="codeline" id="line4"><span class="cp">#include &lt;functional&gt;</span></span>
+<span class="codeline" id="line5"></span>
+<span class="codeline" id="line6"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line7"><span class="p">{</span></span>
+<span class="codeline" id="line8">	<span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">5</span><span class="o">&gt;</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span></span>
+<span class="codeline" id="line9"></span>
+<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">arr</span><span class="p">));</span></span>
+<span class="codeline" id="line11"></span>
+<span class="codeline" id="line12">	<span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span></span>
+<span class="codeline" id="line13">	          <span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{});</span></span>
+<span class="codeline" id="line14"><span class="p">}</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Generate a random integer according to a uniform distribution.</p>
+						<p>Sort elements in a range into a given order.</p>
 
 
 						<h2>Description</h2>
@@ -144,28 +152,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						</ul>
 
-						<p>The <a href="http://en.cppreference.com/w/cpp/numeric/random/random_device"><code>std::random_device</code></a> on <a href="#line5" class="lineref" data-line="5">line 5</a>
-provides a source of uniform non-deterministic random numbers
-(where such a source is available). We use this to seed the
-Mersenne Twister random number engine,
-<a href="http://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine"><code>std::mt19937</code></a>, on
-<a href="#line6" class="lineref" data-line="6">line 6</a>. Consider <a href="http://en.cppreference.com/w/cpp/numeric/random#Predefined_random_number_generators">other random number
-engines</a>
-for different properties.</p>
+						<p>On <a href="#line8" class="lineref" data-line="8">line 8</a>, we create a <a href="http://en.cppreference.com/w/cpp/container/array"><code>std::array</code></a> of <code>int</code>s
+that we wish to sort. </p>
 
-<p>On <a href="#line7" class="lineref" data-line="7">line 7</a>, we create a
-<a href="http://en.cppreference.com/w/cpp/numeric/random/uniform_int_distribution"><code>std::uniform_int_distribution</code></a>
-representing a uniform random distribution of integers from 1 to 6
-inclusive. That is, each value from 1 to 6 has an equal chance of
-occurring.</p>
+<p>On <a href="#line10" class="lineref" data-line="10">line 10</a>, we call the standard alrogithm
+<a href="http://en.cppreference.com/w/cpp/algorithm/sort"><code>std::sort</code></a>, which sorts the range of
+elements between the given pair of iterators. We use
+<a href="http://en.cppreference.com/w/cpp/iterator/begin"><code>std::begin</code></a> and
+<a href="http://en.cppreference.com/w/cpp/iterator/end"><code>std::end</code></a> to get the begin and end iterators
+for the array.</p>
 
-<p>Finally, we generate a random number from the random engine,
-distributed according to the uniform integer distribution (<a href="#line9" class="lineref" data-line="9">line 9</a>).
-This gives us a random integer from 1 to 6, as though we had rolled
-a 6-sided die.</p>
-
-<p>To generate further random numbers, simply call
-<code>die_distribution(random_engine)</code> again.</p>
+<p>By default, <code>std::sort</code> uses <code>operator&lt;</code> to sort the range, which
+arranges the elements in ascending order. It can, however, be
+passed a comparison function object to use when comparing
+elements. On <a href="#line12" class="lineref" data-line="12" data-line-end="13">lines 12–13</a>, we pass an object of type
+<a href="http://en.cppreference.com/w/cpp/utility/functional/greater"><code>std::greater&lt;int&gt;</code></a>, which is a
+comparison function object that uses <code>operator&gt;</code>. Accordingly, this
+sorts the array in descending order.</p>
 
 						<div class="subrow">
 							<div class="column-1">
@@ -176,9 +179,9 @@ a 6-sided die.</p>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>09 April 2015</p>
+								<p>10 April 2015</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/random/roll-a-die.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/algorithms/sort-range-of-elements.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>
