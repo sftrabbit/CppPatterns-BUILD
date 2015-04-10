@@ -168,8 +168,8 @@ values from the stream.</p>
 
 <p>In the condition of the <code>if</code> statement on <a href="#line15" class="lineref" data-line="15" data-line-end="18">lines 15–18</a>, we first perform
 an unformatted extraction with
-<a href="http://en.cppreference.com/w/cpp/string/basic_string/getline"><code>std::getline</code></a> <a href="#line15" class="lineref" data-line="15">line 15</a>
-and then a series of formatted extractions <a href="#line16" class="lineref" data-line="16">line 16</a>. The <code>&amp;&amp;</code> operator
+<a href="http://en.cppreference.com/w/cpp/string/basic_string/getline"><code>std::getline</code></a> (<a href="#line15" class="lineref" data-line="15">line 15</a>)
+and then a series of formatted extractions (<a href="#line16" class="lineref" data-line="16">line 16</a>). The <code>&amp;&amp;</code> operator
 ensures that the condition is <code>true</code> only when all extractions
 succeed. Short-circuiting also ensures that the second set of
 extractions are only attempted if the previous extraction was
@@ -188,7 +188,7 @@ and then parsing each line.</p>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>07 April 2015</p>
+								<p>10 April 2015</p>
 								<h2>Source</h2>
 								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/input-streams/validate-multiple-reads.cpp">Fork this sample on GitHub</a></p>
 							</div>

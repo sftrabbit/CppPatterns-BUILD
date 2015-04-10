@@ -41,11 +41,11 @@
 			</div>
 			<section class="sample featured">
 				<div class="row">
-					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/validate-multiple-reads.html">Validate multiple reads</a></h1>
+					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/rule-of-five.html">The rule of five</a></h1>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<a href="http://www.cppsamples.com/common-tasks/validate-multiple-reads.html">
+						<a href="http://www.cppsamples.com/common-tasks/rule-of-five.html">
 							<table class="codeblock"><tr><td class="linenums"><pre><code>1
 2
 3
@@ -65,37 +65,105 @@
 17
 18
 19
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;sstream&gt;</span></span>
-<span class="codeline" id="line2"><span class="cp">#include &lt;string&gt;</span></span>
-<span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line5"><span class="p">{</span></span>
-<span class="codeline" id="line6">	<span class="n">std</span><span class="o">::</span><span class="n">istringstream</span> <span class="n">stream</span><span class="p">{</span><span class="s">&quot;Chief Executive Officer</span><span class="se">\n</span><span class="s">&quot;</span></span>
-<span class="codeline" id="line7">	                          <span class="s">&quot;John Smith</span><span class="se">\n</span><span class="s">&quot;</span></span>
-<span class="codeline" id="line8">	                          <span class="s">&quot;32&quot;</span><span class="p">};</span></span>
-<span class="codeline" id="line9"></span>
-<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">position</span><span class="p">;</span></span>
-<span class="codeline" id="line11">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">first_name</span><span class="p">;</span></span>
-<span class="codeline" id="line12">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">family_name</span><span class="p">;</span></span>
-<span class="codeline" id="line13">	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span></span>
-<span class="codeline" id="line14"></span>
-<span class="codeline" id="line15">	<span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span> <span class="o">&amp;&amp;</span></span>
-<span class="codeline" id="line16">	    <span class="n">stream</span> <span class="o">&gt;&gt;</span> <span class="n">first_name</span> <span class="o">&gt;&gt;</span> <span class="n">family_name</span> <span class="o">&gt;&gt;</span> <span class="n">age</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="codeline" id="line17">		<span class="c1">// Use values</span></span>
-<span class="codeline" id="line18">	<span class="p">}</span></span>
-<span class="codeline" id="line19"><span class="p">}</span></span></code></pre></td></tr></table>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;utility&gt;</span></span>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">resource</span> <span class="p">{</span></span>
+<span class="codeline" id="line4">	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="codeline" id="line5"><span class="p">};</span></span>
+<span class="codeline" id="line6"></span>
+<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="codeline" id="line8"><span class="p">{</span></span>
+<span class="codeline" id="line9">	<span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line10">		<span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line11">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{}}</span></span>
+<span class="codeline" id="line12">		<span class="p">{</span> <span class="p">}</span></span>
+<span class="codeline" id="line13"></span>
+<span class="codeline" id="line14">		<span class="n">foo</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line15">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)}}</span></span>
+<span class="codeline" id="line16">		<span class="p">{</span> <span class="p">}</span></span>
+<span class="codeline" id="line17"></span>
+<span class="codeline" id="line18">		<span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line19">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">}</span></span>
+<span class="codeline" id="line20">		<span class="p">{</span></span>
+<span class="codeline" id="line21">			<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="codeline" id="line22">		<span class="p">}</span></span>
+<span class="codeline" id="line23"></span>
+<span class="codeline" id="line24">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line25">		<span class="p">{</span></span>
+<span class="codeline" id="line26">			<span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">other</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line27">				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line28">				<span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="codeline" id="line29">				<span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)};</span></span>
+<span class="codeline" id="line30">			<span class="p">}</span></span>
+<span class="codeline" id="line31"></span>
+<span class="codeline" id="line32">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="codeline" id="line33">		<span class="p">}</span></span>
+<span class="codeline" id="line34"></span>
+<span class="codeline" id="line35">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line36">		<span class="p">{</span></span>
+<span class="codeline" id="line37">			<span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">other</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line38">				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line39">				<span class="n">p</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line40">				<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="codeline" id="line41">			<span class="p">}</span></span>
+<span class="codeline" id="line42"></span>
+<span class="codeline" id="line43">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="codeline" id="line44">		<span class="p">}</span></span>
+<span class="codeline" id="line45"></span>
+<span class="codeline" id="line46">		<span class="o">~</span><span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line47">		<span class="p">{</span></span>
+<span class="codeline" id="line48">			<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line49">		<span class="p">}</span></span>
+<span class="codeline" id="line50"></span>
+<span class="codeline" id="line51">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line52">		<span class="n">resource</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line53"><span class="p">};</span></span></code></pre></td></tr></table>
 						</a>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Ensure that multiple stream reads are successful before using the
-extracted values.</p>
+						<p>Safely and efficiently implement RAII to encapsulate the
+management of dynamically allocated resources.</p>
 
 
 						<h2>Description</h2>
 
-						<p>We create a <a href="http://en.cppreference.com/w/cpp/io/basic_istringstream"><code>std::istringstream</code></a> as the example input stream, which contains some values that we wish to read (<a href="#line6" class="lineref" data-line="6" data-line-end="8">lines 6–8</a>). This stream could be replaced by any other input stream,...
-						<p><a href="http://www.cppsamples.com/common-tasks/validate-multiple-reads.html">Continue reading →</a></p>
+						<p>The rule of five is a modern expansion of the rule of three. Firstly, the <em>rule of three</em> specifies that if a class implements any of the following functions, it should implement all of them:</p>...
+						<p><a href="http://www.cppsamples.com/common-tasks/rule-of-five.html">Continue reading →</a></p>
 					</div>
 				</div>
 			</section>
