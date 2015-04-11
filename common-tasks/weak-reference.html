@@ -202,9 +202,8 @@ shared ownership (<a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><
 they do not contribute to the reference count of the managed object
 they refer to, the object can be destroyed at any time when all
 <code>std::shared_ptr</code>s give up ownership. However, a
-<a href="http://en.cppreference.com/w/cpp/memory/weak_ptr"><code>std::weak_ptr</code></a> can be converted to a
-<code>std::shared_ptr</code> to provide temporary
-ownership and safe access to the object.</p>
+<code>std::weak_ptr</code> can be converted to a <code>std::shared_ptr</code> to provide
+temporary ownership and safe access to the object.</p>
 
 <p>In this sample, we have two classes: <code>foo</code> on <a href="#line5" class="lineref" data-line="5" data-line-end="15">lines 5–15</a>, and <code>bar</code> on
 <a href="#line17" class="lineref" data-line="17" data-line-end="31">lines 17–31</a>. A <code>foo</code> object has shared ownership of a <code>bar</code> (<a href="#line14" class="lineref" data-line="14">line 14</a>), and
