@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Decorator - C++ Samples</title>
+		<title>Copy-and-swap - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Extend the functionality of a class.
+		<meta name="description" content="Implement the assignment operator with strong exception safety.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/patterns/decorator.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/copy-and-swap.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -18,10 +18,10 @@
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Decorator - C++ Samples">
+		<meta property="og:title" content="Copy-and-swap - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/patterns/decorator.html">
-		<meta property="og:description" content="Extend the functionality of a class.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/copy-and-swap.html">
+		<meta property="og:description" content="Implement the assignment operator with strong exception safety.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Decorator</h1>
+						<h1>Copy-and-swap</h1>
 					</div>
 				</div>
 				<div class="row">
@@ -151,86 +151,116 @@ document.addEventListener('DOMContentLoaded', function() {
 41
 42
 43
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="k">class</span> <span class="nc">foo</span></span>
-<span class="codeline" id="line2"><span class="p">{</span></span>
-<span class="codeline" id="line3">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line4">		<span class="k">virtual</span> <span class="kt">void</span> <span class="n">do_work</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+44
+45
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;utility&gt;</span></span>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">resource</span> <span class="p">{</span></span>
+<span class="codeline" id="line4">	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
 <span class="codeline" id="line5"><span class="p">};</span></span>
 <span class="codeline" id="line6"></span>
-<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo_concrete</span> <span class="o">:</span> <span class="k">public</span> <span class="n">foo</span></span>
+<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo</span></span>
 <span class="codeline" id="line8"><span class="p">{</span></span>
 <span class="codeline" id="line9">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line10">		<span class="k">virtual</span> <span class="kt">void</span> <span class="n">do_work</span><span class="p">()</span> <span class="k">override</span></span>
-<span class="codeline" id="line11">		<span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line12"><span class="p">};</span></span>
+<span class="codeline" id="line10">		<span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line11">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{}}</span></span>
+<span class="codeline" id="line12">		<span class="p">{</span> <span class="p">}</span></span>
 <span class="codeline" id="line13"></span>
-<span class="codeline" id="line14"><span class="k">class</span> <span class="nc">foo_decorator</span> <span class="o">:</span> <span class="k">public</span> <span class="n">foo</span></span>
-<span class="codeline" id="line15"><span class="p">{</span></span>
-<span class="codeline" id="line16">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line17">		<span class="n">foo_decorator</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;</span> <span class="n">f</span><span class="p">)</span></span>
-<span class="codeline" id="line18">			<span class="o">:</span> <span class="n">f</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></span>
-<span class="codeline" id="line19">		<span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line20"></span>
-<span class="codeline" id="line21">		<span class="k">virtual</span> <span class="kt">void</span> <span class="n">do_work</span><span class="p">()</span> <span class="k">override</span></span>
-<span class="codeline" id="line22">		<span class="p">{</span></span>
-<span class="codeline" id="line23">			<span class="c1">// Do something else here to decorate</span></span>
-<span class="codeline" id="line24">			<span class="c1">// the do_work function</span></span>
-<span class="codeline" id="line25">			<span class="n">f</span><span class="p">.</span><span class="n">do_work</span><span class="p">();</span></span>
-<span class="codeline" id="line26">		<span class="p">}</span></span>
+<span class="codeline" id="line14">		<span class="n">foo</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line15">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)}}</span></span>
+<span class="codeline" id="line16">		<span class="p">{</span> <span class="p">}</span></span>
+<span class="codeline" id="line17"></span>
+<span class="codeline" id="line18">		<span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line19">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">}</span></span>
+<span class="codeline" id="line20">		<span class="p">{</span></span>
+<span class="codeline" id="line21">			<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
+<span class="codeline" id="line22">		<span class="p">}</span></span>
+<span class="codeline" id="line23"></span>
+<span class="codeline" id="line24">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span> <span class="n">other</span><span class="p">)</span></span>
+<span class="codeline" id="line25">		<span class="p">{</span></span>
+<span class="codeline" id="line26">			<span class="n">swap</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="n">other</span><span class="p">);</span></span>
 <span class="codeline" id="line27"></span>
-<span class="codeline" id="line28">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line29">		<span class="n">foo</span><span class="o">&amp;</span> <span class="n">f</span><span class="p">;</span></span>
-<span class="codeline" id="line30"><span class="p">};</span></span>
-<span class="codeline" id="line31"></span>
-<span class="codeline" id="line32"><span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;</span> <span class="n">f</span><span class="p">)</span></span>
-<span class="codeline" id="line33"><span class="p">{</span></span>
-<span class="codeline" id="line34">	<span class="n">f</span><span class="p">.</span><span class="n">do_work</span><span class="p">();</span></span>
-<span class="codeline" id="line35"><span class="p">}</span></span>
-<span class="codeline" id="line36"></span>
-<span class="codeline" id="line37"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line38"><span class="p">{</span></span>
-<span class="codeline" id="line39">	<span class="n">foo_concrete</span> <span class="n">f</span><span class="p">;</span></span>
-<span class="codeline" id="line40">	<span class="n">foo_decorator</span> <span class="n">decorated_f</span><span class="p">{</span><span class="n">f</span><span class="p">};</span></span>
-<span class="codeline" id="line41"></span>
-<span class="codeline" id="line42">	<span class="n">bar</span><span class="p">(</span><span class="n">decorated_f</span><span class="p">);</span></span>
-<span class="codeline" id="line43"><span class="p">}</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line28">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
+<span class="codeline" id="line29">		<span class="p">}</span></span>
+<span class="codeline" id="line30"></span>
+<span class="codeline" id="line31">		<span class="o">~</span><span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line32">		<span class="p">{</span></span>
+<span class="codeline" id="line33">			<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line34">		<span class="p">}</span></span>
+<span class="codeline" id="line35"></span>
+<span class="codeline" id="line36">		<span class="k">friend</span> <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">second</span><span class="p">)</span></span>
+<span class="codeline" id="line37">		<span class="p">{</span></span>
+<span class="codeline" id="line38">			<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span></span>
+<span class="codeline" id="line39"></span>
+<span class="codeline" id="line40">			<span class="n">swap</span><span class="p">(</span><span class="n">first</span><span class="p">.</span><span class="n">p</span><span class="p">,</span> <span class="n">second</span><span class="p">.</span><span class="n">p</span><span class="p">);</span></span>
+<span class="codeline" id="line41">		<span class="p">}</span></span>
+<span class="codeline" id="line42"></span>
+<span class="codeline" id="line43">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line44">		<span class="n">resource</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span></span>
+<span class="codeline" id="line45"><span class="p">};</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Extend the functionality of a class.</p>
+						<p>Implement the assignment operator with strong exception safety.</p>
 
 
 						<h2>Description</h2>
 
-						<p>On <a href="#line7" class="lineref" data-line="7" data-line-end="12">lines 7–12</a>, we define the class that we wish to decorate,
-<code>foo_concrete</code>, which implements the <code>foo</code> interface.</p>
+						<ul class="tags">
 
-<p>The <code>foo_decorator</code> class, on <a href="#line14" class="lineref" data-line="14" data-line-end="29">lines 14–29</a>, also implements the
-<code>foo</code> interface. This decorator class wraps any other <code>foo</code>
-object, and forwarding any calls to the wrapped object. By adding
-additional code to <code>foo_decorator::do_work</code> (<a href="#line21" class="lineref" data-line="21" data-line-end="25">lines 21–25</a>), we can
-extend the functionality of the wrapped object.</p>
+							<li class="c++11">c++11</li>
 
-<p>To demonstrate, we wrap a <code>foo_concrete</code> with a <code>foo_decorator</code> on
-<a href="#line38" class="lineref" data-line="38" data-line-end="39">lines 38–39</a>, and pass it to the <code>bar</code> function on <a href="#line41" class="lineref" data-line="41">line 41</a>, which takes a
-reference to any <code>foo</code> object and calls <code>do_work</code> on it. In this
-case, the call will be decorated by <code>foo_decorator</code>.</p>
+						</ul>
+
+						<p>The copy-and-swap idiom identifies that we can implement a
+classes copy/move assignment operators in terms of its
+copy/move constructor and achieve strong exception safety.</p>
+
+<p>The class <code>foo</code>, on <a href="#line7" class="lineref" data-line="7" data-line-end="45">lines 7–45</a>, has an implementation similar to the
+<a href="/common-tasks/rule-of-five.html">rule of five</a>, yet its copy and
+move assignment operators have been replaced with a single
+assignment operator on <a href="#line24" class="lineref" data-line="24" data-line-end="29">lines 24–29</a>. This assignment operator takes its
+argument by value, making use of the existing copy and move
+constructor implementations.</p>
+
+<p>To implement the assignment operator, we simply need to swap the
+contents of <code>*this</code> and the argument, <code>other</code>. When <code>other</code> goes
+out of scope at the end of the function, it will destroy any
+resources that were originally associated with the current object.</p>
+
+<p>To achieve this, we define a <code>swap</code> function for our class on
+<a href="#line36" class="lineref" data-line="36" data-line-end="41">lines 36–41</a>, which itself calls <code>swap</code> on the class’s members (<a href="#line40" class="lineref" data-line="40">line 40</a>).
+We use a using-declaration on <a href="#line38" class="lineref" data-line="38">line 38</a> to allow <code>swap</code> to be found
+via <a href="http://en.wikipedia.org/wiki/Argument-dependent_name_lookup">argument-dependent lookup</a>
+before using <code>std::swap</code> — this is not strictly necessary
+in our case, because we are only swapping a pointer, but is good
+practice in general. Our assignment operator then simply swaps
+<code>*this</code> with <code>other</code> on <a href="#line26" class="lineref" data-line="26">line 26</a>.</p>
+
+<p>The copy-and-swap idiom has inherent strong exception safety
+because all allocations (if any) occur when copying into the
+<code>other</code> argument, before any changes have been made to <code>*this</code>.
+It is generally, however, less optimized than a more custom
+implementation of the assignment operators.</p>
+
+<p><strong>Note</strong>: We can typically avoid manual memory management and
+having to write the copy/move constructors, assignment operators,
+and destructor entirely by using the
+<a href="/common-tasks/rule-of-zero.html">rule of zero</a></p>
 
 						<div class="subrow">
 							<div class="column-1">
 								<h2>Contributors</h2>
 								<ul class="contributors">
 
-									<li><a title="Robbie Shade" ><img src="/images/unknown_user.png" alt="Robbie Shade"></a></li>
-
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>07 April 2015</p>
+								<p>11 April 2015</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/2-patterns/structural/decorator.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/copy-and-swap.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>

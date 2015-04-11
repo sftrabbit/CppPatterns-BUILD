@@ -944,14 +944,3 @@ ol {
   border: none;
   cursor: default;
 }
-
-/* line 274, ../../_compass/screen.scss */
-.disclaimer {
-  padding-bottom: 0;
-}
-/* line 277, ../../_compass/screen.scss */
-.disclaimer p {
-  background-color: #eee;
-  border: 1px solid #888;
-  padding: 16px;
-}

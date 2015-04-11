@@ -26,26 +26,25 @@
 		<header>
 			<div class="container">
 				<div class="row">
-					<div class="column-4">
+					<div class="column-2">
 						<h1><a href="http://www.cppsamples.com/"><span>C++</span>​Samples</a></h1>
 						<p>A repository of modern C++ code samples curated by the community.</p>
+					</div>
+					<div class="column-1 offset-1">
+						<a href="https://twitter.com/cppsamples" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @cppsamples</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 					</div>
 				</div>
 			</div>
 		</header>
 		<main class="container">
-			<div class="row disclaimer">
-				<div class="column-4">
-					<p>C++ Samples was launched on 6th April 2015 and the existing samples are still under review. If you notice any mistakes or would like to contribute additional samples, please leave comments or <a href="https://github.com/sftrabbit/CppSamples-Samples">fork the sample repository</a>.</p>
-				</div>
-			</div>
 			<section class="sample featured">
 				<div class="row">
-					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/rule-of-five.html">The rule of five</a></h1>
+					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/pimpl.html">The PIMPL idiom</a></h1>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<a href="http://www.cppsamples.com/common-tasks/rule-of-five.html">
+						<a href="http://www.cppsamples.com/common-tasks/pimpl.html">
 							<table class="codeblock"><tr><td class="linenums"><pre><code>1
 2
 3
@@ -89,81 +88,69 @@
 41
 42
 43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;utility&gt;</span></span>
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="c1">// foo.h - header file</span></span>
 <span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">resource</span> <span class="p">{</span></span>
-<span class="codeline" id="line4">	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line5"><span class="p">};</span></span>
-<span class="codeline" id="line6"></span>
-<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo</span></span>
-<span class="codeline" id="line8"><span class="p">{</span></span>
-<span class="codeline" id="line9">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line10">		<span class="n">foo</span><span class="p">()</span></span>
-<span class="codeline" id="line11">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{}}</span></span>
-<span class="codeline" id="line12">		<span class="p">{</span> <span class="p">}</span></span>
+<span class="codeline" id="line3"><span class="cp">#include &lt;memory&gt;</span></span>
+<span class="codeline" id="line4"></span>
+<span class="codeline" id="line5"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="codeline" id="line6"><span class="p">{</span></span>
+<span class="codeline" id="line7">	<span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line8">		<span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line9">		<span class="o">~</span><span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line10"></span>
+<span class="codeline" id="line11">		<span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">);</span></span>
+<span class="codeline" id="line12">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">);</span></span>
 <span class="codeline" id="line13"></span>
-<span class="codeline" id="line14">		<span class="n">foo</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line15">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)}}</span></span>
-<span class="codeline" id="line16">		<span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line17"></span>
-<span class="codeline" id="line18">		<span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line19">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">}</span></span>
-<span class="codeline" id="line20">		<span class="p">{</span></span>
-<span class="codeline" id="line21">			<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
-<span class="codeline" id="line22">		<span class="p">}</span></span>
-<span class="codeline" id="line23"></span>
-<span class="codeline" id="line24">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line25">		<span class="p">{</span></span>
-<span class="codeline" id="line26">			<span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">other</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="codeline" id="line27">				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line28">				<span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
-<span class="codeline" id="line29">				<span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)};</span></span>
-<span class="codeline" id="line30">			<span class="p">}</span></span>
-<span class="codeline" id="line31"></span>
-<span class="codeline" id="line32">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
-<span class="codeline" id="line33">		<span class="p">}</span></span>
-<span class="codeline" id="line34"></span>
-<span class="codeline" id="line35">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line36">		<span class="p">{</span></span>
-<span class="codeline" id="line37">			<span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">other</span> <span class="o">!=</span> <span class="k">this</span><span class="p">)</span> <span class="p">{</span></span>
-<span class="codeline" id="line38">				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line39">				<span class="n">p</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line40">				<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
-<span class="codeline" id="line41">			<span class="p">}</span></span>
-<span class="codeline" id="line42"></span>
-<span class="codeline" id="line43">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
-<span class="codeline" id="line44">		<span class="p">}</span></span>
-<span class="codeline" id="line45"></span>
-<span class="codeline" id="line46">		<span class="o">~</span><span class="n">foo</span><span class="p">()</span></span>
-<span class="codeline" id="line47">		<span class="p">{</span></span>
-<span class="codeline" id="line48">			<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line49">		<span class="p">}</span></span>
-<span class="codeline" id="line50"></span>
-<span class="codeline" id="line51">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line52">		<span class="n">resource</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line53"><span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line14">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line15">		<span class="k">class</span> <span class="nc">impl</span><span class="p">;</span></span>
+<span class="codeline" id="line16">		<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span> <span class="n">pimpl</span><span class="p">;</span></span>
+<span class="codeline" id="line17"><span class="p">};</span></span>
+<span class="codeline" id="line18"></span>
+<span class="codeline" id="line19"></span>
+<span class="codeline" id="line20"><span class="c1">// foo.cpp - implementation file</span></span>
+<span class="codeline" id="line21"></span>
+<span class="codeline" id="line22"><span class="k">class</span> <span class="nc">foo</span><span class="o">::</span><span class="n">impl</span></span>
+<span class="codeline" id="line23"><span class="p">{</span></span>
+<span class="codeline" id="line24">	<span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line25">		<span class="kt">void</span> <span class="n">do_internal_work</span><span class="p">()</span></span>
+<span class="codeline" id="line26">		<span class="p">{</span></span>
+<span class="codeline" id="line27">			<span class="n">internal_data</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></span>
+<span class="codeline" id="line28">		<span class="p">}</span></span>
+<span class="codeline" id="line29"></span>
+<span class="codeline" id="line30">	<span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line31">		<span class="kt">int</span> <span class="n">internal_data</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="codeline" id="line32"><span class="p">};</span></span>
+<span class="codeline" id="line33"></span>
+<span class="codeline" id="line34"><span class="n">foo</span><span class="o">::</span><span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line35">	<span class="o">:</span> <span class="n">pimpl</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span><span class="p">()}</span></span>
+<span class="codeline" id="line36"><span class="p">{</span></span>
+<span class="codeline" id="line37">	<span class="n">pimpl</span><span class="o">-&gt;</span><span class="n">do_internal_work</span><span class="p">();</span></span>
+<span class="codeline" id="line38"><span class="p">}</span></span>
+<span class="codeline" id="line39"></span>
+<span class="codeline" id="line40"><span class="n">foo</span><span class="o">::~</span><span class="n">foo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span>
+<span class="codeline" id="line41"></span>
+<span class="codeline" id="line42"><span class="n">foo</span><span class="o">::</span><span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span>
+<span class="codeline" id="line43"><span class="n">foo</span><span class="o">&amp;</span> <span class="n">foo</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span></code></pre></td></tr></table>
 						</a>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Safely and efficiently implement RAII to encapsulate the
-management of dynamically allocated resources.</p>
+						<p>Remove compilation dependencies on internal class implementations
+and improve compile times.</p>
 
 
 						<h2>Description</h2>
 
-						<p>The rule of five is a modern expansion of the rule of three. Firstly, the <em>rule of three</em> specifies that if a class implements any of the following functions, it should implement all of them:</p>...
-						<p><a href="http://www.cppsamples.com/common-tasks/rule-of-five.html">Continue reading →</a></p>
+						<ul class="tags">
+
+							<li class="c++11">c++11</li>
+
+							<li class="c++14">c++14</li>
+
+						</ul>
+
+						<p>When a header file changes, any files that <code>#include</code> that file will need to be recompiled. In the case of a class header, this is true even if those changes only apply to private members...
+						<p><a href="http://www.cppsamples.com/common-tasks/pimpl.html">Continue reading →</a></p>
 					</div>
 				</div>
 			</section>
@@ -224,6 +211,20 @@ management of dynamically allocated resources.</p>
 						<ul class="samples">
 
 							<li>
+								<h1><a href="http://www.cppsamples.com/common-tasks/copy-and-swap.html">Copy-and-swap</a></h1>
+
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
+
+								<p>Implement the assignment operator with strong exception safety.</p>
+
+
+							</li>
+
+							<li>
 								<h1><a href="http://www.cppsamples.com/common-tasks/non-member-interfaces.html">Non-member non-friend interfaces </a></h1>
 
 								<p>Reduce dependencies on internal class details and improve
@@ -251,6 +252,12 @@ and improve compile times.</p>
 
 							<li>
 								<h1><a href="http://www.cppsamples.com/common-tasks/rule-of-five.html">The rule of five</a></h1>
+
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
 
 								<p>Safely and efficiently implement RAII to encapsulate the
 management of dynamically allocated resources.</p>
@@ -407,6 +414,12 @@ and memory leaks.</p>
 
 							<li>
 								<h1><a href="http://www.cppsamples.com/common-tasks/weak-reference.html">Weak reference</a></h1>
+
+								<ul class="tags">
+
+									<li class="c++11">c++11</li>
+
+								</ul>
 
 								<p>Maintain a non-owning reference to a shared dynamically allocated
 object to break circular dependencies.</p>
