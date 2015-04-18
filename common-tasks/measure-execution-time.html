@@ -120,20 +120,18 @@ document.addEventListener('DOMContentLoaded', function() {
 10
 11
 12
-13
 </code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;chrono&gt;</span></span>
-<span class="codeline" id="line2"><span class="cp">#include &lt;iostream&gt;</span></span>
-<span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line5"><span class="p">{</span></span>
-<span class="codeline" id="line6">	<span class="k">using</span> <span class="n">clock</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="p">;</span></span>
-<span class="codeline" id="line7"></span>
-<span class="codeline" id="line8">	<span class="n">clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span></span>
-<span class="codeline" id="line9">	<span class="c1">// A long task...</span></span>
-<span class="codeline" id="line10">	<span class="n">clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">end</span> <span class="o">=</span> <span class="n">clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span></span>
-<span class="codeline" id="line11"></span>
-<span class="codeline" id="line12">	<span class="n">clock</span><span class="o">::</span><span class="n">duration</span> <span class="n">execution_time</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">;</span></span>
-<span class="codeline" id="line13"><span class="p">}</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line4"><span class="p">{</span></span>
+<span class="codeline" id="line5">	<span class="k">using</span> <span class="n">clock</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="p">;</span></span>
+<span class="codeline" id="line6"></span>
+<span class="codeline" id="line7">	<span class="n">clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">start</span> <span class="o">=</span> <span class="n">clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span></span>
+<span class="codeline" id="line8">	<span class="c1">// A long task...</span></span>
+<span class="codeline" id="line9">	<span class="n">clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">end</span> <span class="o">=</span> <span class="n">clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span></span>
+<span class="codeline" id="line10"></span>
+<span class="codeline" id="line11">	<span class="n">clock</span><span class="o">::</span><span class="n">duration</span> <span class="n">execution_time</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">;</span></span>
+<span class="codeline" id="line12"><span class="p">}</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
@@ -143,16 +141,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						<h2>Description</h2>
 
-						<p>We introduce the type alias <code>clock</code> on <a href="#line6" class="lineref" data-line="6">line 6</a> such that it refers to
+						<p>We introduce the type alias <code>clock</code> on <a href="#line5" class="lineref" data-line="5">line 5</a> such that it refers to
 the <a href="http://en.cppreference.com/w/cpp/chrono/steady_clock"><code>std::chrono::steady_clock</code></a> type.
 This type represents a monotonic (always increasing) clock.</p>
 
-<p>Before and after the task that we wish to time (<a href="#line8" class="lineref" data-line="8">line 8</a> and <a href="#line10" class="lineref" data-line="10">line 10</a>
+<p>Before and after the task that we wish to time (<a href="#line7" class="lineref" data-line="7">line 7</a> and <a href="#line9" class="lineref" data-line="9">line 9</a>
 respectively), we call the static member function <code>clock::now</code>
 which gives us a
 <a href="http://en.cppreference.com/w/cpp/chrono/time_point"><code>std::chrono::time_point</code></a> representing the
 point in time at which it was called. By subtracting the <code>start</code>
-time point from the <code>end</code> time point on <a href="#line12" class="lineref" data-line="12">line 12</a>, we get a
+time point from the <code>end</code> time point on <a href="#line11" class="lineref" data-line="11">line 11</a>, we get a
 <a href="http://en.cppreference.com/w/cpp/chrono/duration"><code>std::chrono::duration</code></a> representing the
 time taken between these time points and, therefore, the execution
 time of our task.</p>
