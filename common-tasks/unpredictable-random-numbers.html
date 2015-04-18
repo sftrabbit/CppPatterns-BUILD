@@ -1,14 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Class template SFINAE - C++ Samples</title>
+		<title>Unpredictable random numbers - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Conditionally instantiate a class template depending on the
-template arguments.
+		<meta name="description" content="Seed a random number engine with greater unpredictability.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/class-template-sfinae.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/unpredictable-random-numbers.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -19,11 +18,10 @@ template arguments.
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Class template SFINAE - C++ Samples">
+		<meta property="og:title" content="Unpredictable random numbers - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/class-template-sfinae.html">
-		<meta property="og:description" content="Conditionally instantiate a class template depending on the
-template arguments.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/unpredictable-random-numbers.html">
+		<meta property="og:description" content="Seed a random number engine with greater unpredictability.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -105,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Class template SFINAE</h1>
+						<h1>Unpredictable random numbers</h1>
 					</div>
 				</div>
 				<div class="row">
@@ -118,28 +116,19 @@ document.addEventListener('DOMContentLoaded', function() {
 6
 7
 8
-9
-10
-11
-12
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;type_traits&gt;</span></span>
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;random&gt;</span></span>
 <span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Enable</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line4"><span class="k">class</span> <span class="nc">foo</span><span class="p">;</span></span>
-<span class="codeline" id="line5"></span>
-<span class="codeline" id="line6"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line8"><span class="p">{</span> <span class="p">};</span></span>
-<span class="codeline" id="line9"></span>
-<span class="codeline" id="line10"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line11"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line12"><span class="p">{</span> <span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line3"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span></span>
+<span class="codeline" id="line4">	<span class="n">std</span><span class="o">::</span><span class="n">random_device</span> <span class="n">r</span><span class="p">;</span></span>
+<span class="codeline" id="line5">	<span class="n">std</span><span class="o">::</span><span class="n">seed_seq</span> <span class="n">seed_seq</span><span class="p">{</span><span class="n">r</span><span class="p">(),</span> <span class="n">r</span><span class="p">(),</span> <span class="n">r</span><span class="p">(),</span> <span class="n">r</span><span class="p">(),</span> <span class="n">r</span><span class="p">(),</span> <span class="n">r</span><span class="p">()};</span></span>
+<span class="codeline" id="line6"></span>
+<span class="codeline" id="line7">	<span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">engine</span><span class="p">{</span><span class="n">seed_seq</span><span class="p">};</span></span>
+<span class="codeline" id="line8"><span class="p">}</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Conditionally instantiate a class template depending on the
-template arguments.</p>
+						<p>Seed a random number engine with greater unpredictability.</p>
 
 
 						<h2>Description</h2>
@@ -150,45 +139,45 @@ template arguments.</p>
 
 						</ul>
 
-						<p>We provide two partial specializations of the <code>foo</code> class template:</p>
+						<p>A pseudo-random number engine is initialised with a seed, which
+determines the initial state of the engine. When seeding with
+a single 32 bit value (as is typically provided by
+<a href="http://en.cppreference.com/w/cpp/numeric/random/random_device">std::random_device</a>), the
+engine can be in one of only 2<sup>32</sup> states. By providing an
+an engine with a greater amount of random seed data, we increase
+the number of possible states and therefore the unpredicitability
+of the engine.</p>
 
-<ol>
-  <li>The template on <a href="#line6" class="lineref" data-line="6" data-line-end="8">lines 6–8</a> will only be instantiated when <code>T</code> is an
-integral type.</li>
-  <li>The template on <a href="#line10" class="lineref" data-line="10" data-line-end="12">lines 10–12</a> will only be instantiated when <code>T</code> is a
-floating point type.</li>
-</ol>
+<p>On <a href="#line4" class="lineref" data-line="4">line 4</a>, we create a <code>std::random_device</code> as a source of
+non-deterministic random numbers (if such a source is available).
+On <a href="#line5" class="lineref" data-line="5">line 5</a>, we initialise a <a href="http://en.cppreference.com/w/cpp/numeric/random/seed_seq"><code>std::seed_seq</code></a>
+with several initial seeds produced by the <code>std::random_device</code>.
+On <a href="#line7" class="lineref" data-line="7">line 7</a>, we seed a random number engine with this <code>std::seed_seq</code>,
+which provides the engine with a sequence of evenly
+distributed seeds with low bias (although <a href="http://www.pcg-random.org/posts/cpp-seeding-surprises.html">not
+bias-free</a>).
+Providing more initial seeds will increase the unpredictability of
+the engine by increasing the number of possible seed sequences that
+might be generated.</p>
 
-<p>This allows us to provide different implementations of the <code>foo</code>
-class depending on the template arguments it is instantiated with.</p>
-
-<p>We have used <a href="http://en.cppreference.com/w/cpp/types/enable_if"><code>std::enable_if</code></a> on <a href="#line7" class="lineref" data-line="7">line 7</a> and
-<a href="#line11" class="lineref" data-line="11">line 11</a> to force instantiation to succeed only for the appropriate
-template arguments. This relies on <a href="http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">Substitution Failure Is Not An
-Error</a>
-(SFINAE), which states that
-failing to instantiate a template with some particular
-template arguments does not result in an error and simply discards
-that instantiation.</p>
-
-<p>If you want to simply prevent a template from being instantiated
-for certain template arguments, consider using
-<a href="http://en.cppreference.com/w/cpp/language/static_assert"><code>static_assert</code></a> instead.</p>
+<p>While a <code>std::seed_seq</code> can be used to initialize multiple random
+number engines, bear in mind that a particular <code>std::seed_seq</code> will
+produce the same sequence of seeds each time it is used.</p>
 
 						<div class="subrow">
 							<div class="column-1">
 								<h2>Contributors</h2>
 								<ul class="contributors">
 
-									<li><a title="Alejandro Mallea" href="https://github.com/janoma"><img src="https://avatars.githubusercontent.com/u/1223453?v=3&size=36" alt="Alejandro Mallea"></a></li>
-
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+									<li><a title="Seth Cantrell" ><img src="/images/unknown_user.png" alt="Seth Cantrell"></a></li>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>09 April 2015</p>
+								<p>18 April 2015</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/templates/class-template-sfinae.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/random/unpredictable-random-numbers.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>

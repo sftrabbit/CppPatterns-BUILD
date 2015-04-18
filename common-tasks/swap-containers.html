@@ -1,14 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Class template SFINAE - C++ Samples</title>
+		<title>Swap containers - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Conditionally instantiate a class template depending on the
-template arguments.
+		<meta name="description" content="Swap the contents of two containers.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/class-template-sfinae.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/swap-containers.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -19,11 +18,10 @@ template arguments.
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Class template SFINAE - C++ Samples">
+		<meta property="og:title" content="Swap containers - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/class-template-sfinae.html">
-		<meta property="og:description" content="Conditionally instantiate a class template depending on the
-template arguments.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/swap-containers.html">
+		<meta property="og:description" content="Swap the contents of two containers.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -105,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Class template SFINAE</h1>
+						<h1>Swap containers</h1>
 					</div>
 				</div>
 				<div class="row">
@@ -122,73 +120,70 @@ document.addEventListener('DOMContentLoaded', function() {
 10
 11
 12
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;type_traits&gt;</span></span>
-<span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Enable</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line4"><span class="k">class</span> <span class="nc">foo</span><span class="p">;</span></span>
-<span class="codeline" id="line5"></span>
-<span class="codeline" id="line6"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line8"><span class="p">{</span> <span class="p">};</span></span>
+13
+14
+15
+16
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;algorithm&gt;</span></span>
+<span class="codeline" id="line2"><span class="cp">#include &lt;utility&gt;</span></span>
+<span class="codeline" id="line3"><span class="cp">#include &lt;vector&gt;</span></span>
+<span class="codeline" id="line4"></span>
+<span class="codeline" id="line5"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line6"><span class="p">{</span></span>
+<span class="codeline" id="line7">	<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span> <span class="p">};</span></span>
+<span class="codeline" id="line8">	<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span> <span class="p">};</span></span>
 <span class="codeline" id="line9"></span>
-<span class="codeline" id="line10"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line11"><span class="k">class</span> <span class="nc">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line12"><span class="p">{</span> <span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">swap_ranges</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">v2</span><span class="p">));</span></span>
+<span class="codeline" id="line11"></span>
+<span class="codeline" id="line12">	<span class="n">v1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span></span>
+<span class="codeline" id="line13"></span>
+<span class="codeline" id="line14">	<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span></span>
+<span class="codeline" id="line15">	<span class="n">swap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">);</span></span>
+<span class="codeline" id="line16"><span class="p">}</span></span></code></pre></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Conditionally instantiate a class template depending on the
-template arguments.</p>
+						<p>Swap the contents of two containers.</p>
 
 
 						<h2>Description</h2>
 
-						<ul class="tags">
+						<p>On <a href="#line7" class="lineref" data-line="7" data-line-end="8">lines 7–8</a>, we create two <a href="http://en.cppreference.com/w/cpp/container/vector"><code>std::vector</code></a>s
+and initialise them with values.</p>
 
-							<li class="c++11">c++11</li>
+<p>On <a href="#line10" class="lineref" data-line="10">line 10</a>, we swap the contents of the two <code>std::vector</code>s using the
+<a href="http://en.cppreference.com/w/cpp/algorithm/swap_ranges"><code>std::swap_ranges</code></a> algorithm, which
+is given the beginning and end iterators of one range and the 
+beginning iterator of a second range. This performs an
+element-by-element swap of their values (in this case, four swaps).
+The second range must have at least the number of elements in the
+first range. After this operation, iterators remain valid and point
+at the same container as they did previously.</p>
 
-						</ul>
-
-						<p>We provide two partial specializations of the <code>foo</code> class template:</p>
-
-<ol>
-  <li>The template on <a href="#line6" class="lineref" data-line="6" data-line-end="8">lines 6–8</a> will only be instantiated when <code>T</code> is an
-integral type.</li>
-  <li>The template on <a href="#line10" class="lineref" data-line="10" data-line-end="12">lines 10–12</a> will only be instantiated when <code>T</code> is a
-floating point type.</li>
-</ol>
-
-<p>This allows us to provide different implementations of the <code>foo</code>
-class depending on the template arguments it is instantiated with.</p>
-
-<p>We have used <a href="http://en.cppreference.com/w/cpp/types/enable_if"><code>std::enable_if</code></a> on <a href="#line7" class="lineref" data-line="7">line 7</a> and
-<a href="#line11" class="lineref" data-line="11">line 11</a> to force instantiation to succeed only for the appropriate
-template arguments. This relies on <a href="http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">Substitution Failure Is Not An
-Error</a>
-(SFINAE), which states that
-failing to instantiate a template with some particular
-template arguments does not result in an error and simply discards
-that instantiation.</p>
-
-<p>If you want to simply prevent a template from being instantiated
-for certain template arguments, consider using
-<a href="http://en.cppreference.com/w/cpp/language/static_assert"><code>static_assert</code></a> instead.</p>
+<p>On <a href="#line12" class="lineref" data-line="12">line 12</a>, we use <code>std::vector</code>’s <code>swap</code> member function to swap the
+contents all in one shot. Alternatively, <a href="#line14" class="lineref" data-line="14" data-line-end="15">lines 14–15</a> perform the same
+operation with the <a href="/common-tasks/swap-values.html">generic swap pattern</a>.
+This approach is much faster than <code>std::swap_ranges</code>, as it simply
+swaps over the internal storage in constant time. It also does not
+require the containers to have the same size. However, after the
+operation, iterators will now point at the other container and
+past-the-end iterators are invalidated.</p>
 
 						<div class="subrow">
 							<div class="column-1">
 								<h2>Contributors</h2>
 								<ul class="contributors">
 
-									<li><a title="Alejandro Mallea" href="https://github.com/janoma"><img src="https://avatars.githubusercontent.com/u/1223453?v=3&size=36" alt="Alejandro Mallea"></a></li>
-
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
+
+									<li><a title="Mark A. Gibbs" href="https://github.com/DarkerStar"><img src="https://avatars.githubusercontent.com/u/2659436?v=3&size=36" alt="Mark A. Gibbs"></a></li>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>09 April 2015</p>
+								<p>15 April 2015</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/templates/class-template-sfinae.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/algorithms/swap-containers.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>
