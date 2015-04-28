@@ -40,11 +40,11 @@
 		<main class="container">
 			<section class="sample featured">
 				<div class="row">
-					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/copy-and-swap.html">Copy-and-swap</a></h1>
+					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/flip-a-biased-coin.html">Flip a biased coin</a></h1>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<a href="http://www.cppsamples.com/common-tasks/copy-and-swap.html">
+						<a href="http://www.cppsamples.com/common-tasks/flip-a-biased-coin.html">
 							<table class="codeblock"><tr><td class="linenums"><pre><code>1
 2
 3
@@ -55,91 +55,22 @@
 8
 9
 10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;utility&gt;</span></span>
+</code></pre></td><td class="code highlight"><pre><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;random&gt;</span></span>
 <span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">resource</span> <span class="p">{</span></span>
-<span class="codeline" id="line4">	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line5"><span class="p">};</span></span>
-<span class="codeline" id="line6"></span>
-<span class="codeline" id="line7"><span class="k">class</span> <span class="nc">foo</span></span>
-<span class="codeline" id="line8"><span class="p">{</span></span>
-<span class="codeline" id="line9">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line10">		<span class="n">foo</span><span class="p">()</span></span>
-<span class="codeline" id="line11">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{}}</span></span>
-<span class="codeline" id="line12">		<span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line13"></span>
-<span class="codeline" id="line14">		<span class="n">foo</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line15">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="n">resource</span><span class="p">{</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">)}}</span></span>
-<span class="codeline" id="line16">		<span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line17"></span>
-<span class="codeline" id="line18">		<span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line19">			<span class="o">:</span> <span class="n">p</span><span class="p">{</span><span class="n">other</span><span class="p">.</span><span class="n">p</span><span class="p">}</span></span>
-<span class="codeline" id="line20">		<span class="p">{</span></span>
-<span class="codeline" id="line21">			<span class="n">other</span><span class="p">.</span><span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span></span>
-<span class="codeline" id="line22">		<span class="p">}</span></span>
-<span class="codeline" id="line23"></span>
-<span class="codeline" id="line24">		<span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span> <span class="n">other</span><span class="p">)</span></span>
-<span class="codeline" id="line25">		<span class="p">{</span></span>
-<span class="codeline" id="line26">			<span class="n">swap</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="n">other</span><span class="p">);</span></span>
-<span class="codeline" id="line27"></span>
-<span class="codeline" id="line28">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span></span>
-<span class="codeline" id="line29">		<span class="p">}</span></span>
-<span class="codeline" id="line30"></span>
-<span class="codeline" id="line31">		<span class="o">~</span><span class="n">foo</span><span class="p">()</span></span>
-<span class="codeline" id="line32">		<span class="p">{</span></span>
-<span class="codeline" id="line33">			<span class="k">delete</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line34">		<span class="p">}</span></span>
-<span class="codeline" id="line35"></span>
-<span class="codeline" id="line36">		<span class="k">friend</span> <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">second</span><span class="p">)</span></span>
-<span class="codeline" id="line37">		<span class="p">{</span></span>
-<span class="codeline" id="line38">			<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span></span>
-<span class="codeline" id="line39"></span>
-<span class="codeline" id="line40">			<span class="n">swap</span><span class="p">(</span><span class="n">first</span><span class="p">.</span><span class="n">p</span><span class="p">,</span> <span class="n">second</span><span class="p">.</span><span class="n">p</span><span class="p">);</span></span>
-<span class="codeline" id="line41">		<span class="p">}</span></span>
-<span class="codeline" id="line42"></span>
-<span class="codeline" id="line43">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line44">		<span class="n">resource</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span></span>
-<span class="codeline" id="line45"><span class="p">};</span></span></code></pre></td></tr></table>
+<span class="codeline" id="line3"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line4"><span class="p">{</span></span>
+<span class="codeline" id="line5">	<span class="n">std</span><span class="o">::</span><span class="n">random_device</span> <span class="n">random_device</span><span class="p">;</span></span>
+<span class="codeline" id="line6">	<span class="n">std</span><span class="o">::</span><span class="n">mt19937</span> <span class="n">random_engine</span><span class="p">{</span><span class="n">random_device</span><span class="p">()};</span></span>
+<span class="codeline" id="line7">	<span class="n">std</span><span class="o">::</span><span class="n">bernoulli_distribution</span> <span class="n">coin_distribution</span><span class="p">{</span><span class="mf">0.25</span><span class="p">};</span></span>
+<span class="codeline" id="line8"></span>
+<span class="codeline" id="line9">	<span class="kt">bool</span> <span class="n">outcome</span> <span class="o">=</span> <span class="n">coin_distribution</span><span class="p">(</span><span class="n">random_engine</span><span class="p">);</span></span>
+<span class="codeline" id="line10"><span class="p">}</span></span></code></pre></td></tr></table>
 						</a>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Implement the assignment operator with strong exception safety.</p>
+						<p>Generate a random boolean value according to a bernoulli
+distribution.</p>
 
 
 						<h2>Description</h2>
@@ -150,8 +81,8 @@
 
 						</ul>
 
-						<p>The copy-and-swap idiom identifies that we can implement a classes copy/move assignment operators in terms of its copy/move constructor and achieve strong exception safety.</p> <p>The class <code>foo</code>, on <a href="#line7" class="lineref" data-line="7" data-line-end="45">lines 7–45</a>, has...
-						<p><a href="http://www.cppsamples.com/common-tasks/copy-and-swap.html">Continue reading →</a></p>
+						<p>The <a href="http://en.cppreference.com/w/cpp/numeric/random/random_device"><code>std::random_device</code></a> on <a href="#line5" class="lineref" data-line="5">line 5</a> provides a source of uniform non-deterministic random numbers (where such a source is available). We use this to seed the Mersenne Twister random number engine, <a...
+						<p><a href="http://www.cppsamples.com/common-tasks/flip-a-biased-coin.html">Continue reading →</a></p>
 					</div>
 				</div>
 			</section>
@@ -333,9 +264,49 @@ implement custom copy and move operations.</p>
 		
 				<section class="samples-section">
 					<div class="samples-section-header row">
+						<h1 class="column-4">Containers</h1>
+					</div>
+					<div class="row">
+		
+						<div class="index-item column-1">
+							<h1><a href="http://www.cppsamples.com/common-tasks/check-existence-of-key.html">Check existence of a key</a></h1>
+			
+							<ul class="tags">
+				
+								<li class="c++11">c++11</li>
+				
+							</ul>
+			
+							<p>Check if a particular key is in an associative container.</p>
+
+
+						</div>
+					
+		
+					</div>
+				</section>
+	
+		
+				<section class="samples-section">
+					<div class="samples-section-header row">
 						<h1 class="column-4">Functions</h1>
 					</div>
 					<div class="row">
+		
+						<div class="index-item column-1">
+							<h1><a href="http://www.cppsamples.com/common-tasks/apply-tuple-to-function.html">Apply tuple to a function</a></h1>
+			
+							<ul class="tags">
+				
+								<li class="c++14">c++14</li>
+				
+							</ul>
+			
+							<p>Unpack a tuple as the arguments of a function.</p>
+
+
+						</div>
+					
 		
 						<div class="index-item column-1">
 							<h1><a href="http://www.cppsamples.com/common-tasks/optional-arguments.html">Optional arguments</a></h1>
@@ -382,7 +353,7 @@ implement custom copy and move operations.</p>
 
 
 						</div>
-					
+					</div><div class="row">
 		
 					</div>
 				</section>
@@ -711,6 +682,15 @@ function had been called directly.</p>
 						</div>
 					
 		
+						<div class="index-item column-1">
+							<h1><a href="http://www.cppsamples.com/common-tasks/sleep.html">Sleep</a></h1>
+			
+							<p>Block the execution of a thread for a given amount of time.</p>
+
+
+						</div>
+					
+		
 					</div>
 				</section>
 	
@@ -788,7 +768,7 @@ representation.</p>
 
 
 						</div>
-					</div><div class="row">
+					
 		
 					</div>
 				</section>
