@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						<p>The <code>apply_from_tuple</code> function template on <a href="#line12" class="lineref" data-line="12" data-line-end="21">lines 12–21</a> returns the
 result of applying the function <code>fn</code> to the values stored in the
 <a href="http://en.cppreference.com/w/cpp/utility/tuple"><code>std::tuple</code></a> <code>t</code>. On <a href="#line15" class="lineref" data-line="15" data-line-end="16">lines 15–16</a>, we store the
-size of <code>t</code> in <code>tSize</code>, which is declared <code>constexpr</code> because
-its value can be determined at compile-time. On <a href="#line18" class="lineref" data-line="18" data-line-end="20">lines 18–20</a>, we call
+size of <code>t</code> in <code>tSize</code>, which is declared <code>constexpr</code> so that
+it can be evaluated at compile-time. On <a href="#line18" class="lineref" data-line="18" data-line-end="20">lines 18–20</a>, we call
 <code>apply_tuple_impl</code> passing <code>t</code>, <code>fn</code> and an 
 <a href="http://en.cppreference.com/w/cpp/utility/integer_sequence"><code>std::index_sequence</code></a> 
 which carries a parameter pack containing a sequence of integers
