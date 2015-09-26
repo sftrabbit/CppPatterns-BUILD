@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Lexicographic ordering - C++ Samples</title>
+		<title>Virtual constructor - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Implement a lexicographic ordering over class members.
+		<meta name="description" content="Create a copy of an object through a pointer to its base type.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/lexicographic-ordering.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/virtual-constructor.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -18,10 +18,10 @@
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Lexicographic ordering - C++ Samples">
+		<meta property="og:title" content="Virtual constructor - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/lexicographic-ordering.html">
-		<meta property="og:description" content="Implement a lexicographic ordering over class members.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/virtual-constructor.html">
+		<meta property="og:description" content="Create a copy of an object through a pointer to its base type.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -108,35 +108,39 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Lexicographic ordering</h1>
+						<h1>Virtual constructor</h1>
 					</div>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;tuple&gt;</span></span>
+						<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;memory&gt;</span></span>
 <span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">Base</span></span>
 <span class="codeline" id="line4"><span class="p">{</span></span>
-<span class="codeline" id="line5">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line6">		<span class="n">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">n_</span><span class="p">,</span> <span class="kt">char</span> <span class="n">c_</span><span class="p">,</span> <span class="kt">double</span> <span class="n">d_</span><span class="p">)</span></span>
-<span class="codeline" id="line7">			<span class="o">:</span> <span class="n">n</span><span class="p">{</span><span class="n">n_</span><span class="p">},</span> <span class="n">c</span><span class="p">{</span><span class="n">c_</span><span class="p">},</span> <span class="n">d</span><span class="p">{</span><span class="n">d_</span><span class="p">}</span></span>
-<span class="codeline" id="line8">		<span class="p">{}</span></span>
-<span class="codeline" id="line9"></span>
-<span class="codeline" id="line10">		<span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">lh</span><span class="p">,</span> <span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">rh</span><span class="p">)</span></span>
-<span class="codeline" id="line11">		<span class="p">{</span></span>
-<span class="codeline" id="line12">			<span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">lh</span><span class="p">.</span><span class="n">n</span><span class="p">,</span> <span class="n">lh</span><span class="p">.</span><span class="n">c</span><span class="p">,</span> <span class="n">lh</span><span class="p">.</span><span class="n">d</span><span class="p">)</span> <span class="o">&lt;</span></span>
-<span class="codeline" id="line13">			       <span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">rh</span><span class="p">.</span><span class="n">n</span><span class="p">,</span> <span class="n">rh</span><span class="p">.</span><span class="n">c</span><span class="p">,</span> <span class="n">rh</span><span class="p">.</span><span class="n">d</span><span class="p">);</span></span>
-<span class="codeline" id="line14">		<span class="p">}</span></span>
-<span class="codeline" id="line15">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line16">		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span></span>
-<span class="codeline" id="line17">		<span class="kt">char</span> <span class="n">c</span><span class="p">;</span></span>
-<span class="codeline" id="line18">		<span class="kt">double</span> <span class="n">d</span><span class="p">;</span></span>
-<span class="codeline" id="line19"><span class="p">};</span></span></code></td></tr></table>
+<span class="codeline" id="line5"><span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line6">	<span class="k">virtual</span> <span class="o">~</span><span class="n">Base</span><span class="p">()</span> <span class="p">{}</span></span>
+<span class="codeline" id="line7"></span>
+<span class="codeline" id="line8">	<span class="k">virtual</span> <span class="n">Base</span><span class="o">*</span> <span class="n">clone</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="codeline" id="line9"><span class="p">};</span></span>
+<span class="codeline" id="line10"></span>
+<span class="codeline" id="line11"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span></span>
+<span class="codeline" id="line12"><span class="p">{</span></span>
+<span class="codeline" id="line13"><span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line14">	<span class="n">Derived</span><span class="o">*</span> <span class="n">clone</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span></span>
+<span class="codeline" id="line15">	<span class="p">{</span></span>
+<span class="codeline" id="line16">		<span class="k">return</span> <span class="k">new</span> <span class="n">Derived</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span></span>
+<span class="codeline" id="line17">	<span class="p">}</span></span>
+<span class="codeline" id="line18"><span class="p">};</span></span>
+<span class="codeline" id="line19"></span>
+<span class="codeline" id="line20"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Base</span><span class="o">&gt;</span> <span class="n">original</span><span class="p">)</span></span>
+<span class="codeline" id="line21"><span class="p">{</span></span>
+<span class="codeline" id="line22">	<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Base</span><span class="o">&gt;</span> <span class="n">copy</span><span class="p">{</span><span class="n">original</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">()};</span></span>
+<span class="codeline" id="line23"><span class="p">}</span></span></code></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Implement a lexicographic ordering over class members.</p>
+						<p>Create a copy of an object through a pointer to its base type.</p>
 
 
 						<h2>Description</h2>
@@ -147,23 +151,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 						</ul>
 
-						<p>The class <code>foo</code>, on <a href="#line3" class="lineref" data-line="3" data-line-end="19">lines 3–19</a>, has three member variables <code>n</code>, <code>c</code> and
-<code>d</code> declared on <a href="#line16" class="lineref" data-line="16" data-line-end="18">lines 16–18</a>. We wish to implement an ordering relation
-for <code>foo</code> where these members are compared lexicographically.</p>
+						<p>You can’t copy an object unless you know its static type, because
+the compiler must know the amount of space it needs to allocate.
+Therefore we can’t copy an object of derived type directly through
+a pointer to its base.</p>
 
-<p>Getting an ordering relation right with 3 elements or more is
-tedious and error-prone. Fortunately, the standard library
-provides a lexicographic ordering over
-<a href="http://en.cppreference.com/w/cpp/utility/tuple"><code>std::tuple</code></a>, which we can utilise.</p>
+<p>The virtual constructor idiom is a technique for delegating the
+act of copying the object to the derived class through the use of
+virtual functions. To demonstrate, we declare a virtual member
+function of <code>Base</code> on <a href="#line8" class="lineref" data-line="8">line 8</a> (typically named <code>clone</code>) that each of
+the derived classes will implement to return a copy of themselves.
+The <code>Derived</code> class implements this <code>clone</code> function on <a href="#line14" class="lineref" data-line="14" data-line-end="17">lines 14–17</a>, 
+simply by creating a copy of itself and returning it.</p>
 
-<p>The less-than operator for <code>foo</code> defined on <a href="#line10" class="lineref" data-line="10" data-line-end="14">lines 10–14</a> compares the
-member <code>n</code> first, then <code>c</code> if the <code>n</code>s are equal, and finally the
-member <code>d</code> if both the <code>n</code>s and <code>c</code>s are equal. To achieve this,
-we use <a href="http://en.cppreference.com/w/cpp/utility/tuple/tie"><code>std::tie</code></a> on <a href="#line12" class="lineref" data-line="12">line 12</a> and <a href="#line13" class="lineref" data-line="13">line 13</a> to
-create <code>std::tuple</code>s containing references to the members of
-the left operand and right operand respectively. The comparison
-of these <code>std::tuple</code>s provides a lexicographic ordering over
-these members.</p>
+<p>Now, consider that we are given a <code>std::unique_ptr&lt;Base&gt;</code> on <a href="#line20" class="lineref" data-line="20">line 20</a>
+pointing to an object of derived type that we wish to copy (this
+could alternatively be a <code>Base*</code> or any other smart pointer to
+<code>Base</code>). To perform this copy, we simply call the virtual <code>clone</code>
+member function through the pointer on <a href="#line22" class="lineref" data-line="22">line 22</a>, which thanks to
+polymorphism calls the <code>Derived</code> implementation of <code>clone</code>,
+returning a pointer that points to a copy of the original derived
+object.</p>
+
+<p><strong>Note</strong>: It is not possible to implement the virtual constructor
+idiom as-is with smart pointers, as derived virtual member
+functions must have covariant return types. One workaround
+is for <code>Derived::clone</code> to return a <code>Base</code> pointer instead.
+Alternatively, you can provide non-virtual <a href="http://stackoverflow.com/a/6925201/150634">wrapper
+functions</a>.</p>
 
 						<div class="subrow">
 							<div class="column-1">
@@ -172,13 +187,15 @@ these members.</p>
 
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
-									<li><a title="Bjorn Fahller" href="https://github.com/rollbear"><img src="https://avatars.githubusercontent.com/u/9164980?v=3&size=36" alt="Bjorn Fahller"></a></li>
+									<li><a title="Tomasz Woźniak" href="https://github.com/tmwoz"><img src="https://avatars.githubusercontent.com/u/9141061?v=3&size=36" alt="Tomasz Woźniak"></a></li>
+
+									<li><a title="Tomasz Woźniak" href="https://github.com/tmwoz"><img src="https://avatars.githubusercontent.com/u/9141061?v=3&size=36" alt="Tomasz Woźniak"></a></li>
 
 								</ul>
 								<h2>Last Updated</h2>
-								<p>12 April 2015</p>
+								<p>26 September 2015</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/lexicographic-ordering.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/virtual-constructor.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>

@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Lexicographic ordering - C++ Samples</title>
+		<title>Fixed time step - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Implement a lexicographic ordering over class members.
+		<meta name="description" content="Block the execution of a thread until a fixed point in time.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/lexicographic-ordering.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/fixed-time-step.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -18,10 +18,10 @@
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Lexicographic ordering - C++ Samples">
+		<meta property="og:title" content="Fixed time step - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/lexicographic-ordering.html">
-		<meta property="og:description" content="Implement a lexicographic ordering over class members.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/fixed-time-step.html">
+		<meta property="og:description" content="Block the execution of a thread until a fixed point in time.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -108,35 +108,32 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Lexicographic ordering</h1>
+						<h1>Fixed time step</h1>
 					</div>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;tuple&gt;</span></span>
-<span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">foo</span></span>
-<span class="codeline" id="line4"><span class="p">{</span></span>
-<span class="codeline" id="line5">	<span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line6">		<span class="n">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">n_</span><span class="p">,</span> <span class="kt">char</span> <span class="n">c_</span><span class="p">,</span> <span class="kt">double</span> <span class="n">d_</span><span class="p">)</span></span>
-<span class="codeline" id="line7">			<span class="o">:</span> <span class="n">n</span><span class="p">{</span><span class="n">n_</span><span class="p">},</span> <span class="n">c</span><span class="p">{</span><span class="n">c_</span><span class="p">},</span> <span class="n">d</span><span class="p">{</span><span class="n">d_</span><span class="p">}</span></span>
-<span class="codeline" id="line8">		<span class="p">{}</span></span>
-<span class="codeline" id="line9"></span>
-<span class="codeline" id="line10">		<span class="k">friend</span> <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">lh</span><span class="p">,</span> <span class="k">const</span> <span class="n">foo</span><span class="o">&amp;</span> <span class="n">rh</span><span class="p">)</span></span>
-<span class="codeline" id="line11">		<span class="p">{</span></span>
-<span class="codeline" id="line12">			<span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">lh</span><span class="p">.</span><span class="n">n</span><span class="p">,</span> <span class="n">lh</span><span class="p">.</span><span class="n">c</span><span class="p">,</span> <span class="n">lh</span><span class="p">.</span><span class="n">d</span><span class="p">)</span> <span class="o">&lt;</span></span>
-<span class="codeline" id="line13">			       <span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">rh</span><span class="p">.</span><span class="n">n</span><span class="p">,</span> <span class="n">rh</span><span class="p">.</span><span class="n">c</span><span class="p">,</span> <span class="n">rh</span><span class="p">.</span><span class="n">d</span><span class="p">);</span></span>
-<span class="codeline" id="line14">		<span class="p">}</span></span>
-<span class="codeline" id="line15">	<span class="k">private</span><span class="o">:</span></span>
-<span class="codeline" id="line16">		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span></span>
-<span class="codeline" id="line17">		<span class="kt">char</span> <span class="n">c</span><span class="p">;</span></span>
-<span class="codeline" id="line18">		<span class="kt">double</span> <span class="n">d</span><span class="p">;</span></span>
-<span class="codeline" id="line19"><span class="p">};</span></span></code></td></tr></table>
+						<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;chrono&gt;</span></span>
+<span class="codeline" id="line2"><span class="cp">#include &lt;thread&gt;</span></span>
+<span class="codeline" id="line3"></span>
+<span class="codeline" id="line4"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">literals</span><span class="o">::</span><span class="n">chrono_literals</span><span class="p">;</span></span>
+<span class="codeline" id="line5"></span>
+<span class="codeline" id="line6"><span class="kt">void</span> <span class="nf">some_complex_work</span><span class="p">();</span></span>
+<span class="codeline" id="line7"></span>
+<span class="codeline" id="line8"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line9"><span class="p">{</span></span>
+<span class="codeline" id="line10">	<span class="k">using</span> <span class="n">clock</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="p">;</span></span>
+<span class="codeline" id="line11">	<span class="n">clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">next_time_point</span> <span class="o">=</span> <span class="n">clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">5</span><span class="n">s</span><span class="p">;</span></span>
+<span class="codeline" id="line12"></span>
+<span class="codeline" id="line13">	<span class="n">some_complex_work</span><span class="p">();</span></span>
+<span class="codeline" id="line14"></span>
+<span class="codeline" id="line15">	<span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_until</span><span class="p">(</span><span class="n">next_time_point</span><span class="p">);</span></span>
+<span class="codeline" id="line16"><span class="p">}</span></span></code></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Implement a lexicographic ordering over class members.</p>
+						<p>Block the execution of a thread until a fixed point in time.</p>
 
 
 						<h2>Description</h2>
@@ -145,25 +142,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 							<li class="c++11"><a href="/#/search/c++11">c++11</a></li>
 
+							<li class="c++14"><a href="/#/search/c++14">c++14</a></li>
+
 						</ul>
 
-						<p>The class <code>foo</code>, on <a href="#line3" class="lineref" data-line="3" data-line-end="19">lines 3–19</a>, has three member variables <code>n</code>, <code>c</code> and
-<code>d</code> declared on <a href="#line16" class="lineref" data-line="16" data-line-end="18">lines 16–18</a>. We wish to implement an ordering relation
-for <code>foo</code> where these members are compared lexicographically.</p>
+						<p>For the purposes of this sample, we use
+<a href="http://en.cppreference.com/w/cpp/chrono/steady_clock"><code>std::chrono::steady_clock</code></a> (<a href="#line10" class="lineref" data-line="10">line 10</a>),
+although any other clock will suffice.</p>
 
-<p>Getting an ordering relation right with 3 elements or more is
-tedious and error-prone. Fortunately, the standard library
-provides a lexicographic ordering over
-<a href="http://en.cppreference.com/w/cpp/utility/tuple"><code>std::tuple</code></a>, which we can utilise.</p>
+<p>On <a href="#line11" class="lineref" data-line="11">line 11</a>, we create a <code>clock::time_point</code> representing the point in
+time five seconds from now. To do so, we use <code>clock::now()</code> to get
+the current time point and add the duration of <code>5s</code> to it. Here we
+have used one of C++14’s <a href="http://en.cppreference.com/w/cpp/chrono/duration#Literals">duration literal
+suffixes</a>
+to representing a duration with the seconds suffix, <code>s</code>. The
+<code>using</code> directive on <a href="#line4" class="lineref" data-line="4">line 4</a> is required in order to use these suffixes.
+For C++11, the duration can be constructed manually.</p>
 
-<p>The less-than operator for <code>foo</code> defined on <a href="#line10" class="lineref" data-line="10" data-line-end="14">lines 10–14</a> compares the
-member <code>n</code> first, then <code>c</code> if the <code>n</code>s are equal, and finally the
-member <code>d</code> if both the <code>n</code>s and <code>c</code>s are equal. To achieve this,
-we use <a href="http://en.cppreference.com/w/cpp/utility/tuple/tie"><code>std::tie</code></a> on <a href="#line12" class="lineref" data-line="12">line 12</a> and <a href="#line13" class="lineref" data-line="13">line 13</a> to
-create <code>std::tuple</code>s containing references to the members of
-the left operand and right operand respectively. The comparison
-of these <code>std::tuple</code>s provides a lexicographic ordering over
-these members.</p>
+<p>After performing some complex work on <a href="#line13" class="lineref" data-line="13">line 13</a>, we then call
+<a href="http://en.cppreference.com/w/cpp/thread/sleep_until"><code>std::this_thread::sleep_until</code></a> on <a href="#line15" class="lineref" data-line="15">line 15</a>,
+passing it the time point we computed earlier. This blocks the
+current thread until we have reached that time point, ensuring that
+execution continues exactly five seconds after the starting time,
+regardless of how much time the complex work took (unless it took
+more than five seconds).</p>
+
+<p>This technique is most commonly used in a loop to ensure that the
+loop iterates with a fixed time step. Alternatively, if you want to
+sleep for a fixed amount of time, see the <a href="/common-tasks/sleep.html">sleep
+sample</a>.</p>
 
 						<div class="subrow">
 							<div class="column-1">
@@ -172,13 +179,11 @@ these members.</p>
 
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
-									<li><a title="Bjorn Fahller" href="https://github.com/rollbear"><img src="https://avatars.githubusercontent.com/u/9164980?v=3&size=36" alt="Bjorn Fahller"></a></li>
-
 								</ul>
 								<h2>Last Updated</h2>
-								<p>12 April 2015</p>
+								<p>26 September 2015</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/classes/lexicographic-ordering.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/time/fixed-time-step.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>
