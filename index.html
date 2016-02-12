@@ -49,32 +49,33 @@
 		<main class="container">
 			<section class="sample featured">
 				<div class="row">
-					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/fixed-time-step.html">Fixed time step</a></h1>
+					<h1 class="column-4">Featured sample: <a href="http://www.cppsamples.com/common-tasks/return-multiple-values.html">Return multiple values</a></h1>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<a href="http://www.cppsamples.com/common-tasks/fixed-time-step.html">
-							<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;chrono&gt;</span></span>
-<span class="codeline" id="line2"><span class="cp">#include &lt;thread&gt;</span></span>
-<span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">literals</span><span class="o">::</span><span class="n">chrono_literals</span><span class="p">;</span></span>
-<span class="codeline" id="line5"></span>
-<span class="codeline" id="line6"><span class="kt">void</span> <span class="nf">some_complex_work</span><span class="p">();</span></span>
+						<a href="http://www.cppsamples.com/common-tasks/return-multiple-values.html">
+							<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;tuple&gt;</span></span>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line4"><span class="p">{</span></span>
+<span class="codeline" id="line5">	<span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_tuple</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mf">1.5f</span><span class="p">);</span></span>
+<span class="codeline" id="line6"><span class="p">}</span></span>
 <span class="codeline" id="line7"></span>
-<span class="codeline" id="line8"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line8"><span class="kt">int</span> <span class="n">main</span><span class="p">()</span></span>
 <span class="codeline" id="line9"><span class="p">{</span></span>
-<span class="codeline" id="line10">	<span class="k">using</span> <span class="n">clock</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="p">;</span></span>
-<span class="codeline" id="line11">	<span class="n">clock</span><span class="o">::</span><span class="n">time_point</span> <span class="n">next_time_point</span> <span class="o">=</span> <span class="n">clock</span><span class="o">::</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">5</span><span class="n">s</span><span class="p">;</span></span>
+<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line11">	<span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">);</span></span>
 <span class="codeline" id="line12"></span>
-<span class="codeline" id="line13">	<span class="n">some_complex_work</span><span class="p">();</span></span>
-<span class="codeline" id="line14"></span>
-<span class="codeline" id="line15">	<span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_until</span><span class="p">(</span><span class="n">next_time_point</span><span class="p">);</span></span>
-<span class="codeline" id="line16"><span class="p">}</span></span></code></td></tr></table>
+<span class="codeline" id="line13">	<span class="kt">int</span> <span class="n">obj1</span><span class="p">;</span></span>
+<span class="codeline" id="line14">	<span class="kt">bool</span> <span class="n">obj2</span><span class="p">;</span></span>
+<span class="codeline" id="line15">	<span class="kt">float</span> <span class="n">obj3</span><span class="p">;</span></span>
+<span class="codeline" id="line16">	<span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">,</span> <span class="n">obj3</span><span class="p">)</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line17"><span class="p">}</span></span></code></td></tr></table>
 						</a>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Block the execution of a thread until a fixed point in time.</p>
+						<p>Return multiple values of different types from a function.</p>
 
 
 						<h2>Description</h2>
@@ -83,12 +84,10 @@
 
 							<li class="c++11"><a href="/#/search/c++11">c++11</a></li>
 
-							<li class="c++14"><a href="/#/search/c++14">c++14</a></li>
-
 						</ul>
 
-						<p>For the purposes of this sample, we use <a href="http://en.cppreference.com/w/cpp/chrono/steady_clock"><code>std::chrono::steady_clock</code></a> (<a href="#line10" class="lineref" data-line="10">line 10</a>), although any other clock will suffice.</p> <p>On <a href="#line11" class="lineref" data-line="11">line 11</a>, we create a <code>clock::time_point</code> representing the point in...
-						<p><a href="http://www.cppsamples.com/common-tasks/fixed-time-step.html">Continue reading →</a></p>
+						<p>The <code>foo</code> function on <a href="#line3" class="lineref" data-line="3" data-line-end="6">lines 3–6</a> returns a <a href="http://en.cppreference.com/w/cpp/utility/tuple"><code>std::tuple</code></a> representing multiple values of different types. We make use of the <a href="http://en.cppreference.com/w/cpp/utility/tuple/make_tuple"><code>std::make_tuple</code></a> utility function to create the <code>std::tuple</code> object.</p> <p>On...
+						<p><a href="http://www.cppsamples.com/common-tasks/return-multiple-values.html">Continue reading →</a></p>
 					</div>
 				</div>
 			</section>
@@ -128,6 +127,16 @@
 					
 		
 						<div class="index-item column-1">
+							<h1><a href="http://www.cppsamples.com/common-tasks/count-values-in-range.html">Count occurrences of value in a range</a></h1>
+			
+							<p>Count the number of occurrences of a particular value in a range of
+elements.</p>
+
+
+						</div>
+					
+		
+						<div class="index-item column-1">
 							<h1><a href="http://www.cppsamples.com/common-tasks/sort-range-of-elements.html">Sort a range of elements</a></h1>
 			
 							<ul class="tags">
@@ -149,7 +158,7 @@
 
 
 						</div>
-					
+					</div><div class="row">
 		
 						<div class="index-item column-1">
 							<h1><a href="http://www.cppsamples.com/common-tasks/swap-values.html">Swap values</a></h1>
@@ -158,7 +167,7 @@
 
 
 						</div>
-					</div><div class="row">
+					
 		
 					</div>
 				</section>
@@ -278,6 +287,61 @@ implement custom copy and move operations.</p>
 
 						</div>
 					</div><div class="row">
+		
+					</div>
+				</section>
+	
+		
+				<section class="samples-section">
+					<div class="samples-section-header row">
+						<h1 class="column-4">Concurrency</h1>
+					</div>
+					<div class="row">
+		
+						<div class="index-item column-1">
+							<h1><a href="http://www.cppsamples.com/common-tasks/create-thread.html">Create a thread</a></h1>
+			
+							<ul class="tags">
+				
+								<li class="c++11"><a href="/#/search/c++11">c++11</a></li>
+				
+							</ul>
+			
+							<p>Execute code on a separate thread.</p>
+
+
+						</div>
+					
+		
+						<div class="index-item column-1">
+							<h1><a href="http://www.cppsamples.com/common-tasks/execute-task-asynchronously.html">Execute a task asynchronously</a></h1>
+			
+							<ul class="tags">
+				
+								<li class="c++11"><a href="/#/search/c++11">c++11</a></li>
+				
+							</ul>
+			
+							<p>High-level asynchronous execution of tasks.</p>
+
+
+						</div>
+					
+		
+						<div class="index-item column-1">
+							<h1><a href="http://www.cppsamples.com/common-tasks/pass-values-between-threads.html">Pass values between threads</a></h1>
+			
+							<ul class="tags">
+				
+								<li class="c++11"><a href="/#/search/c++11">c++11</a></li>
+				
+							</ul>
+			
+							<p>Use promises to communicate values between threads.</p>
+
+
+						</div>
+					
 		
 					</div>
 				</section>
@@ -829,7 +893,7 @@ representation.</p>
 
 
 						</div>
-					
+					</div><div class="row">
 		
 					</div>
 				</section>

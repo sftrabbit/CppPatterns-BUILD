@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Apply tuple to a function - C++ Samples</title>
+		<title>Create a thread - C++ Samples</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Unpack a tuple as the arguments of a function.
+		<meta name="description" content="Execute code on a separate thread.
 
 ">
 		<meta name="viewport" content="width=device-width,user-scalable=no">
-		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/apply-tuple-to-function.html">
+		<link rel="canonical" href="http://www.cppsamples.com/common-tasks/create-thread.html">
 		<link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-16.ico">
 		<link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="http://www.cppsamples.com/images/icon-32.ico">
 		<link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -18,10 +18,10 @@
 
 		<meta name="twitter:card" content="summary">
 		<meta name="twitter:creator" content="@sftrabbit">
-		<meta property="og:title" content="Apply tuple to a function - C++ Samples">
+		<meta property="og:title" content="Create a thread - C++ Samples">
 		<meta property="og:site_name" content="C++ Samples">
-		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/apply-tuple-to-function.html">
-		<meta property="og:description" content="Unpack a tuple as the arguments of a function.
+		<meta property="og:url" content="http://www.cppsamples.com/common-tasks/create-thread.html">
+		<meta property="og:description" content="Execute code on a separate thread.
 
 ">
 		<meta property="fb:app_id" content="676162015844286">
@@ -108,78 +108,73 @@ document.addEventListener('DOMContentLoaded', function() {
 				<div class="row">
 					<div class="column-4">
 						<a href="http://www.cppsamples.com/">← Samples</a>
-						<h1>Apply tuple to a function</h1>
+						<h1>Create a thread</h1>
 					</div>
 				</div>
 				<div class="row">
 					<div class="column-2">
-						<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;cstddef&gt;</span></span>
-<span class="codeline" id="line2"><span class="cp">#include &lt;tuple&gt;</span></span>
-<span class="codeline" id="line3"><span class="cp">#include &lt;type_traits&gt;</span></span>
-<span class="codeline" id="line4"><span class="cp">#include &lt;utility&gt;</span></span>
-<span class="codeline" id="line5"></span>
-<span class="codeline" id="line6"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">F</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Tuple</span><span class="p">,</span> <span class="kt">size_t</span> <span class="p">...</span><span class="n">S</span> <span class="o">&gt;</span></span>
-<span class="codeline" id="line7"><span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">apply_tuple_impl</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">fn</span><span class="p">,</span> <span class="n">Tuple</span><span class="o">&amp;&amp;</span> <span class="n">t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">index_sequence</span><span class="o">&lt;</span><span class="n">S</span><span class="p">...</span><span class="o">&gt;</span><span class="p">)</span></span>
-<span class="codeline" id="line8"><span class="p">{</span></span>
-<span class="codeline" id="line9">	<span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fn</span><span class="p">)(</span><span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Tuple</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">))...);</span></span>
-<span class="codeline" id="line10"><span class="p">}</span></span>
-<span class="codeline" id="line11"></span>
-<span class="codeline" id="line12"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">F</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Tuple</span><span class="o">&gt;</span></span>
-<span class="codeline" id="line13"><span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">apply_from_tuple</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">fn</span><span class="p">,</span> <span class="n">Tuple</span><span class="o">&amp;&amp;</span> <span class="n">t</span><span class="p">)</span></span>
-<span class="codeline" id="line14"><span class="p">{</span></span>
-<span class="codeline" id="line15">	<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="k">constexpr</span> <span class="n">tSize</span></span>
-<span class="codeline" id="line16">		<span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple_size</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_reference</span><span class="o">&lt;</span><span class="n">Tuple</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span></span>
-<span class="codeline" id="line17"></span>
-<span class="codeline" id="line18">	<span class="k">return</span> <span class="nf">apply_tuple_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span></span>
-<span class="codeline" id="line19">	                        <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Tuple</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">),</span></span>
-<span class="codeline" id="line20">	                        <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="n">tSize</span><span class="o">&gt;</span><span class="p">());</span></span>
-<span class="codeline" id="line21"><span class="p">}</span></span>
-<span class="codeline" id="line22"></span>
-<span class="codeline" id="line23"><span class="kt">int</span> <span class="n">do_sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> </span>
-<span class="codeline" id="line24"><span class="p">{</span></span>
-<span class="codeline" id="line25">	<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span></span>
-<span class="codeline" id="line26"><span class="p">}</span></span>
-<span class="codeline" id="line27"></span>
-<span class="codeline" id="line28"><span class="kt">int</span> <span class="n">main</span><span class="p">()</span></span>
-<span class="codeline" id="line29"><span class="p">{</span></span>
-<span class="codeline" id="line30">	<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">apply_from_tuple</span><span class="p">(</span><span class="n">do_sum</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">make_tuple</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span></span>
-<span class="codeline" id="line31"><span class="p">}</span></span></code></td></tr></table>
+						<table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span class="cp">#include &lt;thread&gt;</span></span>
+<span class="codeline" id="line2"><span class="cp">#include &lt;string&gt;</span></span>
+<span class="codeline" id="line3"><span class="cp">#include &lt;functional&gt;</span></span>
+<span class="codeline" id="line4"></span>
+<span class="codeline" id="line5"><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">);</span></span>
+<span class="codeline" id="line6"><span class="kt">void</span> <span class="nf">do_something</span><span class="p">();</span></span>
+<span class="codeline" id="line7"></span>
+<span class="codeline" id="line8"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line9"><span class="p">{</span></span>
+<span class="codeline" id="line10">	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;Test&quot;</span><span class="p">;</span></span>
+<span class="codeline" id="line11">	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></span>
+<span class="codeline" id="line12"></span>
+<span class="codeline" id="line13">	<span class="n">std</span><span class="o">::</span><span class="kr">thread</span> <span class="n">t</span><span class="p">{</span><span class="n">func</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ref</span><span class="p">(</span><span class="n">x</span><span class="p">)};</span></span>
+<span class="codeline" id="line14">	</span>
+<span class="codeline" id="line15">	<span class="n">do_something</span><span class="p">();</span></span>
+<span class="codeline" id="line16">	</span>
+<span class="codeline" id="line17">	<span class="n">t</span><span class="p">.</span><span class="n">join</span><span class="p">();</span></span>
+<span class="codeline" id="line18"><span class="p">}</span></span></code></td></tr></table>
 						<p class="license">This sample is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
 					</div>
 					<div class="column-2">
 						<h2>Intent</h2>
-						<p>Unpack a tuple as the arguments of a function.</p>
+						<p>Execute code on a separate thread.</p>
 
 
 						<h2>Description</h2>
 
 						<ul class="tags">
 
-							<li class="c++14"><a href="/#/search/c++14">c++14</a></li>
+							<li class="c++11"><a href="/#/search/c++11">c++11</a></li>
 
 						</ul>
 
-						<p>The <code>apply_from_tuple</code> function template on <a href="#line12" class="lineref" data-line="12" data-line-end="21">lines 12–21</a> returns the
-result of applying the function <code>fn</code> to the values stored in the
-<a href="http://en.cppreference.com/w/cpp/utility/tuple"><code>std::tuple</code></a> <code>t</code>. On <a href="#line15" class="lineref" data-line="15" data-line-end="16">lines 15–16</a>, we store the
-size of <code>t</code> in <code>tSize</code>, which is declared <code>constexpr</code> so that
-it can be evaluated at compile-time. On <a href="#line18" class="lineref" data-line="18" data-line-end="20">lines 18–20</a>, we call
-<code>apply_tuple_impl</code> passing <code>t</code>, <code>fn</code> and an 
-<a href="http://en.cppreference.com/w/cpp/utility/integer_sequence"><code>std::index_sequence</code></a> 
-which carries a parameter pack containing a sequence of integers
-from <code>0</code> to <code>tSize - 1</code>.</p>
+						<p>On <a href="#line13" class="lineref" data-line="13">line 13</a>, we create a <a href="http://en.cppreference.com/w/cpp/thread/thread"><code>std::thread</code></a> object <code>t</code>,
+which represents a thread of execution. When constructing <code>t</code>, we
+pass <code>func</code> as the function to execute on that thread.</p>
 
-<p>The <code>apply_tuple_impl</code> function template on <a href="#line6" class="lineref" data-line="6" data-line-end="10">lines 6–10</a> returns the
-result of applying the function <code>fn</code> using event element of the
-tuple <code>t</code> as arguments (on <a href="#line9" class="lineref" data-line="9">line 9</a>). To do this, we expand the
-parameter pack carried by the <code>std::index_sequence</code> and apply
-<a href="http://en.cppreference.com/w/cpp/utility/tuple/get"><code>std::get</code></a> to the tuple for each
-integer in the sequence. This way, all the elements of <code>t</code> are
-expanded and passed to the function.</p>
+<p>To pass arguments to <code>func</code>, we have passed them as additional
+arguments to <code>std::thread</code>’s constructor. Notice that to pass an
+argument by reference, it must be wrapped in a
+<a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper"><code>std::reference_wrapper</code></a>
+— to do this, we use the <a href="http://en.cppreference.com/w/cpp/utility/functional/ref"><code>std::ref</code></a>
+helper function. For <code>const</code> references, use
+<a href="http://en.cppreference.com/w/cpp/utility/functional/cref"><code>std::cref</code></a>.</p>
 
-<p><strong>Note</strong>: a <a href="http://en.cppreference.com/w/cpp/experimental/apply"><code>std::apply</code></a> function has
-been proposed as part of the Library Fundamentals TS for future
-standardization.</p>
+<p>After creating the thread, the remainder of <code>main</code> continues to
+execute as normal. At the same time, function <code>func</code> begins
+executing in the newly-created thread. This means that the bodies
+of <code>func</code> and <code>main</code> will be executing concurrently. They may be
+executed in parallel if the system supports parallel execution.</p>
+
+<p>On <a href="#line17" class="lineref" data-line="17">line 17</a> we call <code>t</code>’s <a href="http://en.cppreference.com/w/cpp/thread/thread/join"><code>join</code></a> member
+function. This causes <code>main</code>’s thread to block until the thread
+finishes execution (which is when <code>func</code> returns). Once <code>join</code>
+returns, execution continues in <code>main</code>’s thread.</p>
+
+<p><strong>Note</strong>: A thread must be either joined or detached before
+destruction, or <a href="http://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a> will be
+called.</p>
+
+<p><strong>Note</strong>: If <code>func</code> propagates an exception, <code>std::terminate</code> will
+be called.</p>
 
 						<div class="subrow">
 							<div class="column-1">
@@ -188,13 +183,13 @@ standardization.</p>
 
 									<li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=3&size=36" alt="Joseph Mansfield"></a></li>
 
-									<li><a title="Marco Arena" href="https://github.com/ilpropheta"><img src="https://avatars.githubusercontent.com/u/5806546?v=3&size=36" alt="Marco Arena"></a></li>
+									<li><a title="Mark A. Gibbs" href="https://github.com/DarkerStar"><img src="https://avatars.githubusercontent.com/u/2659436?v=3&size=36" alt="Mark A. Gibbs"></a></li>
 
 								</ul>
 								<h2>Last Updated</h2>
 								<p>11 February 2016</p>
 								<h2>Source</h2>
-								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/functions/apply-tuple-to-function.cpp">Fork this sample on GitHub</a></p>
+								<p><a href="https://github.com/sftrabbit/CppSamples-Samples/tree/master/1-common-tasks/concurrency/create-thread.cpp">Fork this sample on GitHub</a></p>
 							</div>
 							<div class="column-1">
 								<h2>Share</h2>
