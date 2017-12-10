@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>Visitor - C++ Patterns</title>
+    <title>Range iteration - C++ Patterns</title>
     <meta charset="utf-8">
-    <meta name="description" content="Separate generic algorithms from the elements or structure on which
-they operate.
+    <meta name="description" content="Iterate over a range of elements without using iterators or
+indices.
 
 ">
     <meta name="viewport" content="width=device-width,user-scalable=no">
-    <link rel="canonical" href="https://www.cpppatterns.com/patterns/visitor.html">
+    <link rel="canonical" href="https://www.cpppatterns.com/patterns/range-iteration.html">
     <link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="https://www.cpppatterns.com/images/icon-16.ico">
     <link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="https://www.cpppatterns.com/images/icon-32.ico">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -19,11 +19,11 @@ they operate.
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@sftrabbit">
-    <meta property="og:title" content="Visitor - C++ Patterns">
+    <meta property="og:title" content="Range iteration - C++ Patterns">
     <meta property="og:site_name" content="C++ Patterns">
-    <meta property="og:url" content="https://www.cpppatterns.com/patterns/visitor.html">
-    <meta property="og:description" content="Separate generic algorithms from the elements or structure on which
-they operate.
+    <meta property="og:url" content="https://www.cpppatterns.com/patterns/range-iteration.html">
+    <meta property="og:description" content="Iterate over a range of elements without using iterators or
+indices.
 
 ">
     <meta property="fb:app_id" content="676162015844286">
@@ -111,98 +111,55 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="row">
           <div class="column-4">
             <a href="https://www.cpppatterns.com/">← Patterns</a>
-            <h1>Visitor</h1>
+            <h1>Range iteration</h1>
           </div>
         </div>
         <div class="row variation ">
           <div class="column-2">
-            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="k">class</span> <span class="nc">element_concrete_1</span><span class="p">;</span></span>
-<span class="codeline" id="line2"><span class="k">class</span> <span class="nc">element_concrete_2</span><span class="p">;</span></span>
-<span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="k">class</span> <span class="nc">visitor</span></span>
-<span class="codeline" id="line5"><span class="p">{</span></span>
-<span class="codeline" id="line6">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line7">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">element_concrete_1</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line8">    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">element_concrete_2</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line9"><span class="p">};</span></span>
-<span class="codeline" id="line10"></span>
-<span class="codeline" id="line11"><span class="k">class</span> <span class="nc">visitor_concrete</span> <span class="o">:</span> <span class="k">public</span> <span class="n">visitor</span></span>
-<span class="codeline" id="line12"><span class="p">{</span></span>
-<span class="codeline" id="line13">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line14">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">element_concrete_1</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line15">    <span class="p">{</span></span>
-<span class="codeline" id="line16">      <span class="c1">// Do something with el</span></span>
-<span class="codeline" id="line17">    <span class="p">};</span></span>
-<span class="codeline" id="line18"></span>
-<span class="codeline" id="line19">    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">element_concrete_2</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line20">    <span class="p">{</span></span>
-<span class="codeline" id="line21">      <span class="c1">// Do something with el</span></span>
-<span class="codeline" id="line22">    <span class="p">};</span></span>
-<span class="codeline" id="line23"><span class="p">};</span></span>
-<span class="codeline" id="line24"></span>
-<span class="codeline" id="line25"></span>
-<span class="codeline" id="line26"><span class="k">class</span> <span class="nc">element</span></span>
-<span class="codeline" id="line27"><span class="p">{</span></span>
-<span class="codeline" id="line28">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line29">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">visitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line30"><span class="p">};</span></span>
-<span class="codeline" id="line31"></span>
-<span class="codeline" id="line32"><span class="k">class</span> <span class="nc">element_concrete_1</span> <span class="o">:</span> <span class="k">public</span> <span class="n">element</span></span>
-<span class="codeline" id="line33"><span class="p">{</span></span>
-<span class="codeline" id="line34">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line35">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">visitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line36">    <span class="p">{</span></span>
-<span class="codeline" id="line37">      <span class="n">v</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span></span>
-<span class="codeline" id="line38">    <span class="p">}</span></span>
-<span class="codeline" id="line39"><span class="p">};</span></span>
-<span class="codeline" id="line40"></span>
-<span class="codeline" id="line41"><span class="k">class</span> <span class="nc">element_concrete_2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">element</span></span>
-<span class="codeline" id="line42"><span class="p">{</span></span>
-<span class="codeline" id="line43">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line44">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">visitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line45">    <span class="p">{</span></span>
-<span class="codeline" id="line46">      <span class="n">v</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span></span>
-<span class="codeline" id="line47">    <span class="p">}</span></span>
-<span class="codeline" id="line48"><span class="p">};</span></span></code></td></tr></table>
+            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp"></span></span>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line4"><span class="p">{</span></span>
+<span class="codeline" id="line5">  <span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span></span>
+<span class="codeline" id="line6">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nl">value</span> <span class="p">:</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line7">    <span class="c1">// Use value</span></span>
+<span class="codeline" id="line8">  <span class="p">}</span></span>
+<span class="codeline" id="line9"></span>
+<span class="codeline" id="line10">  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span></span>
+<span class="codeline" id="line11">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="nl">ref</span> <span class="p">:</span> <span class="n">vec</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line12">    <span class="c1">// Modify ref</span></span>
+<span class="codeline" id="line13">  <span class="p">}</span></span>
+<span class="codeline" id="line14"><span class="p">}</span></span></code></td></tr></table>
             <p class="license">This pattern is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
           </div>
           <div class="column-2">
             <div class="min-spec">
               Requires
-              <span class="tag c++98"><a href="/#/search/c++98">c++98</a></span>
+              <span class="tag c++11"><a href="/#/search/c++11">c++11</a></span>
               or newer.
   
             </div>
             <h2>Intent</h2>
-            <p>Separate generic algorithms from the elements or structure on which
-they operate.</p>
+            <p>Iterate over a range of elements without using iterators or
+indices.</p>
 
 
             <h2>Description</h2>
-            <p>The visitor pattern allows generic algorithms to be implemented
-without modifying the objects on which they operate and supports
-different actions for each type of object without the need for
-dynamic casting.</p>
+            <p>The <a href="http://en.cppreference.com/w/cpp/language/range-for">range-based <code>for</code> loop</a> provides a
+simple syntax for iterating over elements of a range without using
+iterators or indices. It supports arrays, types that provide
+<code>begin</code> and <code>end</code> member functions, and types for which <code>begin</code>
+and <code>end</code> functions are found via <a href="http://en.wikipedia.org/wiki/Argument-dependent_name_lookup">argument-dependent
+lookup</a>.</p>
 
-<p>The <code>element</code> class, defined on <a href="#line26" class="lineref" data-line="26" data-line-end="30">lines 26–30</a>, defines an interface that
-allows an object to accept a visitor. Each class derived from
-<code>element</code>, such as those on <a href="#line32" class="lineref" data-line="32" data-line-end="48">lines 32–48</a>, implements the <code>accept</code>
-function such that it calls the appropriate <code>visit</code> function on the
-visitor.</p>
+<p><a href="#line6" class="lineref" data-line="6" data-line-end="8">Lines 6–8</a> demonstrate iterating over an array, <code>arr</code>. In each iteration,
+<code>value</code> will have the value of each successive element of <code>arr</code>.</p>
 
-<p>Visitors, which implement the <code>visitor</code> interface (<a href="#line4" class="lineref" data-line="4" data-line-end="9">lines 4–9</a>),
-represent algorithms to be applied to <code>element</code>s. The visitor
-interface defines <code>visit</code> overloads for each type of <code>element</code>. An
-example <code>visitor</code> is defined on <a href="#line11" class="lineref" data-line="11" data-line-end="23">lines 11–23</a>.</p>
-
-<p>When a <code>visitor</code> visits an <code>element</code>, two function calls are made
-(one to <code>accept</code> and one to <code>visit</code>) and the final <code>visit</code> function
-that is called depends on the type of both the <code>element</code> and the
-<code>visitor</code>. This process is known as <em>double dispatch</em>.</p>
-
-<p>The visitor pattern is particularly useful when the <code>element</code>s are
-part of a larger structure, in which case the <code>accept</code> function can
-call itself recursively down the structure.</p>
+<p><a href="#line11" class="lineref" data-line="11" data-line-end="13">Lines 11–13</a> similarly demonstrate iterating over a
+<a href="http://en.cppreference.com/w/cpp/container/vector"><code>std::vector</code></a>, <code>vec</code> (any standard
+container will also work). In this case, we have defined <code>ref</code> as a
+reference type, which will allow us to modify the objects stored
+in <code>vec</code>.</p>
 
             <div class="subrow">
               <div class="column-1">
@@ -211,15 +168,11 @@ call itself recursively down the structure.</p>
   
                   <li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars1.githubusercontent.com/u/32490?v=4&size=36" alt="Joseph Mansfield"></a></li>
   
-                  <li><a title="Felix Gruber" href="https://github.com/felgru"><img src="https://avatars0.githubusercontent.com/u/402089?v=4&size=36" alt="Felix Gruber"></a></li>
-  
-                  <li><a title="Evert Timberg" href="https://github.com/etimberg"><img src="https://avatars3.githubusercontent.com/u/6757853?v=4&size=36" alt="Evert Timberg"></a></li>
-  
                 </ul>
                 <h2>Last Updated</h2>
                 <p>09 December 2017</p>
                 <h2>Source</h2>
-                <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/patterns/behavioral/visitor.cpp">Fork this pattern on GitHub</a></p>
+                <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/common-tasks/ranges/range-iteration.cpp">Fork this pattern on GitHub</a></p>
               </div>
               <div class="column-1">
                 <h2>Share</h2>

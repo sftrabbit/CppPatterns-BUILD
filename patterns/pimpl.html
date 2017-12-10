@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>Visitor - C++ Patterns</title>
+    <title>The PIMPL idiom - C++ Patterns</title>
     <meta charset="utf-8">
-    <meta name="description" content="Separate generic algorithms from the elements or structure on which
-they operate.
+    <meta name="description" content="Remove compilation dependencies on internal class implementations
+and improve compile times.
 
 ">
     <meta name="viewport" content="width=device-width,user-scalable=no">
-    <link rel="canonical" href="https://www.cpppatterns.com/patterns/visitor.html">
+    <link rel="canonical" href="https://www.cpppatterns.com/patterns/pimpl.html">
     <link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="https://www.cpppatterns.com/images/icon-16.ico">
     <link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="https://www.cpppatterns.com/images/icon-32.ico">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -19,11 +19,11 @@ they operate.
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@sftrabbit">
-    <meta property="og:title" content="Visitor - C++ Patterns">
+    <meta property="og:title" content="The PIMPL idiom - C++ Patterns">
     <meta property="og:site_name" content="C++ Patterns">
-    <meta property="og:url" content="https://www.cpppatterns.com/patterns/visitor.html">
-    <meta property="og:description" content="Separate generic algorithms from the elements or structure on which
-they operate.
+    <meta property="og:url" content="https://www.cpppatterns.com/patterns/pimpl.html">
+    <meta property="og:description" content="Remove compilation dependencies on internal class implementations
+and improve compile times.
 
 ">
     <meta property="fb:app_id" content="676162015844286">
@@ -111,98 +111,98 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="row">
           <div class="column-4">
             <a href="https://www.cpppatterns.com/">← Patterns</a>
-            <h1>Visitor</h1>
+            <h1>The PIMPL idiom</h1>
           </div>
         </div>
         <div class="row variation ">
           <div class="column-2">
-            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="k">class</span> <span class="nc">element_concrete_1</span><span class="p">;</span></span>
-<span class="codeline" id="line2"><span class="k">class</span> <span class="nc">element_concrete_2</span><span class="p">;</span></span>
-<span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="k">class</span> <span class="nc">visitor</span></span>
-<span class="codeline" id="line5"><span class="p">{</span></span>
-<span class="codeline" id="line6">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line7">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">element_concrete_1</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line8">    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">element_concrete_2</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line9"><span class="p">};</span></span>
+            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span><span>40</span><span>41</span><span>42</span><span>43</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="c1">// foo.h - header file</span></span>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp"></span></span>
+<span class="codeline" id="line4"></span>
+<span class="codeline" id="line5"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="codeline" id="line6"><span class="p">{</span></span>
+<span class="codeline" id="line7">  <span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line8">    <span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line9">    <span class="o">~</span><span class="n">foo</span><span class="p">();</span></span>
 <span class="codeline" id="line10"></span>
-<span class="codeline" id="line11"><span class="k">class</span> <span class="nc">visitor_concrete</span> <span class="o">:</span> <span class="k">public</span> <span class="n">visitor</span></span>
-<span class="codeline" id="line12"><span class="p">{</span></span>
-<span class="codeline" id="line13">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line14">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">visit</span><span class="p">(</span><span class="n">element_concrete_1</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line15">    <span class="p">{</span></span>
-<span class="codeline" id="line16">      <span class="c1">// Do something with el</span></span>
-<span class="codeline" id="line17">    <span class="p">};</span></span>
+<span class="codeline" id="line11">    <span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">);</span></span>
+<span class="codeline" id="line12">    <span class="n">foo</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">);</span></span>
+<span class="codeline" id="line13"></span>
+<span class="codeline" id="line14">  <span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line15">    <span class="k">class</span> <span class="nc">impl</span><span class="p">;</span></span>
+<span class="codeline" id="line16">    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span> <span class="n">pimpl</span><span class="p">;</span></span>
+<span class="codeline" id="line17"><span class="p">};</span></span>
 <span class="codeline" id="line18"></span>
-<span class="codeline" id="line19">    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">visit</span><span class="p">(</span><span class="n">element_concrete_2</span><span class="o">&amp;</span> <span class="n">el</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line20">    <span class="p">{</span></span>
-<span class="codeline" id="line21">      <span class="c1">// Do something with el</span></span>
-<span class="codeline" id="line22">    <span class="p">};</span></span>
-<span class="codeline" id="line23"><span class="p">};</span></span>
-<span class="codeline" id="line24"></span>
-<span class="codeline" id="line25"></span>
-<span class="codeline" id="line26"><span class="k">class</span> <span class="nc">element</span></span>
-<span class="codeline" id="line27"><span class="p">{</span></span>
-<span class="codeline" id="line28">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line29">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">visitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
-<span class="codeline" id="line30"><span class="p">};</span></span>
-<span class="codeline" id="line31"></span>
-<span class="codeline" id="line32"><span class="k">class</span> <span class="nc">element_concrete_1</span> <span class="o">:</span> <span class="k">public</span> <span class="n">element</span></span>
-<span class="codeline" id="line33"><span class="p">{</span></span>
-<span class="codeline" id="line34">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line35">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">visitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line36">    <span class="p">{</span></span>
-<span class="codeline" id="line37">      <span class="n">v</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span></span>
-<span class="codeline" id="line38">    <span class="p">}</span></span>
-<span class="codeline" id="line39"><span class="p">};</span></span>
-<span class="codeline" id="line40"></span>
-<span class="codeline" id="line41"><span class="k">class</span> <span class="nc">element_concrete_2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">element</span></span>
-<span class="codeline" id="line42"><span class="p">{</span></span>
-<span class="codeline" id="line43">  <span class="k">public</span><span class="o">:</span></span>
-<span class="codeline" id="line44">    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">accept</span><span class="p">(</span><span class="n">visitor</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">)</span> <span class="k">override</span></span>
-<span class="codeline" id="line45">    <span class="p">{</span></span>
-<span class="codeline" id="line46">      <span class="n">v</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span></span>
-<span class="codeline" id="line47">    <span class="p">}</span></span>
-<span class="codeline" id="line48"><span class="p">};</span></span></code></td></tr></table>
+<span class="codeline" id="line19"></span>
+<span class="codeline" id="line20"><span class="c1">// foo.cpp - implementation file</span></span>
+<span class="codeline" id="line21"></span>
+<span class="codeline" id="line22"><span class="k">class</span> <span class="nc">foo</span><span class="o">::</span><span class="n">impl</span></span>
+<span class="codeline" id="line23"><span class="p">{</span></span>
+<span class="codeline" id="line24">  <span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line25">    <span class="kt">void</span> <span class="n">do_internal_work</span><span class="p">()</span></span>
+<span class="codeline" id="line26">    <span class="p">{</span></span>
+<span class="codeline" id="line27">      <span class="n">internal_data</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span></span>
+<span class="codeline" id="line28">    <span class="p">}</span></span>
+<span class="codeline" id="line29"></span>
+<span class="codeline" id="line30">  <span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line31">    <span class="kt">int</span> <span class="n">internal_data</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></span>
+<span class="codeline" id="line32"><span class="p">};</span></span>
+<span class="codeline" id="line33"></span>
+<span class="codeline" id="line34"><span class="n">foo</span><span class="o">::</span><span class="n">foo</span><span class="p">()</span></span>
+<span class="codeline" id="line35">  <span class="o">:</span> <span class="n">pimpl</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">impl</span><span class="o">&gt;</span><span class="p">()}</span></span>
+<span class="codeline" id="line36"><span class="p">{</span></span>
+<span class="codeline" id="line37">  <span class="n">pimpl</span><span class="o">-&gt;</span><span class="n">do_internal_work</span><span class="p">();</span></span>
+<span class="codeline" id="line38"><span class="p">}</span></span>
+<span class="codeline" id="line39"></span>
+<span class="codeline" id="line40"><span class="n">foo</span><span class="o">::~</span><span class="n">foo</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span>
+<span class="codeline" id="line41"></span>
+<span class="codeline" id="line42"><span class="n">foo</span><span class="o">::</span><span class="n">foo</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span>
+<span class="codeline" id="line43"><span class="n">foo</span><span class="o">&amp;</span> <span class="n">foo</span><span class="o">::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">foo</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></span></code></td></tr></table>
             <p class="license">This pattern is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
           </div>
           <div class="column-2">
             <div class="min-spec">
               Requires
-              <span class="tag c++98"><a href="/#/search/c++98">c++98</a></span>
+              <span class="tag c++11"><a href="/#/search/c++11">c++11</a></span>
               or newer.
   
             </div>
             <h2>Intent</h2>
-            <p>Separate generic algorithms from the elements or structure on which
-they operate.</p>
+            <p>Remove compilation dependencies on internal class implementations
+and improve compile times.</p>
 
 
             <h2>Description</h2>
-            <p>The visitor pattern allows generic algorithms to be implemented
-without modifying the objects on which they operate and supports
-different actions for each type of object without the need for
-dynamic casting.</p>
+            <p>When a header file changes, any files that <code>#include</code> that file
+will need to be recompiled. In the case of a class header, this
+is true even if those changes only apply to private members of the
+class. The PIMPL idiom hides private members from any users of
+the header file, allowing these internal details to change without
+requiring recompilation of the client code.</p>
 
-<p>The <code>element</code> class, defined on <a href="#line26" class="lineref" data-line="26" data-line-end="30">lines 26–30</a>, defines an interface that
-allows an object to accept a visitor. Each class derived from
-<code>element</code>, such as those on <a href="#line32" class="lineref" data-line="32" data-line-end="48">lines 32–48</a>, implements the <code>accept</code>
-function such that it calls the appropriate <code>visit</code> function on the
-visitor.</p>
+<p><a href="#line5" class="lineref" data-line="5" data-line-end="17">Lines 5–17</a> define a class, <code>foo</code>, to which we have applied the PIMPL
+idiom. This class definition includes only the public interface
+of the class and a pointer to the internal implementation. We use
+a <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr"><code>std::unique_ptr</code></a> (<a href="#line16" class="lineref" data-line="16">line 16</a>) to ensure
+the lifetime of the implementation is managed correctly, which we
+initialise in <code>foo</code>s constructor (<a href="#line35" class="lineref" data-line="35">line 35</a>).</p>
 
-<p>Visitors, which implement the <code>visitor</code> interface (<a href="#line4" class="lineref" data-line="4" data-line-end="9">lines 4–9</a>),
-represent algorithms to be applied to <code>element</code>s. The visitor
-interface defines <code>visit</code> overloads for each type of <code>element</code>. An
-example <code>visitor</code> is defined on <a href="#line11" class="lineref" data-line="11" data-line-end="23">lines 11–23</a>.</p>
+<p>While the internal implementation class, <code>impl</code>, is declared in
+the header file on <a href="#line15" class="lineref" data-line="15">line 15</a>, its definition appears in the
+implementation file on <a href="#line22" class="lineref" data-line="22" data-line-end="32">lines 22–32</a>. This allows the class definition
+to change without requiring users of <code>foo</code> to recompile.</p>
 
-<p>When a <code>visitor</code> visits an <code>element</code>, two function calls are made
-(one to <code>accept</code> and one to <code>visit</code>) and the final <code>visit</code> function
-that is called depends on the type of both the <code>element</code> and the
-<code>visitor</code>. This process is known as <em>double dispatch</em>.</p>
+<p>We have explicitly defaulted <code>foo</code>’s destructor on <a href="#line40" class="lineref" data-line="40">line 40</a>, which
+is necessary because the destructor needs to be able to see the
+complete definition of <code>impl</code> (in order to destroy the
+<code>std::unique_ptr</code>). Note that we have also explicitly defaulted
+the move constructor and assignment operator on <a href="#line42" class="lineref" data-line="42" data-line-end="43">lines 42–43</a> so that
+<code>foo</code> can be moved. To make <code>foo</code> copyable, we must also
+implement the copy constructor and assignment operator.</p>
 
-<p>The visitor pattern is particularly useful when the <code>element</code>s are
-part of a larger structure, in which case the <code>accept</code> function can
-call itself recursively down the structure.</p>
+<p><strong>Note</strong>: <code>std::make_unique</code> was introduced in C++14. For C++11,
+you can <a href="http://stackoverflow.com/a/17902439/150634">roll your own implementation</a>.</p>
 
             <div class="subrow">
               <div class="column-1">
@@ -211,15 +211,13 @@ call itself recursively down the structure.</p>
   
                   <li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars1.githubusercontent.com/u/32490?v=4&size=36" alt="Joseph Mansfield"></a></li>
   
-                  <li><a title="Felix Gruber" href="https://github.com/felgru"><img src="https://avatars0.githubusercontent.com/u/402089?v=4&size=36" alt="Felix Gruber"></a></li>
-  
-                  <li><a title="Evert Timberg" href="https://github.com/etimberg"><img src="https://avatars3.githubusercontent.com/u/6757853?v=4&size=36" alt="Evert Timberg"></a></li>
+                  <li><a title="Mehdi Amini" href="https://github.com/joker-eph"><img src="https://avatars0.githubusercontent.com/u/3372300?v=4&size=36" alt="Mehdi Amini"></a></li>
   
                 </ul>
                 <h2>Last Updated</h2>
                 <p>09 December 2017</p>
                 <h2>Source</h2>
-                <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/patterns/behavioral/visitor.cpp">Fork this pattern on GitHub</a></p>
+                <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/common-tasks/classes/pimpl.cpp">Fork this pattern on GitHub</a></p>
               </div>
               <div class="column-1">
                 <h2>Share</h2>
