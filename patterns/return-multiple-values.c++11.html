@@ -7,7 +7,7 @@
 
 ">
     <meta name="viewport" content="width=device-width,user-scalable=no">
-    <link rel="canonical" href="https://cpppatterns.com/patterns/return-multiple-values.html">
+    <link rel="canonical" href="https://cpppatterns.com/patterns/return-multiple-values.c++11.html">
     <link rel="icon" sizes="16x16" type="image/vnd.microsoft.icon" href="https://cpppatterns.com/images/icon-16.ico">
     <link rel="icon" sizes="32x32" type="image/vnd.microsoft.icon" href="https://cpppatterns.com/images/icon-32.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400italic,100,700italic,700,400|Roboto+Slab|Ubuntu+Mono" rel="stylesheet" type="text/css">
@@ -20,7 +20,7 @@
     <meta name="twitter:creator" content="@sftrabbit">
     <meta property="og:title" content="Return multiple values - C++ Patterns">
     <meta property="og:site_name" content="C++ Patterns">
-    <meta property="og:url" content="https://cpppatterns.com/patterns/return-multiple-values.html">
+    <meta property="og:url" content="https://cpppatterns.com/patterns/return-multiple-values.c++11.html">
     <meta property="og:description" content="Return multiple values of different types from a function.
 
 ">
@@ -114,11 +114,11 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="row variation ">
           <div class="column-2">
-            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="cp">#include</span> <span class="cpf">&lt;tuple&gt;</span><span class="cp"></span></span>
+            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="cp">#include</span> <span class="cpf">&lt;tuple&gt;</span><span class="cp"></span></span>
 <span class="codeline" id="line2"></span>
 <span class="codeline" id="line3"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">foo</span><span class="p">()</span></span>
 <span class="codeline" id="line4"><span class="p">{</span></span>
-<span class="codeline" id="line5">  <span class="k">return</span> <span class="p">{</span><span class="mi">128</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mf">1.5f</span><span class="p">};</span></span>
+<span class="codeline" id="line5">  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_tuple</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="mf">1.5f</span><span class="p">);</span></span>
 <span class="codeline" id="line6"><span class="p">}</span></span>
 <span class="codeline" id="line7"></span>
 <span class="codeline" id="line8"><span class="kt">int</span> <span class="n">main</span><span class="p">()</span></span>
@@ -126,14 +126,17 @@ document.addEventListener('DOMContentLoaded', function() {
 <span class="codeline" id="line10">  <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">bool</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
 <span class="codeline" id="line11">  <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">result</span><span class="p">);</span></span>
 <span class="codeline" id="line12"></span>
-<span class="codeline" id="line13">  <span class="k">auto</span> <span class="p">[</span><span class="n">value1</span><span class="p">,</span> <span class="n">value2</span><span class="p">,</span> <span class="n">value3</span><span class="p">]</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
-<span class="codeline" id="line14"><span class="p">}</span></span></code></td></tr></table>
+<span class="codeline" id="line13">  <span class="kt">int</span> <span class="n">obj1</span><span class="p">;</span></span>
+<span class="codeline" id="line14">  <span class="kt">bool</span> <span class="n">obj2</span><span class="p">;</span></span>
+<span class="codeline" id="line15">  <span class="kt">float</span> <span class="n">obj3</span><span class="p">;</span></span>
+<span class="codeline" id="line16">  <span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">,</span> <span class="n">obj3</span><span class="p">)</span> <span class="o">=</span> <span class="n">foo</span><span class="p">();</span></span>
+<span class="codeline" id="line17"><span class="p">}</span></span></code></td></tr></table>
             <p class="license">This pattern is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
           </div>
           <div class="column-2">
             <div class="min-spec">
               Requires
-              <span class="tag c++17"><a href="/#/search/c++17">c++17</a></span>
+              <span class="tag c++11"><a href="/#/search/c++11">c++11</a></span>
               or newer.
   
               Other versions:
@@ -141,12 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
       
       
-        
-                <li><a href="https://cpppatterns.com/patterns/return-multiple-values.c++11.html">c++11</a></li>
-        
-      
     
       
+      
+        
+                <li><a href="https://cpppatterns.com/patterns/return-multiple-values.html">c++17</a></li>
+        
       
     
               </ul>
@@ -157,16 +160,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
             <h2>Description</h2>
-            <p>The <code>foo</code> function on <a href="#line3" class="lineref" data-line="3" data-line-end="6">lines 3–6</a> returns a <a href="http://en.cppreference.com/w/cpp/utility/tuple"><code>std::tuple</code></a>
-representing multiple values of different types.</p>
+            <p>The <code>foo</code> function on <a href="#line3" class="lineref" data-line="3" data-line-end="6">lines 3–6</a> returns a
+<a href="http://en.cppreference.com/w/cpp/utility/tuple"><code>std::tuple</code></a> representing multiple values
+of different types. We make use of the
+<a href="http://en.cppreference.com/w/cpp/utility/tuple/make_tuple"><code>std::make_tuple</code></a> utility function
+to create the <code>std::tuple</code> object.</p>
 
 <p>On <a href="#line10" class="lineref" data-line="10">line 10</a>, we call this function and store the result. We then get
 the first of the returned values with <a href="http://en.cppreference.com/w/cpp/utility/tuple/get"><code>std::get</code></a>
 on <a href="#line11" class="lineref" data-line="11">line 11</a>.</p>
 
-<p>Alternatively, on <a href="#line13" class="lineref" data-line="13">line 13</a> we use a <a href="http://en.cppreference.com/w/cpp/language/structured_binding">structured binding declaration</a>
-to declare and initialize variables with the returned values. The
-types of these variables are deduced automatically.</p>
+<p>Alternatively, on <a href="#line16" class="lineref" data-line="16">line 16</a> we use <a href="http://en.cppreference.com/w/cpp/utility/tuple/tie"><code>std::tie</code></a>
+to assign the return values to each of the given objects.
+This may not be possible if the objects cannot be constructed
+beforehand and it removes the possibility of copy elision.</p>
 
 <p>If the values are closely and logically related, consider composing
 them into a <code>struct</code> or <code>class</code> type.</p>
@@ -182,7 +189,7 @@ them into a <code>struct</code> or <code>class</code> type.</p>
                 <h2>Last Updated</h2>
                 <p>11 December 2017</p>
                 <h2>Source</h2>
-                <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/common-tasks/functions/return-multiple-values.c++17.cpp">Fork this pattern on GitHub</a></p>
+                <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/common-tasks/functions/return-multiple-values.c++11.cpp">Fork this pattern on GitHub</a></p>
               </div>
               <div class="column-1">
                 <h2>Share</h2>
