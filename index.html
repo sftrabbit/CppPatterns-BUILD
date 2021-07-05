@@ -49,25 +49,48 @@
     <main class="container">
       <section class="sample featured">
         <div class="row">
-          <h1 class="column-4">Featured pattern: <a href="https://cpppatterns.com/patterns/swap-values.html">Swap values</a></h1>
+          <h1 class="column-4">Featured pattern: <a href="https://cpppatterns.com/patterns/weak-reference.html">Weak reference</a></h1>
         </div>
         <div class="row">
           <div class="column-2">
-            <a href="https://cpppatterns.com/patterns/swap-values.html">
-              <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp"></span></span>
-<span class="codeline" id="line2"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span></span>
-<span class="codeline" id="line3"></span>
-<span class="codeline" id="line4"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line5"><span class="p">{</span></span>
-<span class="codeline" id="line6">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&quot;Hello&quot;</span><span class="p">;</span></span>
-<span class="codeline" id="line7">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;World&quot;</span><span class="p">;</span></span>
-<span class="codeline" id="line8"></span>
-<span class="codeline" id="line9">  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span></span>
-<span class="codeline" id="line10">  <span class="n">swap</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">);</span></span>
-<span class="codeline" id="line11"><span class="p">}</span></span></code></td></tr></table>
+            <a href="https://cpppatterns.com/patterns/weak-reference.html">
+              <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span><span>32</span><span>33</span><span>34</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp"></span></span>
+<span class="codeline" id="line2"></span>
+<span class="codeline" id="line3"><span class="k">class</span> <span class="nc">bar</span><span class="p">;</span></span>
+<span class="codeline" id="line4"></span>
+<span class="codeline" id="line5"><span class="k">class</span> <span class="nc">foo</span></span>
+<span class="codeline" id="line6"><span class="p">{</span></span>
+<span class="codeline" id="line7"><span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line8">  <span class="n">foo</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">bar</span><span class="o">&gt;&amp;</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="codeline" id="line9">    <span class="o">:</span> <span class="n">forward_reference</span><span class="p">{</span><span class="n">b</span><span class="p">}</span></span>
+<span class="codeline" id="line10">  <span class="p">{</span> <span class="p">}</span></span>
+<span class="codeline" id="line11"></span>
+<span class="codeline" id="line12"><span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line13">  <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">bar</span><span class="o">&gt;</span> <span class="n">forward_reference</span><span class="p">;</span></span>
+<span class="codeline" id="line14"><span class="p">};</span></span>
+<span class="codeline" id="line15"></span>
+<span class="codeline" id="line16"><span class="k">class</span> <span class="nc">bar</span></span>
+<span class="codeline" id="line17"><span class="p">{</span></span>
+<span class="codeline" id="line18"><span class="k">public</span><span class="o">:</span></span>
+<span class="codeline" id="line19">  <span class="kt">void</span> <span class="n">set_back_reference</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;&amp;</span> <span class="n">f</span><span class="p">)</span></span>
+<span class="codeline" id="line20">  <span class="p">{</span></span>
+<span class="codeline" id="line21">    <span class="k">this</span><span class="o">-&gt;</span><span class="n">back_reference</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span></span>
+<span class="codeline" id="line22">  <span class="p">}</span></span>
+<span class="codeline" id="line23"></span>
+<span class="codeline" id="line24">  <span class="kt">void</span> <span class="n">do_something</span><span class="p">()</span></span>
+<span class="codeline" id="line25">  <span class="p">{</span></span>
+<span class="codeline" id="line26">    <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">shared_back_reference</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">back_reference</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span></span>
+<span class="codeline" id="line27">    <span class="k">if</span> <span class="p">(</span><span class="n">shared_back_reference</span><span class="p">)</span> <span class="p">{</span></span>
+<span class="codeline" id="line28">      <span class="c1">// Use *shared_back_reference</span></span>
+<span class="codeline" id="line29">    <span class="p">}</span></span>
+<span class="codeline" id="line30">  <span class="p">}</span></span>
+<span class="codeline" id="line31"></span>
+<span class="codeline" id="line32"><span class="k">private</span><span class="o">:</span></span>
+<span class="codeline" id="line33">  <span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">foo</span><span class="o">&gt;</span> <span class="n">back_reference</span><span class="p">;</span></span>
+<span class="codeline" id="line34"><span class="p">};</span></span></code></td></tr></table>
             </a>
             <div class="code-overlay">
-              <a href="https://cpppatterns.com/patterns/swap-values.html" class="code-overlay">
+              <a href="https://cpppatterns.com/patterns/weak-reference.html" class="code-overlay">
                 Continue reading →
               </a>
             </div>
@@ -76,16 +99,17 @@
 
             <div class="min-spec">
               Requires
-              <span class="tag c++98"><a href="/#/search/tag:c++98">c++98</a></span>
+              <span class="tag c++11"><a href="/#/search/tag:c++11">c++11</a></span>
               or newer
             </div>
             <h2>Intent</h2>
-            <p>Swap the values of two objects.</p>
+            <p>Maintain a non-owning reference to a shared dynamically allocated
+object to break circular dependencies.</p>
 
 
             <h2>Description</h2>
-            <p>On <a href="#line6" class="lineref" data-line="6" data-line-end="7">lines 6–7</a>, we create two <code>std::string</code> objects whose values we wish to swap. However, this pattern will also apply to any other <a href="http://en.cppreference.com/w/cpp/concept/Swappable">swappable type</a>.</p> <p>On <a href="#line9" class="lineref" data-line="9">line...
-            <p><a href="https://cpppatterns.com/patterns/swap-values.html">Continue reading →</a></p>
+            <p>The <a href="http://en.cppreference.com/w/cpp/memory/weak_ptr"><code>std::weak_ptr</code></a> type represents a non-owning reference to dynamically allocated object with shared ownership (<a href="http://en.cppreference.com/w/cpp/memory/shared_ptr"><code>std::shared_ptr</code></a>). As they do not contribute to the reference count of the managed object they refer to, the object...
+            <p><a href="https://cpppatterns.com/patterns/weak-reference.html">Continue reading →</a></p>
           </div>
         </div>
       </section>
@@ -425,8 +449,8 @@ implement custom copy and move operations.</p>
     
               <div class="min-spec">
                 Requires
-                <span class="tag experimental"><a href="/#/search/tag:experimental">experimental</a></span>
-                
+                <span class="tag c++17"><a href="/#/search/tag:c++17">c++17</a></span>
+                or newer
               </div>
               <p>Allow argument values to be omitted when calling a function.</p>
 
@@ -1040,7 +1064,7 @@ $(function() {
           <div class="g-plus" data-action="share" data-annotation="bubble" data-href="https://cpppatterns.com/"></div>
         </div>
         <div class="column-1 offset-1 about">
-          <img src="http://josephmansfield.uk/images/logo.svg">
+          <img src="https://josephmansfield.uk/images/logo.svg">
           <p>C++ Patterns created by <a href="http://josephmansfield.uk/">Joseph Mansfield</a></p>
         </div>
       </div>

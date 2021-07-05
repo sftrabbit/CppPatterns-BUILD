@@ -114,30 +114,27 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="row variation ">
           <div class="column-2">
-            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="cp">#include</span> <span class="cpf">&lt;experimental/optional&gt;</span><span class="cp"></span></span>
+            <table class="codeblock"><tr><td class="linenums"><code><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span></code></td><td class="code highlight"><code class="cpp"><span class="codeline" id="line1"><span></span><span class="cp">#include</span> <span class="cpf">&lt;optional&gt;</span><span class="cp"></span></span>
 <span class="codeline" id="line2"></span>
-<span class="codeline" id="line3"><span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">experimental</span><span class="o">::</span><span class="n">optional</span><span class="p">;</span></span>
-<span class="codeline" id="line4"><span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">experimental</span><span class="o">::</span><span class="n">nullopt</span><span class="p">;</span></span>
-<span class="codeline" id="line5"></span>
-<span class="codeline" id="line6"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span></span>
-<span class="codeline" id="line7">         <span class="n">optional</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">,</span></span>
-<span class="codeline" id="line8">         <span class="n">optional</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span></span>
-<span class="codeline" id="line9"><span class="p">{</span> <span class="p">}</span></span>
-<span class="codeline" id="line10"></span>
-<span class="codeline" id="line11"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
-<span class="codeline" id="line12"><span class="p">{</span></span>
-<span class="codeline" id="line13">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span></span>
-<span class="codeline" id="line14">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">nullopt</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span></span>
-<span class="codeline" id="line15">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">nullopt</span><span class="p">);</span></span>
-<span class="codeline" id="line16">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">nullopt</span><span class="p">,</span> <span class="n">nullopt</span><span class="p">);</span></span>
-<span class="codeline" id="line17"><span class="p">}</span></span></code></td></tr></table>
+<span class="codeline" id="line3"><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span></span>
+<span class="codeline" id="line4">         <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">,</span></span>
+<span class="codeline" id="line5">         <span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span></span>
+<span class="codeline" id="line6"><span class="p">{</span> <span class="p">}</span></span>
+<span class="codeline" id="line7"></span>
+<span class="codeline" id="line8"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span></span>
+<span class="codeline" id="line9"><span class="p">{</span></span>
+<span class="codeline" id="line10">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span></span>
+<span class="codeline" id="line11">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span></span>
+<span class="codeline" id="line12">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">);</span></span>
+<span class="codeline" id="line13">  <span class="n">foo</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">nullopt</span><span class="p">);</span></span>
+<span class="codeline" id="line14"><span class="p">}</span></span></code></td></tr></table>
             <p class="license">This pattern is licensed under the <a href="http://creativecommons.org/publicdomain/zero/1.0/">CC0 Public Domain Dedication</a>.</p>
           </div>
           <div class="column-2">
             <div class="min-spec">
               Requires
-              <span class="tag experimental"><a href="/#/search/experimental">experimental</a></span>
-              .
+              <span class="tag c++17"><a href="/#/search/c++17">c++17</a></span>
+              or newer.
   
             </div>
             <h2>Intent</h2>
@@ -145,17 +142,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
             <h2>Description</h2>
-            <p><strong>Note</strong>: This pattern uses experimental entities from the Library
-Fundamentals TS that demonstrate likely upcoming features in C++
-but should not be used in production code.</p>
-
-<p>The function <code>foo</code>, on <a href="#line6" class="lineref" data-line="6" data-line-end="9">lines 6–9</a>, takes three arguments, two of which
-have type
-<a href="http://en.cppreference.com/w/cpp/experimental/optional"><code>std::experimental::optional</code></a> (from
+            <p>The function <code>foo</code>, on <a href="#line3" class="lineref" data-line="3" data-line-end="6">lines 3–6</a>, takes three arguments, two of which
+have type <a href="http://en.cppreference.com/w/cpp/utility/optional"><code>std::optional</code></a> (from
 the Library Fundamentals TS). This allows the value of those
-arguments to be omitted, as shown on <a href="#line14" class="lineref" data-line="14" data-line-end="16">lines 14–16</a>, where
-<a href="http://en.cppreference.com/w/cpp/experimental/optional/nullopt"><code>std::experimental::nullopt</code></a>
-represents no value.</p>
+arguments to be omitted, as shown on <a href="#line10" class="lineref" data-line="10" data-line-end="13">lines 10–13</a>, where
+<a href="http://en.cppreference.com/w/cpp/utility/optional/nullopt"><code>std::nullopt</code></a> represents no value.</p>
 
 <p>This approach is more expressive than using pointers and <code>nullptr</code>.
 A related technique is the use of default arguments, which allow
@@ -166,22 +157,16 @@ argument list.</p>
 of optional arguments, consider using the
 <a href="/patterns/builder.html">builder pattern</a>.</p>
 
-<p><strong>Note</strong>: <code>std::experimental::optional</code> and
-<code>std::experimental::nullopt</code> are part of the Library Fundamentals
-Technical Specification, which provides experimental features that
-may soon be introduced to the C++ standard. They should not be used
-in production code.</p>
-
             <div class="subrow">
               <div class="column-1">
                 <h2>Contributors</h2>
                 <ul class="contributors">
   
-                  <li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars1.githubusercontent.com/u/32490?v=4&size=36" alt="Joseph Mansfield"></a></li>
+                  <li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=4&size=36" alt="Joseph Mansfield"></a></li>
   
                 </ul>
                 <h2>Last Updated</h2>
-                <p>10 December 2017</p>
+                <p>27 August 2018</p>
                 <h2>Source</h2>
                 <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/common-tasks/functions/optional-arguments.cpp">Fork this pattern on GitHub</a></p>
               </div>
@@ -225,7 +210,7 @@ var disqus_shortname = 'cppsamples';
           <div class="g-plus" data-action="share" data-annotation="bubble" data-href="https://cpppatterns.com/"></div>
         </div>
         <div class="column-1 offset-1 about">
-          <img src="http://josephmansfield.uk/images/logo.svg">
+          <img src="https://josephmansfield.uk/images/logo.svg">
           <p>C++ Patterns created by <a href="http://josephmansfield.uk/">Joseph Mansfield</a></p>
         </div>
       </div>

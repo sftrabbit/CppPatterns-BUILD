@@ -178,7 +178,7 @@ classes copy/move assignment operators in terms of its
 copy/move constructor and achieve strong exception safety.</p>
 
 <p>The class <code>foo</code>, on <a href="#line7" class="lineref" data-line="7" data-line-end="45">lines 7–45</a>, has an implementation similar to the
-<a href="/common-tasks/rule-of-five.html">rule of five</a>, yet its copy and
+<a href="/patterns/rule-of-five.html">rule of five</a>, yet its copy and
 move assignment operators have been replaced with a single
 assignment operator on <a href="#line24" class="lineref" data-line="24" data-line-end="29">lines 24–29</a>. This assignment operator takes its
 argument by value, making use of the existing copy and move
@@ -207,18 +207,20 @@ implementation of the assignment operators.</p>
 <p><strong>Note</strong>: We can typically avoid manual memory management and
 having to write the copy/move constructors, assignment operators,
 and destructor entirely by using the
-<a href="/common-tasks/rule-of-zero.html">rule of zero</a></p>
+<a href="/patterns/rule-of-zero.html">rule of zero</a></p>
 
             <div class="subrow">
               <div class="column-1">
                 <h2>Contributors</h2>
                 <ul class="contributors">
   
-                  <li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars1.githubusercontent.com/u/32490?v=4&size=36" alt="Joseph Mansfield"></a></li>
+                  <li><a title="Mattijs Kneppers" ><img src="/images/unknown_user.png" alt="Mattijs Kneppers"></a></li>
+  
+                  <li><a title="Joseph Mansfield" href="https://github.com/sftrabbit"><img src="https://avatars.githubusercontent.com/u/32490?v=4&size=36" alt="Joseph Mansfield"></a></li>
   
                 </ul>
                 <h2>Last Updated</h2>
-                <p>09 December 2017</p>
+                <p>23 February 2018</p>
                 <h2>Source</h2>
                 <p><a href="https://github.com/sftrabbit/CppPatterns-Patterns/tree/master/common-tasks/classes/copy-and-swap.cpp">Fork this pattern on GitHub</a></p>
               </div>
@@ -262,7 +264,7 @@ var disqus_shortname = 'cppsamples';
           <div class="g-plus" data-action="share" data-annotation="bubble" data-href="https://cpppatterns.com/"></div>
         </div>
         <div class="column-1 offset-1 about">
-          <img src="http://josephmansfield.uk/images/logo.svg">
+          <img src="https://josephmansfield.uk/images/logo.svg">
           <p>C++ Patterns created by <a href="http://josephmansfield.uk/">Joseph Mansfield</a></p>
         </div>
       </div>
